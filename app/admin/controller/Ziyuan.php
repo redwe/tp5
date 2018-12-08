@@ -40,18 +40,32 @@ class Ziyuan extends Common
     {
         $menu = Request::instance()->get("menu");
         $nav3 = Request::instance()->get("nav3");
+        $project = Request::instance()->post("project");
         $view = new View();
+
+        $xmobj = new XmModel();
+        $xmlist = $xmobj->getXmList("xueli","project",1);
+        $view->assign('xmlist',$xmlist);
+
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
+        $view->assign('project',$project);
         return $view->fetch();
     }
     public function zhengshu()
     {
         $menu = Request::instance()->get("menu");
         $nav3 = Request::instance()->get("nav3");
+        $project = Request::instance()->post("project");
         $view = new View();
+
+        $xmobj = new XmModel();
+        $xmlist = $xmobj->getXmList("zhengshu","project",1);
+        $view->assign('xmlist',$xmlist);
+
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
+        $view->assign('project',$project);
         return $view->fetch();
     }
 }

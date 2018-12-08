@@ -47,17 +47,23 @@
              {include file="nav3" /}
 				
 			</div>
+        <form name="listform" method="post" action="/admin/ziyuan/xueli/nav3/1">
 			<div class="selectionTop">
 				<ul>
-					<li class="current">中专</li>
-					<li>大专</li>
-					<li>本科</li>
+                    {volist name="xmlist" id="vo"}
+                    {if condition = "$project == $vo['project']"}
+                    <li class="current">{$vo.project}</li>
+                    {else /}
+                    <li>{$vo.project}</li>
+                    {/if}
+                    {/volist}
+                    <input class="hiDomain" name="project" id="project" type="hidden" value="">
 					<input type="button" class="Dr" value="导入">
 				</ul>
 			</div>
 			<div class="condition">
 				<div class="conditionSearch">
-					<input class="searchBtn" type="button" value="搜索"/>
+					<input class="searchBtn" type="submit" value="搜索"/>
 					<input class="searchInput" type="text" />
 					<div class="Dels">
 						<span>操作：</span>
@@ -67,6 +73,7 @@
 					</div>
 				</div>
 			</div>
+            </form>
 			<div class="selectionCont">
 				<div class="approvalTop">
 					<ul>
@@ -164,6 +171,7 @@
             <script src="/static/js/jquery-2.1.4.min.js"></script>
             <script>
                 $('.selectionTop ul li').click(function(){
+                    $("#project").val($(this).html());
                     $(this).addClass('current').siblings().removeClass();
                 })
                 //资源管理页面全选、反选案例
@@ -194,6 +202,9 @@
                 $('.Dr').click(function(){
                     $('.popUps').css('display','block')
                 })
+                $('.cancelDr').click(function(){
+                    $('.popUps').css('display','none')
+                });
                 $('.maskClose').click(function(){
                     $('.popUps').css('display','none')
                 })

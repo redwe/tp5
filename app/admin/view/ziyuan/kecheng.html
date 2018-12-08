@@ -184,7 +184,7 @@
                     }else{
                         $('.approvalCont ul li input:checkbox').prop('checked',false);
                     }
-                })
+                });
                 //全部框都选中时，#all 也选中
                 $('.approvalCont ul li input:checkbox').click(function(){
                     if(this.checked){
@@ -197,14 +197,17 @@
                     }else{
                         $('#all').prop('checked',false);
                     }
-                })
+                });
                 //点击导入按钮，显示隐藏遮罩层
                 $('.Dr').click(function(){
                     $('.popUps').css('display','block')
-                })
+                });
                 $('.maskClose').click(function(){
                     $('.popUps').css('display','none')
-                })
+                });
+                $('.cancelDr').click(function(){
+                    $('.popUps').css('display','none')
+                });
                 //删除操作效果
                 $('.zyDel').click(function(){
                     $(this).parent().parent('ul').remove();

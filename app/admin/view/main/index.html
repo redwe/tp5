@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CRM管理系统</title>
+	</head>
+	<link rel="stylesheet" href="/static/css/common.css" />
+	<link rel="stylesheet" href="/static/css/index.css" />
+	<style>
+		.approvalTop ul li{
+			width: 11.6%;
+		}
+		.approvalTop ul li:nth-child(3) {
+    		background:transparent;
+		}
+        .mainPageLeft ul li a{
+            color: #d0d0d0;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            margin-top: 30px;
+            text-decoration: none;
+            display: block;
+        }
+        .mainPageLeft ul li.current a{
+            background-color: #ffffff;
+            color: #000000;
+        }
+	</style>
+	<body>
+		<div id="mainPageTop" class="mainPageTop">
+			<div class="personal">
+				<div class="personalCont">
+					<span>{$admin}</span>
+					<img src="/static/images/bg_touxiang.png" width="64" height="64"/>
+					<span>{$topuser.sheng} </span>
+					<span>{$topuser.fenbu}</span>
+					<span>{$topuser.gangwei}</span>
+				</div>
+                <div style="position: absolute; top:30px; right:30px;">
+                    <a style="color: #fff; font-size: 16px; text-decoration: none" href="/admin/login/logout">[安全退出]</a>
+                </div>
+			</div>
+		</div>
+		<div class="mainPageLeft">
+			<ul id="menus">
+                <li class="current"><a target="rightmain" href="/admin/xiangmu/kecheng/menu/0/nav2/0">项目管理</a></li>
+                <li><a target="rightmain" href="/admin/ziyuan/kecheng/menu/1/nav3/0">资源管理</a></li>
+                <li><a target="rightmain" href="/admin/users/add/menu/2/nav/0">用户管理</a> </li>
+			</ul>
+		</div>
+		<div class="mainPageRight">
+			<iframe id="rightmain" style="width: 100%; height: 100%;" name="rightmain" src="/admin/xiangmu/kecheng/menu/0/nav2/0"></iframe>
+		</div>
+	</body>
+</html>
+<script src="/static/js/jquery-2.1.4.min.js"></script>
+<script>
+   $(function(){
+       $("#menus").find("li").click(function(){
+           $("#menus").find("li").each(function(){
+               $(this).attr("class","");
+           });
+           $(this).attr("class","current");
+       })
+   })
+</script>

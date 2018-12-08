@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CRM主界面-用户管理-通话记录</title>
+	</head>
+	<link rel="stylesheet" href="/static/css/common.css" />
+	<link rel="stylesheet" href="/static/css/index.css" />
+	<body>
+			<div class="selectionTop">
+                {include file="nav" /}
+			</div>
+			<div class="condition">
+                <form name="listform" method="post" action="/admin/users/jilu/nav/2">
+				<div class="condtionCont1">
+					<span>地区选择：</span>
+					<div class="condtionArea">
+                        {volist name="shenglist" id="vo" key="key"}
+                            {if condition = "$province == $vo['sheng']"}
+                                <span class="current">{$vo['sheng']}</span>
+                            {else /}
+                                <span class="">{$vo['sheng']}</span>
+                            {/if}
+                        {/volist}
+                        <input class="hiDomain" name="province" type="hidden" value="">
+					</div>
+				</div>
+				<div class="condtionCont1">
+					<span>分部选择：</span>
+					<div class="condtionArea">
+                        {volist name="fenbulist" id="vo" key="key"}
+                            {if condition = "$department == $vo['fenbu']"}
+                                <span class="current">{$vo['fenbu']}</span>
+                            {else /}
+                                <span class="">{$vo['fenbu']}</span>
+                            {/if}
+                        {/volist}
+                        <input class="hiDomain" name="department" type="hidden" value="">
+					</div>
+				</div>
+				<div class="conditionSearch">
+					<input class="searchBtn" type="submit" value="搜索"/>
+                    <input class="searchInput" name="keyword" type="text">
+				</div>
+                </form>
+			</div>
+            {php}
+            //dump($lists);
+            {/php}
+			<div class="selectionCont">
+				<div class="approvalTop">
+					<ul>
+						<li>项目</li>
+						<li>对象</li>
+						<li>时间</li>
+						<li>时长</li>
+						<li>业务员</li>
+						<li>操作</li>
+					</ul>
+				</div>
+				<div class="approvalCont">
+					<ul>
+						<li>一级建造师</li>
+						<li>梁超</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+					<ul>
+						<li>一级建造师</li>
+						<li>何平</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+					<ul>
+						<li>一级建造师</li>
+						<li>郭准</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+					<ul>
+						<li>一级建造师</li>
+						<li>灵心</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+					<ul>
+						<li>一级建造师</li>
+						<li>东石</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+					<ul>
+						<li>一级建造师</li>
+						<li>葛路阳</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+					<ul>
+						<li>一级建造师</li>
+						<li>李子明</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+					<ul>
+						<li>一级建造师</li>
+						<li>龙少安</li>
+						<li>2018/10/12-2014:30:32</li>
+						<li>00:05:36</li>
+						<li>木桐</li>
+						<li>
+							<span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="" /></span>
+							<span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="" /></span>
+							<span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="" /></span>
+							<span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="" /></span>
+							<span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="" /></span>
+							<span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="" /></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+	</body>
+	<div class="popUps">
+		<div class="mask"></div>
+		<div class="popUpsCont">
+			<div class="proposal">
+				<span class="maskClose">x</span>
+				<p>驳回意见</p>
+				<textarea></textarea>
+				<div class="proposalBtn">
+					<input class="certainBtn" type="button" value="确定"/>
+					<input class="cancelBtn" type="button" value="取消"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>
+<script src="/static/js/jquery-2.1.4.min.js"></script>
+<script>
+	$('.condtionArea span').click(function(){
+		$(this).addClass('current').siblings().removeClass();
+        $(this).parent().find('input').val($(this).html());
+	})
+</script>

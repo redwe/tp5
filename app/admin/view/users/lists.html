@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CRM主界面-用户管理-用户列表</title>
+	</head>
+	<link rel="stylesheet" href="/static/css/common.css" />
+	<link rel="stylesheet" href="/static/css/index.css" />
+	<style>
+		.approvalTop ul li{
+			width: 11.6%;
+		}
+		.approvalTop ul li:nth-child(3) {
+    		background:transparent;
+		}
+	</style>
+	<body>
+		<div class="selectionTop">
+            {include file="nav" /}
+			</div>
+            <div class="condition">
+                <form name="listform" method="post" action="/admin/users/lists/nav/1">
+                <div class="condtionCont1">
+                    <span>地区选择：</span>
+                    <div class="condtionArea">
+                        {volist name="shenglist" id="vo" key="key"}
+                            {if condition = "$province == $vo['sheng']"}
+                                <span class="current">{$vo['sheng']}</span>
+                            {else /}
+                                <span class="">{$vo['sheng']}</span>
+                            {/if}
+                         {/volist}
+                    </div>
+                    <input class="hiDomain" name="province" type="hidden" value="">
+                </div>
+                <div class="condtionCont1">
+                    <span>分部选择：</span>
+                    <div class="condtionArea">
+                        {volist name="fenbulist" id="vo" key="key"}
+                            {if condition = "$department == $vo['fenbu']"}
+                                <span class="current">{$vo['fenbu']}</span>
+                            {else /}
+                                <span class="">{$vo['fenbu']}</span>
+                            {/if}
+                        {/volist}
+                    </div>
+                    <input class="hiDomain" name="department" type="hidden" value="">
+                </div>
+                <div class="conditionSearch">
+                    <input class="searchBtn" type="submit" value="搜索">
+                    <input class="searchInput" name="keyword" type="text">
+                </div>
+                </form>
+            </div>
+			<div class="selectionCont">
+				<div class="approvalTop DDSP">
+					<ul>
+						<li>姓名</li>
+						<li>地区</li>
+						<li>部门</li>
+						<li>账号</li>
+						<li>密码</li>
+						<li>身份</li>
+						<li>岗位</li>
+						<li>操作</li>
+					</ul>
+				</div>
+                {php}
+                //dump($lists);
+                {/php}
+				<div class="approvalCont ddspUl">
+                    <form name="editform" method="post" action="/admin/users/editpost">
+                    {volist name="lists" id="vo"}
+					<ul>
+						<li class="YHBli">{$vo.uname}</li>
+                        <input disabled="disabled" type="hidden" name="mid" value="{$vo.id}">
+						<select disabled="disabled" name="shengfen">
+                            {volist name="shenglist" id="vo1" key="key"}
+                                {if ($vo1['id'] == $vo['sid'])}
+                                        <option selected value="{$vo1.id}">{$vo1.sheng}</option>
+                                {else /}
+                                        <option value="{$vo1.id}">{$vo1.sheng}</option>
+                                {/if}
+							{/volist}
+						</select>
+						<select disabled="disabled" name="fenbu">
+                            {volist name="fenbulist" id="vo2" key="key"}
+                                {if ($vo2['id'] == $vo['bid'])}
+                                <option selected value="{$vo2.id}">{$vo2.fenbu}</option>
+                                {else /}
+                                <option value="{$vo2.id}">{$vo2.fenbu}</option>
+                                {/if}
+                            {/volist}
+						</select>
+						<input type="text" name="uid" value="{$vo.uid}" disabled="disabled"/>
+						<input type="text" name="pwd" value="{$vo.pwd}" disabled="disabled"/>
+						<select disabled="disabled" name="shenfen">
+                            {volist name="shenfenlist" id="vo3" key="key"}
+                            {if ($vo3['id'] == $vo['fid'])}
+                            <option selected value="{$vo3.id}">{$vo3.shenfen}</option>
+                            {else /}
+                            <option value="{$vo3.id}">{$vo3.shenfen}</option>
+                            {/if}
+                            {/volist}
+						</select>
+						<select disabled="disabled" name="gangwei">
+                            {volist name="gangweilist" id="vo4" key="key"}
+                            {if ($vo4['id'] == $vo['gid'])}
+                            <option selected value="{$vo4.id}">{$vo4.gangwei}</option>
+                            {else /}
+                            <option value="{$vo4.id}">{$vo4.gangwei}</option>
+                            {/if}
+                            {/volist}
+						</select>
+						<div>
+							<span class="edit">修改</span>
+							<span class="Move" data-id="{$vo.id}">删除</span>
+						</div>
+					</ul>
+                    {/volist}
+                    </form>
+
+                <form name="delform" method="post" action="/admin/users/deluser">
+                    <div class="popUps">
+                        <div class="mask"><input type="hidden" name="delid" id="delid" value=""></div>
+                        <div class="popUpsCont">
+                            <div class="proposal">
+                                <span class="maskClose">x</span>
+                                <p>删除用户</p>
+                                <span class="YHxyzy">客户资源转移</span>
+                                <select class="YHarea" name="delsheng" id="delsheng" onchange="getdeluser()">
+                                    {volist name="shenglist" id="vo1" key="key"}
+                                         <option value="{$vo1.id}">{$vo1.sheng}</option>
+                                    {/volist}
+                                </select>
+                                <select class="YHbranch" name="delfenbu" id="delfenbu" onchange="getdeluser()">
+                                    {volist name="fenbulist" id="vo2" key="key"}
+                                        <option value="{$vo2.id}">{$vo2.fenbu}</option>
+                                    {/volist}
+                                </select>
+                                <select class="YHuser" name="deluser" id="deluser">
+                                    <option value="">选择用户</option>
+
+                                </select>
+                                <div class="proposalBtn">
+                                    <input class="certainBtn" type="submit" value="确定"/>
+                                    <input class="cancelBtn" type="button" value="取消"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+				</div>
+                {$page}
+			</div>
+	</body>
+
+</html>
+<script src="/static/js/jquery-2.1.4.min.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/index.js"></script>
+<script>
+    $('.condtionArea span').click(function(){
+        $(this).addClass('current').siblings().removeClass('current');
+        $(this).parent().siblings('input').val($(this).html());
+    });
+    function getdeluser(){
+        var delsheng = $("#delsheng").find("option:selected").text();
+        var delfenbu = $("#delfenbu").find("option:selected").text();
+        var  tempstr  = "";
+        $.ajax({
+            type: "POST",
+            url: "/admin/users/getuserlist",
+            data: {dels:delsheng, delf:delfenbu},
+            dataType: "json",
+            success: function(res){
+                res = JSON.parse(res);
+                if(res){
+                 for(var i=0; i<res.length;i++){
+                     var ustr = res[i]['uname'];
+                     var ustrid = res[i]['id'];
+                     tempstr =  tempstr + '<option value="'+ustrid+'">' + ustr +'</option>' ;
+                 }
+                    if(tempstr){
+                        $("#deluser").html(tempstr);
+                    }
+
+                }
+            }
+        });
+    }
+</script>

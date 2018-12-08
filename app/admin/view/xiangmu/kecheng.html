@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CRM主界面-管理员-课程</title>
+	</head>
+	<link rel="stylesheet" href="/static/css/common.css" />
+	<link rel="stylesheet" href="/static/css/index.css" />
+	<body>
+		<div class="selectionTop">
+            {include file="nav2" /}
+			</div>
+			<div class="selectionCont">
+                <form name="form1" method="post" action="/admin/xiangmu/addpro">
+				<div class="itmeA">
+					<span>项目名称：</span>
+					<div class="options">
+                        {volist name="xmlist" id="vo"}
+						<div class="option1">
+							{$vo.project}
+							<div id="{$vo.id}" data-id="{$vo.project}" class="optionDel">-</div>
+						</div>
+						{/volist}
+					</div>
+					<div class="optionAdd">+</div>
+                    <input class="hiDomain" name="addpro" id="project" type="hidden" value="project"/>
+                    <input type="hidden" name="class" id="class1" value="kecheng">
+				</div>
+                </form>
+                <form name="form2" method="post" action="/admin/xiangmu/addpro">
+				<div class="itmeB">
+					<span>专业分类：</span>
+					<div class="options">
+                        {volist name="prolist" id="vo"}
+                        <div class="option1">
+                            {$vo.project}
+                            <div id="{$vo.id}" data-id="{$vo.project}"  class="optionDel">-</div>
+                        </div>
+                        {/volist}
+                    </div>
+					<div class="optionAdd">+</div>
+                    <input class="hiDomain" name="addpro" type="hidden" id="ptype" value="ptype"/>
+                    <input type="hidden" name="class" id="class2" value="kecheng">
+				</div>
+                </form>
+                <form name="form2" method="post" action="/admin/xiangmu/addpro">
+				<div class="itmeC">
+					<span>院校名称：</span>
+					<div class="options">
+                        {volist name="schlist" id="vo"}
+                        <div class="option1">
+                            {$vo.project}
+                            <div id="{$vo.id}" data-id="{$vo.project}"  class="optionDel">-</div>
+                        </div>
+                        {/volist}
+					</div>
+					<div class="optionAdd">+</div>
+                    <input class="hiDomain" name="addpro" type="hidden" id="school" value="school"/>
+                    <input type="hidden" name="class" id="class3" value="kecheng">
+				</div>
+                </form>
+			</div>
+	</body>
+</html>
+<script src="/static/js/jquery-2.1.4.min.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/addInput.js"></script>
+<script>
+    $('.options').on('blur','.addinput',function(){
+        var addinput = $(this).val();
+        if (addinput != "") {
+                if(confirm("确认保存吗？")){
+                    $(this).parents("form").submit();
+                }
+            }
+    })
+</script>

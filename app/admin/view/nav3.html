@@ -1,0 +1,18 @@
+<ul>
+    {if condition="($Request.param.nav3 == '0') "}
+    <li class="current">
+        {else /}
+    <li>
+        {/if}<a href="/admin/ziyuan/kecheng/nav3/0">课程</a> </li>
+    {if condition="($Request.param.nav3 == '1') "}
+    <li class="current">
+        {else /}
+    <li>
+        {/if}<a href="/admin/ziyuan/xueli/nav3/1">学历</a> </li>
+    {if condition="($Request.param.nav3 == '2') "}
+    <li class="current">
+        {else /}
+    <li>
+        {/if}<a href="/admin/ziyuan/zhengshu/nav3/2">证书</a></li>
+    <input type="button" class="Hsz" value="回收站">
+</ul>

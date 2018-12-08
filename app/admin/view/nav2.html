@@ -1,0 +1,17 @@
+<ul>
+    {if condition="($Request.param.nav2 == '0')"}
+    <li class="current">
+        {else /}
+    <li>
+        {/if}<a href="/admin/xiangmu/kecheng/nav2/0">课程</a> </li>
+    {if condition="($Request.param.nav2 == '1')"}
+    <li class="current">
+        {else /}
+    <li>
+        {/if}<a href="/admin/xiangmu/xueli/nav2/1">学历</a> </li>
+    {if condition="($Request.param.nav2 == '2')"}
+    <li class="current">
+        {else /}
+    <li>
+        {/if}<a href="/admin/xiangmu/zhengshu/nav2/2">证书</a></li>
+</ul>

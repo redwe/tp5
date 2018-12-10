@@ -27,6 +27,7 @@ class Ziyuan extends Common
         $menu = Request::instance()->get("menu");
         $nav3 = Request::instance()->get("nav3");
         $project = Request::instance()->post("project");
+        $keyword = Request::instance()->post("keyword");
 
         $view = new View();
         $view->assign('nav3',$nav3);
@@ -46,12 +47,22 @@ class Ziyuan extends Common
         {
             $status = 1;
         }
+        $where['status'] = $status;
+        $where['zytype'] = "kecheng";
 
-        $zytype = "kecheng";
-        $zylist = $xmobj->getResources($limit,$status,$zytype);
+        if(!empty($project)){
+            $where['project'] = $project;
+        }
+
+        if(!empty($keyword)){
+            $where['project'] = $keyword;
+        }
+
+        $zylist = $xmobj->getResources($limit,$where);
         $view->assign('zylist',$zylist);
         $view->assign('hsz',$status);
         $view->assign('project',$project);
+        $view->assign('keyword',$keyword);
         return $view->fetch();
     }
     public function xueli()
@@ -59,15 +70,43 @@ class Ziyuan extends Common
         $menu = Request::instance()->get("menu");
         $nav3 = Request::instance()->get("nav3");
         $project = Request::instance()->post("project");
+        $keyword = Request::instance()->post("keyword");
         $view = new View();
 
         $xmobj = new XmModel();
         $xmlist = $xmobj->getXmList("xueli","project",1);
         $view->assign('xmlist',$xmlist);
 
+        $limit = 20;
+
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
+
+        $status = Request::instance()->param("hsz");
+        if(!empty($status)){
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
+        $where['status'] = $status;
+        $where['zytype'] = "xueli";
+
+        if(!empty($project)){
+            $where['project'] = $project;
+        }
+
+        if(!empty($keyword)){
+            $where['project'] = $keyword;
+        }
+
+        $zylist = $xmobj->getResources($limit,$where);
+        $view->assign('zylist',$zylist);
+        $view->assign('hsz',$status);
+
         $view->assign('project',$project);
+        $view->assign('keyword',$keyword);
         return $view->fetch();
     }
     public function zhengshu()
@@ -75,7 +114,10 @@ class Ziyuan extends Common
         $menu = Request::instance()->get("menu");
         $nav3 = Request::instance()->get("nav3");
         $project = Request::instance()->post("project");
+        $keyword = Request::instance()->post("keyword");
         $view = new View();
+
+        $limit = 20;
 
         $xmobj = new XmModel();
         $xmlist = $xmobj->getXmList("zhengshu","project",1);
@@ -83,7 +125,33 @@ class Ziyuan extends Common
 
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
+
+        $status = Request::instance()->param("hsz");
+        if(!empty($status)){
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
+        $where['status'] = $status;
+        $where['zytype'] = "zhengshu";
+
+        if(!empty($project)){
+            $where['project'] = $project;
+        }
+
+        if(!empty($keyword)){
+            $where['project'] = $keyword;
+        }
+
+        $zylist = $xmobj->getResources($limit,$where);
+        $view->assign('zylist',$zylist);
+        $view->assign('hsz',$status);
+
+
         $view->assign('project',$project);
+        $view->assign('keyword',$keyword);
         return $view->fetch();
     }
 

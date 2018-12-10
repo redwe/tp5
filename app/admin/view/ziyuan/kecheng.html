@@ -63,7 +63,7 @@
 			<div class="condition">
 				<div class="conditionSearch">
 					<input class="searchBtn" type="submit" value="搜索"/>
-					<input class="searchInput" type="text" />
+					<input class="searchInput" name="keyword" type="text" value="{$keyword}" />
 					<div class="Dels">
 						<span>操作：</span>
                         {if condition = "$hsz==1"}
@@ -185,37 +185,6 @@
                 $('.zyDel').click(function(){
                     $(this).parent().parent('ul').remove();
                 });
-
-                function delAll(m,d){
-                    if(d==1){
-                        url = "/admin/ziyuan/delzy";
-                    }
-                    else
-                    {
-                        url = "/admin/ziyuan/del";
-                    }
-                    switch (m){
-                        case 200:
-                            window.location.href = url+"/limit/200";
-                            break;
-                        case 500:
-                            window.location.href = url+"/limit/500";
-                            break;
-                        default :
-                           var ids = getChecks("delid");
-                           //alert(ids);
-                           $("#ids").val(ids);
-                           delform.action = url;
-                           delform.submit();
-                           break;
-                    }
-                }
-
-                $("#recycle").click(function(){
-                    var url = window.location.href;
-                    url = url + "/hsz/1";
-                    window.location.href = url;
-                })
 
             </script>
 	</body>

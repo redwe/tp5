@@ -20,9 +20,7 @@ class XmModel extends Model
         return $lists;
     }
 
-    public function getResources($limit,$status,$zytype){
-        $where['status'] = $status;
-        $where['zytype'] = $zytype;
+    public function getResources($limit,$where){
         $lists = Db::name("resource")->where($where)->paginate($limit);
         return $lists;
     }

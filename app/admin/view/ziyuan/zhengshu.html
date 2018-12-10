@@ -62,63 +62,85 @@
 			</div>
 			<div class="condition">
 				<div class="conditionSearch">
-					<input class="searchBtn" type="submit" value="搜索"/>
-					<input class="searchInput" type="text" />
+                    <input class="searchBtn" type="submit" value="搜索"/>
+                    <input class="searchInput" name="keyword" type="text" value="{$keyword}" />
 					<div class="Dels">
 						<span>操作：</span>
-						<input type="button" value="批量删除200条"/>
-						<input type="button" value="批量删除500条"/>
-						<input type="button" value="删除所勾选客户"/>
+                        {if condition = "$hsz==1"}
+                        <input type="button" onclick="delAll(200,1)" value="批量删除200条"/>
+                        <input type="button" onclick="delAll(500,1)" value="批量删除500条"/>
+                        <input type="button" onclick="delAll(0,1)" value="删除所勾选客户"/>
+                        {else /}
+                        <input type="button" onclick="delAll(200,0)" value="彻底删除200条"/>
+                        <input type="button" onclick="delAll(500,0)" value="彻底删除500条"/>
+                        <input type="button" onclick="delAll(0,0)" value="彻底删除勾选客户"/>
+                        {/if}
 					</div>
 				</div>
 			</div>
             </form>
-        <table id="tb_3" cellspacing="0" cellpadding="2" width="100%" border="1">
-            <tbody>
-             <tr>
-						<th><input id="all" type="checkbox" value="" /></th>
-						<th>项目</th>
-						<th>地区</th>
-						<th>时间</th>
-						<th>客户</th>
-						<th>意向</th>
-						<th>标签</th>
-						<th>操作</th>
-             </tr>
-             <tr>
-                         <td><input type="checkbox" value=""/></td>
-                         <td>一级建造师</td>
-                         <td>广东-深圳</td>
-                         <td>2018年6月</td>
-                         <td>邓子明</td>
-                         <td>B</td>
-                         <td>空号</td>
-                         <td>
-                             <span class="zyDel">删除</span>
-                         </td>
-                   </tr>
+        <form name="delform" method="post" action="/admin/ziyuan/delzy">
+            <table id="tb_3" cellspacing="0" cellpadding="2" width="100%" border="1">
+                <tbody>
+                <tr>
+                    <th><input id="all" type="checkbox" onclick="setCheckbox(this,'delid')" value="" /></th>
+                    <th>项目</th>
+                    <th>地区</th>
+                    <th>时间</th>
+                    <th>客户</th>
+                    <th>意向</th>
+                    <th>标签</th>
+                    <th>操作</th>
+                </tr>
+                {volist name="zylist" id="vo"}
+                <tr>
+                    <td><input type="checkbox" name="delid" class="delid" value="{$vo.id}"/></td>
+                    <td>{$vo.project}</td>
+                    <td>{$vo.province}-{$vo.city}</td>
+                    <td>{$vo.datetime}</td>
+                    <td>{$vo.guest}</td>
+                    <td>{$vo.intent}</td>
+                    <td>{$vo.label}</td>
+                    <td>
+                        {if condition="$vo['status']==1"}
+                        <a href="/admin/ziyuan/delzy/id/{$vo.id}" class="zyDel">删除</a>
+                        {else /}
+                        <a href="/admin/ziyuan/restore/id/{$vo.id}" class="zyDel">还原</a> /
+                        <a href="/admin/ziyuan/del/id/{$vo.id}" class="zyDel">彻底删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
                 </tbody>
-         </table>
-
+            </table>
+            <input name="ids" id="ids" type="hidden" value="">
+        </form>
 		<div class="popUps">
 		<div class="mask"></div>
 		<div class="popUpsCont">
 			<div class="proposal">
 				<span class="maskClose">x</span>
 				<p>批量导入</p>
+                <form name="toExcel" enctype="multipart/form-data" action="/admin/ziyuan/importExcel" method="post">
 				<div class="drMb">
 					<div>一、模板下载：<a href="/template/template1.xlsx">《客户资源数据模板》</a></div>
-					<div>二、上传已完成模板数据文件</div>
+                    <div>
+                        二、上传已完成模板数据文件
+                        <input type="file" name="excel" >
+                    </div>
 				</div>
 				<div class="proposalBtn1">
-					<input class="startDr" type="button" value="开始导入">
-					<input class="cancelDr" type="button" value="取消导入">
+                    <input name="zytype" type="hidden" value="zhengshu">
+                    <input class="startDr" type="submit" value="开始导入">
+                    <input class="cancelDr" type="button" value="取消导入">
 				</div>
+                </form>
 			</div>
 		</div>
         </div>
         <script src="/static/js/jquery-2.1.4.min.js"></script>
         <script src="/static/js/table.js"></script>
+        <script src="/static/js/checkbox.js"></script>
             <script>
                 $('.selectionTop ul li').click(function(){
                     $("#project").val($(this).html());

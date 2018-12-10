@@ -28,11 +28,11 @@ class Login extends Controller
             $password = Request::instance()->post("password");
             if(!empty($uname) && !empty($password)){
                 ///dump($uname.$password);
-                $where['uname'] = $uname;
+                $where['uid'] = $uname;
                 $where['pwd'] = $password;
                 $list = Db::name("users")->where($where)->find();
                 if($list["uname"]){
-                    Session::set('uname',$uname);
+                    Session::set('uname',$list['uname']);
                     $this->success('登录成功！','/admin/main/index');
                 }
                 else

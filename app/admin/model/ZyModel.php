@@ -6,8 +6,7 @@ use think\DB;
 
 class ZyModel extends Model
 {
-    //删除属性值
-
+    //插入记录
     public function addZiyuan($datas){
         $lists = Db::name("resource")->insert($datas);
         return $lists;

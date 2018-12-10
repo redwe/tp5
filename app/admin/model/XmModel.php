@@ -19,4 +19,11 @@ class XmModel extends Model
         $lists = Db::name("projects")->where($where)->select();
         return $lists;
     }
+
+    public function getResources($limit,$status,$zytype){
+        $where['status'] = $status;
+        $where['zytype'] = $zytype;
+        $lists = Db::name("resource")->where($where)->paginate($limit);
+        return $lists;
+    }
 }

@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<title>CRM主界面-用户管理-用户列表</title>
 	</head>
-	<link rel="stylesheet" href="/static/css/common.css" />
 	<link rel="stylesheet" href="/static/css/index.css" />
 	<style>
 		.approvalTop ul li{
@@ -52,29 +51,25 @@
                 </div>
                 </form>
             </div>
-			<div class="selectionCont">
-				<div class="approvalTop DDSP">
-					<ul>
-						<li>姓名</li>
-						<li>地区</li>
-						<li>部门</li>
-						<li>账号</li>
-						<li>密码</li>
-						<li>身份</li>
-						<li>岗位</li>
-						<li>操作</li>
-					</ul>
-				</div>
-                {php}
-                //dump($lists);
-                {/php}
-				<div class="approvalCont ddspUl">
-                    <form name="editform" method="post" action="/admin/users/editpost">
-                    {volist name="lists" id="vo"}
-					<ul>
-						<li class="YHBli">{$vo.uname}</li>
+        <form name="editform" method="post" action="/admin/users/editpost">
+            <table id="tb_3" cellspacing="0" cellpadding="2" width="100%" border="1">
+            <tbody>
+            <tr align="center" bgcolor="#dcdcdc">
+						<th>姓名</th>
+						<th>地区</th>
+						<th>部门</th>
+						<th>账号</th>
+						<th>密码</th>
+						<th>身份</th>
+						<th>岗位</th>
+						<th>操作</th>
+            </tr>
+              {volist name="lists" id="vo"}
+                        <tr>
+						<td class="YHBli">{$vo.uname}</td>
+                        <td>
                         <input disabled="disabled" type="hidden" name="mid" value="{$vo.id}">
-						<select disabled="disabled" name="shengfen">
+                        <select disabled="disabled" name="shengfen">
                             {volist name="shenglist" id="vo1" key="key"}
                                 {if ($vo1['id'] == $vo['sid'])}
                                         <option selected value="{$vo1.id}">{$vo1.sheng}</option>
@@ -83,6 +78,8 @@
                                 {/if}
 							{/volist}
 						</select>
+                        </td>
+                        <td>
 						<select disabled="disabled" name="fenbu">
                             {volist name="fenbulist" id="vo2" key="key"}
                                 {if ($vo2['id'] == $vo['bid'])}
@@ -92,8 +89,14 @@
                                 {/if}
                             {/volist}
 						</select>
+                        </td>
+                        <td>
 						<input type="text" name="uid" value="{$vo.uid}" disabled="disabled"/>
+                        </td>
+                        <td>
 						<input type="text" name="pwd" value="{$vo.pwd}" disabled="disabled"/>
+                        </td>
+                        <td>
 						<select disabled="disabled" name="shenfen">
                             {volist name="shenfenlist" id="vo3" key="key"}
                             {if ($vo3['id'] == $vo['fid'])}
@@ -103,6 +106,8 @@
                             {/if}
                             {/volist}
 						</select>
+                        </td>
+                        <td>
 						<select disabled="disabled" name="gangwei">
                             {volist name="gangweilist" id="vo4" key="key"}
                             {if ($vo4['id'] == $vo['gid'])}
@@ -112,14 +117,17 @@
                             {/if}
                             {/volist}
 						</select>
-						<div>
+                        </td>
+                        <td>
 							<span class="edit">修改</span>
 							<span class="Move" data-id="{$vo.id}">删除</span>
-						</div>
-					</ul>
-                    {/volist}
-                    </form>
+                        </td>
+                    </tr>
 
+		           {/volist}
+            </tbody>
+        </table>
+        </form>
                 <form name="delform" method="post" action="/admin/users/deluser">
                     <div class="popUps">
                         <div class="mask"><input type="hidden" name="delid" id="delid" value=""></div>
@@ -159,10 +167,15 @@
 <script src="/static/js/jquery-2.1.4.min.js"></script>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/index.js"></script>
+<script src="/static/js/table.js"></script>
 <script>
     $('.condtionArea span').click(function(){
         $(this).addClass('current').siblings().removeClass('current');
         $(this).parent().siblings('input').val($(this).html());
+    });
+    //	删除
+    $('.Move').click(function(){
+        $(this).parent().parent().remove();
     });
     function getdeluser(){
         var delsheng = $("#delsheng").find("option:selected").text();

@@ -1,0 +1,98 @@
+/*登录及忘记密码样式*/
+*{
+	margin: 0;
+	padding: 0;
+	list-style:none;
+	border: 0;
+	font-family: "黑体";
+	font-size: 24px;
+}
+body{
+	background-color: #282828;
+}
+.login{
+	width: 400px;
+	background-color: #fff;
+	
+	
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -200px 0px 0px -200px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    text-align: center;
+}
+.login h3{
+	font-size: 28px;
+	color: #3377e9;
+	border-bottom: 2px solid #3377e9;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+}
+.login input{
+	font-size: 16px;
+	border-radius: 4px;
+	border: 1px solid #3377E9;
+	width: 198px;
+	height: 38px;
+	line-height: 38px;
+	background-color: #eee;
+	-moz-box-shadow:2px 2px 1px #999 inset;               /* For Firefox3.6+ */
+	-webkit-box-shadow:2px 2px 1px #999 inset;            /* For Chrome5+, Safari5+ */
+	box-shadow:2px 2px 1px #999 inset;               /* For Latest Opera */
+	padding-left: 10px;
+	margin-bottom: 18px;
+}
+.login input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #c7c7c7;
+}
+.login input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #c7c7c7;
+   opacity:  1;
+}
+.login input::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #c7c7c7;
+   opacity:  1;
+}
+.login input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #c7c7c7;
+}
+.login input::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #c7c7c7;
+}
+.login .loginchek{
+    width: 15px;
+    height: 15px;
+    box-shadow: none;	
+    float: left;
+}
+.login span{
+	float: left;
+}
+.login .Wj{
+	float: right;
+}
+.login .loginBtn{
+	width: 198px;
+	height: 38px;
+	border: 1px solid #3377e9;
+	color: #3377E9;
+	box-shadow: none;
+	font-size: 22px;
+	cursor: pointer;
+}
+.loginInput{
+	padding-top: 18px;
+}
+.loginPwd span{
+	font-size: 12px;
+	color: #c7c7c7;
+}
+.loginPwd{
+	width: 210px;
+	margin: 0 auto;
+}
+

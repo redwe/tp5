@@ -1,0 +1,630 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style:none;
+	border: 0;
+	font-family: "微软雅黑";
+	font-size: 24px;
+}
+body{
+	background-color: #e3e3e3;
+}
+/*主界面头部*/
+.mainPageTop{
+	width: 100%;
+	height: 100px;
+	background-color: #2e7cf2;
+}
+.personal{
+    background: url(../images/bg_xinxikuang.png) no-repeat 50px 30px;
+    width: 100%;
+}
+.personalCont{
+    width: 460px;
+    padding-top: 18px;
+    margin-left: 52px;
+}
+.personalCont span{
+    display: inline-block;
+    margin-top: 12px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: top;
+    font-size: 12px;
+    color: #252525;
+    width: 76px;
+    text-align: center;
+
+}
+.personalCont span:nth-child(3){
+	width: 100px;
+}
+.personalCont span:nth-child(5){
+	width: 100px;
+}
+
+/*主界面左侧*/
+.mainPageLeft{
+	width: 10%;
+	height: 928px;
+	background-color: #00045e;
+	float: left;
+}
+.mainPageLeft ul li{
+    color: #d0d0d0;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 30px;
+}
+.mainPageLeft ul li.current{
+	background-color: #ffffff;
+	color: #000000;
+}
+.mainPageLeft ul li a{
+	color: #d0d0d0;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 30px;
+   text-decoration: none;
+   display: block;
+   }
+.mainPageLeft ul li.current a{
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/*主界面右侧*/
+.mainPageRight{
+	width: 88.9%;
+	height: 910px;
+	background-color: #eeeeee;
+	float: left;
+	margin: 10px;
+}
+.selectionTop{
+	border-bottom: 1px solid #626262;
+}
+.selectionTop ul{
+	padding: 8px 0;
+	margin-left: 26px;
+}
+.selectionTop ul li{
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #1d2088;
+    font-size: 20px;
+    color: #303030;
+    padding: 1px 30px;
+    margin-right: 15px;
+    cursor: pointer;
+    margin-bottom: 3px;
+}
+.selectionTop ul li.current{
+	background-color: #1d2088;
+	color: #fff;
+}
+.selectionCont{
+    padding:23px;
+}
+.itme{
+	font-size: 24px;
+	color: #333333;
+	margin-bottom: 25px;
+}
+.itme .options{
+    display: inline;
+
+}
+.itme div{
+	display: inline;
+}
+.option1{
+	font-size: 20px;
+	color: #000;
+	border: 1px solid #1d2088;
+	border-radius: 4px;
+	position: relative;
+	padding: 1px 10px;
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.options .option1.current{
+	background: red;
+	color: #fff;
+}
+.option1 .optionDel{
+    position: absolute;
+    top: -5px;
+    border-radius: 50%;
+    background-color: #1d2088;
+    color: #fff;
+    width: 12px;
+    height: 12px;
+    line-height: 7px;
+    right: -4px;
+    cursor: pointer;
+}
+.option2{
+	font-size: 20px;
+	color: #000;
+	border-radius: 4px;
+	position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+.option2 .optionDel{
+    position: absolute;
+    top: -5px;
+    border-radius: 50%;
+    background-color: #1d2088;
+    color: #fff;
+    width: 12px;
+    height: 12px;
+    line-height: 7px;
+    right: -4px;
+    cursor: pointer;
+}
+.option2 input{
+	    width: 130px;
+    background: transparent;
+    border: 1px solid #1d2088;
+    border-radius: 4px;
+    height: 28px;
+    padding-left: 5px;
+    font-size: 20px;
+}
+.optionAdd{
+    display: inline-block;
+    border: 1px solid #1d2088;
+    padding: 0 5px;
+    border-radius: 4px;
+    height: 27px;
+    line-height: 24px;
+    cursor: pointer;
+}
+.itme span{
+	font-size: 22px;
+	color: #333;
+}
+
+
+/*用户管理/订单审批*/
+.approvalTop ul li{
+    display: inline-block;
+    width: 13.8%;
+    text-align: center;
+    border-right: 2px solid #1d2088;
+    height: 22px;
+    line-height: 20px;
+}
+.approvalTop ul li:nth-child(3){
+	background: url(../images/ic_move1.png) no-repeat 140px;
+    background-size: contain;
+}
+.approvalTop ul li:last-child{
+    border-right: none;
+    width: 28%;
+}
+.approvalCont ul{
+	width: 98%;
+	border-bottom: 1px solid #1d2088;
+}
+.approvalCont ul li{
+    display: inline-block;
+    width: 13.8%;
+    text-align: center;
+    font-size: 18px;
+    color: #626262;
+    margin: 10px 0;
+}
+.approvalCont ul li:last-child{
+	width: 28%;
+}
+.approvalCont ul li span{
+    font-size: 18px;
+    color: #626262;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+
+.approvalTop ul{
+	width: 98%;
+	background-color: #556fb5;
+    color: #fff;
+    font-size: 22px;
+    height: 40px;
+    line-height: 40px;
+}
+.DDSP ul li:last-child{
+	width: 13.8%;
+}
+.ddspUl ul li:last-child{
+    width: 13.8%;
+}
+
+/*驳回意见遮罩层*/
+.popUps{
+	display: none;
+}
+.mask{
+	position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+.proposal{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 320px;
+    height: 220px;
+    margin: -100px 0px 0px -150px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px #252525;
+    padding: 20px;
+}
+.proposal p{
+	font-size: 23px;
+	color: #333;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+}
+.maskClose{
+    font-size: 22px;
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+    font-family: "黑体";
+}
+.proposal textarea{
+	border: 2px solid #00a0e9;
+    width: 290px;
+    height: 100px;
+    margin-left: 8px;
+    padding: 5px;
+}
+.proposalBtn input{
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+}
+.proposalBtn{
+	text-align: center;
+}
+
+/*用户管理/通话记录*/
+.condtionCont1 span{
+	font-size: 20px!important;
+	color: #303030;
+}
+.condtionCont1 div{
+	font-size: 20px!important;
+	color: #303030;
+}
+.condtionArea{
+	display: inline-block;
+
+}
+.condtionArea span{
+    font-size: 20px!important;
+    color: #303030;
+    border-radius: 4px;
+    border: 1px solid #1d2088;
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 8px;
+}
+.condtionCont1{
+	margin-top: 20px;
+}
+.condtionArea span.current{
+	background-color: #1d2088;
+	color: #fff;
+}
+.conditionSearch input{
+	display: inline-block;
+	font-size: 18px;
+}
+.conditionSearch .searchBtn{
+	background-color: #1D2088;
+	border-radius: 2px;
+	color: #FFFFFF;
+	width: 65px;
+    height: 35px;
+    position: relative;
+}
+.conditionSearch .searchInput{
+    border: 1px solid #1D2088;
+    border-radius: 2px;
+    height: 33px;
+    margin-left: -10px;
+    padding-left: 15px;
+    font-size: 17px;
+    width: 20%;
+}
+.condition{
+	padding: 0 25px;
+}
+.conditionSearch{
+    margin-top: 20px;
+}
+.conditionSearch{
+	font-size: 0;
+}
+
+/*用户管理/新建用户*/
+.newUser input{
+    border-radius: 4px;
+    border: 1px solid #1d2088;
+    width: 100px;
+}
+.newUser div{
+	height: 50px;
+	line-height: 50px;
+	display: block;
+}
+.newUser{
+	width: 505px;
+	border-bottom: 1px solid #626262;
+}
+.kaiQi{
+    border: 1px solid #1d2088;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 2px 5px;
+    background: transparent;
+    cursor: pointer;
+    margin-left: 420px;
+}
+
+
+/*管理员/资源管理*/
+.selectionTop:nth-child(2){
+	border-bottom: none;
+}
+.selectionTop ul input{
+    border: 1px solid #1d2088;
+    border-radius: 4px;
+    color: #303030;
+    font-size: 20px;
+    padding: 1px 10px;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    margin-right: 58px;
+    background: transparent;
+}
+.Dels{
+	display: inline-block;
+    float: right;
+    font-size: 0;
+}
+.Dels input{
+	border: 1px solid #1d2088;
+    border-radius: 4px;
+    color: #303030;
+    font-size: 20px;
+    padding: 1px 10px;
+    cursor: pointer;
+    background: transparent;
+        margin-right: 35px;
+}
+.proposalBtn1{
+    text-align: right;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-top: 75px;
+}
+.proposalBtn1 input {
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+    cursor: pointer;
+}
+.drMb div{
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+}
+
+/*加入a标签后调整的样式*/
+.condtionArea span a{
+	color: #303030;
+	text-decoration: none;
+	font-size: 20px;
+}
+.condtionArea span.current a{
+	color: #fff;
+}
+.selectionTop ul li a{
+	color: #303030;
+	text-decoration: none;
+	font-size: 20px;
+}
+.selectionTop ul li.current a{
+	color: #fff;
+}
+
+/*动态创建后点击效果*/
+.itmeA{
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 25px;
+}
+.itmeA span {
+    font-size: 22px;
+    color: #333;
+}
+.itmeA .options {
+    display: inline;
+}
+.itmeB{
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 25px;
+}
+.itmeB span {
+    font-size: 22px;
+    color: #333;
+}
+.itmeB .options {
+    display: inline;
+}
+.itmeC{
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 25px;
+}
+.itmeC span {
+    font-size: 22px;
+    color: #333;
+}
+.itmeC .options {
+    display: inline;
+}
+.itmeD{
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 25px;
+}
+.itmeD span {
+    font-size: 22px;
+    color: #333;
+}
+.itmeD .options {
+    display: inline;
+}
+
+/*可拖拽表格中的可编辑样式*/
+table{
+    table-layout: fixed;
+    padding: 25px 40px
+}
+table tr th,td{
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: none;
+    font-weight: normal;
+    height: 40px;
+
+}
+table tr th{
+    background-color: #556fb5;
+    color: #FFFFFF;
+    font-size: 24px;
+    border-right: 2px solid #1d2088;
+
+}
+table tr th:last-of-type{
+    border-right: none;
+}
+table tr td{
+    font-size: 18px;
+    color: #626262;
+    border-bottom: 1px solid #1d2088;
+}
+table tr td span{
+    font-size: 18px;
+    color: #626262;
+    cursor: pointer;
+}
+/*可拖拽表格中的可编辑样式*/
+table tr td input{
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    color: #626262;
+    background: transparent;
+    width: 195px;
+    height: 35px;
+    outline:medium;
+}
+/*table tr td:last-of-type{*/
+    /*display: inline-block;*/
+    /*text-align: center;*/
+    /*font-size: 18px;*/
+    /*color: #626262;*/
+    /*background: transparent;*/
+    /*width: 195px;*/
+/*}*/
+table tr td:last-of-type span{
+    font-size: 18px;
+    color: #626262;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 25px;
+    cursor: pointer;
+    height: 40px;
+    line-height: 55px;
+}
+table tr td.YHBli{
+    width: 12%;
+}
+table tr td select{
+    display: inline-block;
+    font-size: 18px;
+    color: #626262;
+    background: transparent;
+    width: 196px;
+    height: 35px;
+    appearance:none;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    text-align: center;
+    text-align-last: center;
+    padding: 0 1%;
+    -webkit-appearance: none;   /* google */
+    -moz-appearance: none;  /* firefox */
+    appearance: none;       /* IE */
+    outline:medium;
+}
+table tr td select option{
+    text-align: center;
+    text-align-last: center;
+    font-size: 18px;
+    margin-top: -10px;
+    display: inline-block;
+    background-color: #1D2088;
+}
+table tr td select option:first-child{
+    background: url(../images/ic_next.png) no-repeat;
+}
+table tr td select.Sel{
+    background: url(../images/ic_next.png) no-repeat 160px 10px;
+    background-size: 8%;
+}
+table tr td input.Cur {
+    background: url(../images/ic_editor.png) no-repeat right 8px;
+    background-size: 8%;
+}
+table tr td a{
+    text-decoration: none;
+    font-size: 18px;
+    color: #626262;
+}
+table tr td input{
+    font-size: 13px;
+    height: auto;
+}

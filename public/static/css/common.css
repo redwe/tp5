@@ -1,0 +1,48 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style:none;
+	border: 0;
+	font-family: "PingFang-SC-Medivm";
+	font-size: 24px;
+}
+.condtionArea span a{
+    color: #303030;
+    text-decoration: none;
+    font-size: 20px;
+}
+.condtionArea span.current a{
+    color: #fff;
+}
+.selectionTop ul li a{
+    color: #303030;
+    text-decoration: none;
+    font-size: 20px;
+}
+.selectionTop ul li.current a{
+    color: #fff;
+}
+
+/*分页*/
+.pagination{
+    float: right;
+    margin-top: 30px;
+    margin-right: 35px;
+}
+.pagination li{
+    display: inline-block;
+    padding: 0px 10px;
+    border: 1px solid #333;
+    color: #333;
+    margin-left: 5px;
+}
+.pagination li a{
+    color: #333;
+}
+ .pagination li.active{
+    background-color: #1D2088;
+     color: #fff;
+ }
+.pagination li a{
+    text-decoration: none;
+}

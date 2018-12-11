@@ -1,0 +1,337 @@
+/*销售员样式文件*/
+*{
+	margin: 0;
+	padding: 0;
+	list-style:none;
+	border: 0;
+	font-family: "微软雅黑";
+	font-size: 24px;
+}
+body{
+	background-color: #e3e3e3;
+}
+/*主界面头部*/
+.mainPageTop{
+	width: 100%;
+	height: 100px;
+	background-color: #2e7cf2;
+}
+.personal{
+    background: url(../images/bg_xinxikuang.png) no-repeat 50px 30px;
+    width: 100%;
+}
+.personalCont{
+    width: 460px;
+    padding-top: 18px;
+    margin-left: 52px;
+}
+.personalCont span{
+    display: inline-block;
+    margin-top: 12px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: top;
+    font-size: 12px;
+    color: #252525;
+    width: 76px;
+    text-align: center;
+    
+}
+.personalCont span:nth-child(3){
+	width: 100px;
+}
+.personalCont span:nth-child(5){
+	width: 100px;
+}
+
+/*主界面左侧*/
+.mainPageLeft{
+	width: 10%;
+	height: 928px;
+	background-color: #00045e;
+	float: left;
+}
+.mainPageLeft ul li{
+    color: #d0d0d0;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 30px;
+}
+.mainPageLeft ul li a{
+	color: #d0d0d0;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 30px;	
+   text-decoration: none;
+   display: block;
+   }
+.mainPageLeft ul li.current a{
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/*主界面右侧*/
+.mainPageRight{
+	width: 88.9%;
+	height: 910px;
+	background-color: #eeeeee;
+	float: left;
+	margin: 10px;
+}
+.selectionTop{
+	border-bottom: 1px solid #626262;
+}
+.selectionTop ul{
+	padding: 8px 0;
+	margin-left: 26px;
+}
+.selectionTop ul li{
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #1d2088;
+    font-size: 20px;
+    color: #303030;
+    padding: 1px 30px;
+    margin-right: 15px;
+    cursor: pointer;
+    margin-bottom: 3px;
+}
+.selectionTop ul li.current{
+	background-color: #1d2088;
+	color: #fff;
+}
+.selectionCont{
+    padding:23px;
+}
+.itme{
+	font-size: 24px;
+	color: #333333;
+	margin-bottom: 25px;
+}
+.itme .options{
+    display: inline;
+    
+}
+.option1{
+	font-size: 20px;
+	color: #000;
+	border: 1px solid #1d2088;
+	border-radius: 4px;
+	position: relative;
+	padding: 1px 10px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.option1 .optionDel{
+    position: absolute;
+    top: -5px;
+    border-radius: 50%;
+    background-color: #1d2088;
+    color: #fff;
+    width: 12px;
+    height: 12px;
+    line-height: 7px;
+    right: -4px;
+    cursor: pointer;
+}
+.optionAdd{
+    display: inline-block;
+    border: 1px solid #1d2088;
+    padding: 0 5px;
+    border-radius: 4px;
+    height: 27px;
+    line-height: 24px;
+    cursor: pointer;
+}
+.itme span{
+	font-size: 22px;
+	color: #333;
+}
+.condition {
+    padding: 0 25px;
+}
+.conditionSearch {
+    font-size: 0;
+}
+
+.conditionSearch {
+    margin-top: 20px;
+}
+.conditionSearch .searchBtn {
+    background-color: #1D2088;
+    border-radius: 2px;
+    color: #FFFFFF;
+    width: 65px;
+    height: 35px;
+    position: relative;
+}
+.conditionSearch input {
+    display: inline-block;
+    font-size: 18px;
+}
+.conditionSearch .searchInput {
+    border: 1px solid #1D2088;
+    border-radius: 2px;
+    height: 33px;
+    margin-left: -10px;
+    padding-left: 15px;
+    font-size: 17px;
+    width: 20%;
+}
+.Dels {
+    display: inline-block;
+    float: right;
+    font-size: 0;
+}
+.Dels input {
+    border: 1px solid #1d2088;
+    border-radius: 4px;
+    color: #303030;
+    font-size: 20px;
+    padding: 1px 10px;
+    cursor: pointer;
+    background: transparent;
+    margin-right: 35px;
+}
+/*主界面表格*/
+.selectionCont {
+    padding: 23px;
+}
+.approvalTop ul {
+    width: 98%;
+    background-color: #556fb5;
+    color: #fff;
+    font-size: 22px;
+    height: 40px;
+    line-height: 40px;
+}
+.approvalTop ul li {
+    width: 11%;
+}
+.approvalTop ul li {
+    display: inline-block;
+    width: 13.8%;
+    text-align: center;
+    border-right: 2px solid #1d2088;
+    height: 22px;
+    line-height: 20px;
+}
+.approvalCont ul {
+    width: 98%;
+    border-bottom: 1px solid #1d2088;
+}
+.approvalCont ul li {
+    display: inline-block;
+    width: 13.8%;
+    text-align: center;
+    font-size: 18px;
+    color: #626262;
+    margin: 10px 0;
+}
+.approvalCont ul input {
+    width: 13px;
+    height: auto;
+}
+.approvalCont ul input {
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    color: #626262;
+    background: transparent;
+    width: 195px;
+    height: 35px;
+    outline: medium;
+}
+.condtionCont1 {
+    margin-top: 10px;
+}
+.condtionCont1:first-child{
+    border-top: 1px solid #626262;
+    padding-top: 20px;
+}
+.condtionCont1 span {
+    font-size: 22px!important;
+    color: #303030;
+    vertical-align: top;
+}
+.condtionCont1 div {
+    font-size: 20px!important;
+    color: #303030;
+}
+.condtionArea {
+    display: inline-block;
+}
+.condtionArea span {
+    font-size: 20px!important;
+    color: #303030;
+    border-radius: 4px;
+    border: 1px solid #1d2088;
+    padding:0 10px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 8px;
+}
+.condtionArea span.current {
+    background-color: #1d2088;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.approvalTop ul li:last-child {
+    	border-right: none;
+    	width: 18%;
+	}
+	.approvalTop ul li{
+		width: 11%;
+	}
+	.approvalTop ul li:nth-child(3) {
+    	background: transparent;
+	}
+	.approvalTop ul li:nth-child(4) {
+    	background: url(../images/ic_move1.png) no-repeat 140px;
+    	background-size: contain;
+	}
+	.approvalCont ul input{
+		width: 13px;
+		height: auto;
+	}
+	.approvalCont ul li{
+		width: 11%;
+	}
+	.approvalCont ul li:last-child {
+    	width: 19%;
+	}
+	.selectionTop ul li{
+		padding: 1px 10px;
+	}
+	.proposal{
+		width: 450px;
+		height: 280px;
+	}
+	.proposal p{
+		font-size: 20px;
+	}
+	
+/*加入a标签后调整的样式*/
+.condtionArea span a{
+	color: #303030;
+	text-decoration: none;
+	font-size: 20px;
+}
+.condtionArea span.current a{
+	color: #fff;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>后台登录</title>
+    <style>
+        a:link{
+            text-decoration: none; color: #333;;
+        }
+        a:visited{
+            text-decoration: none; color: #333;;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 600px; margin: auto; margin-top: 30px;">
+    <h1 style="text-align: center">编辑菜单 [<a href="/admin/menus/add">添加新菜单</a>] [<a href="/admin/menus/lists">菜单列表</a>]</h1>
+    <form name="loginform" action="/admin/menus/editPost" method="post">
+        <table width="80%">
+    <tr>
+        <td>菜单层级：</td>
+        <td>
+            <select name="levels">
+                <option value="0">--顶级菜单--</option>
+                {volist name="lists" id="vo2"}
+                {if condition = "$vo2['id'] == $menus['levels']"}
+                    <option selected value="{$vo2.id}">{$vo2.m_name}</option>
+                {else /}
+                    <option value="{$vo2.id}">{$vo2.m_name}</option>
+                {/if}
+                {/volist}
+            </select>
+        </td>
+   </tr>
+    <tr>
+        <td>菜单名称：</td><td><input name="m_name" value="{$menus.m_name}"></td>
+    </tr>
+    <tr>
+        <td>所属模块：</td><td><input name="m_model" value="{$menus.m_model}"></td>
+    </tr>
+    <tr>
+        <td>控制器：</td><td><input name="m_ctrl" value="{$menus.m_ctrl}"></td>
+    </tr>
+    <tr>
+        <td>方法：</td><td><input name="m_method" value="{$menus.m_method}"></td>
+    </tr>
+    <tr>
+        <td>参数：</td><td><input name="m_param" value="{$menus.m_param}"></td>
+    </tr>
+    <tr>
+        <td>图标：</td><td>
+        <input name="m_icon" value="{$menus.m_icon}">
+        <a target="_blank" href="http://fontawesome.dashgame.com/">[选择图标]</a>
+        <input type="hidden" name="mid" value="{$menus.id}">
+    </td>
+    </tr>
+    <tr>
+        <td> </td><td><input type="submit" name="b1" value=" 保 存 "></td>
+    </tr>
+</table>
+    </form>
+</div>
+
+</body>
+</html>

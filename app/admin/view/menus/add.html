@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>后台登录</title>
+    <style>
+        a:link{
+            text-decoration: none; color: #333;;
+        }
+        a:visited{
+            text-decoration: none; color: #333;;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 600px; margin: auto; margin-top: 30px;">
+    <h1 style="text-align: center">添加菜单 [<a href="/admin/menus/lists">菜单列表</a>]</h1>
+    <form name="loginform" action="/admin/menus/save_menus" method="post">
+<table width="80%">
+    <tr>
+        <td>菜单层级：</td>
+        <td>
+            <select name="levels">
+                <option value="0">--顶级菜单--</option>
+                {volist name="lists" id="vo"}
+                    <option value="{$vo.id}">{$vo.m_name}</option>
+                {/volist}
+            </select>
+        </td>
+   </tr>
+    <tr>
+        <td>菜单名称：</td><td><input name="m_name" value=""></td>
+    </tr>
+    <tr>
+        <td>所属模块：</td><td><input name="m_model" value=""></td>
+    </tr>
+    <tr>
+        <td>控制器：</td><td><input name="m_ctrl" value=""></td>
+    </tr>
+    <tr>
+        <td>方法：</td><td><input name="m_method" value=""></td>
+    </tr>
+    <tr>
+        <td>参数：</td><td><input name="m_param" value=""></td>
+    </tr>
+    <tr>
+        <td>图标：</td><td><input name="m_icon" value=""> <a target="_blank" href="http://fontawesome.dashgame.com/">[选择图标]</a> </td>
+    </tr>
+    <tr>
+        <td> </td><td><input type="submit" name="b1" value=" 保 存 "></td>
+    </tr>
+</table>
+    </form>
+</div>
+
+</body>
+</html>

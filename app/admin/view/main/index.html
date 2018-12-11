@@ -6,6 +6,7 @@
 	</head>
 	<link rel="stylesheet" href="/static/css/common.css" />
 	<link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="stylesheet" href="/static/font/css/font-awesome.min.css">
 	<style>
 		.approvalTop ul li{
 			width: 11.6%;
@@ -26,6 +27,8 @@
             background-color: #ffffff;
             color: #000000;
         }
+        .top_a{color: #fff; font-size: 16px; text-decoration: none}
+        .menu{ color: #fff; font-size: 16px;}
 	</style>
 	<body>
 		<div id="mainPageTop" class="mainPageTop">
@@ -38,7 +41,9 @@
 					<span>{$topuser.gangwei}</span>
 				</div>
                 <div style="position: absolute; top:30px; right:30px;">
-                    <a style="color: #fff; font-size: 16px; text-decoration: none" href="/admin/login/logout">[安全退出]</a>
+                    <a target="rightmain" class="top_a" href="/admin/users/password">[修改密码]</a>
+                    <a target="rightmain" class="top_a" href="/admin/login/logout">[安全退出]</a>
+                    <a target="rightmain" class="menu" href="/admin/menus/lists"><i class="fa fa-list"></i></a>
                 </div>
 			</div>
 		</div>

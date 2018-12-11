@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>后台登录</title>
+    <style>
+        a:link{
+            text-decoration: none;
+        }
+        a:visited{
+            text-decoration: none;
+        }
+        table td{ text-align: center; border-bottom: #aaa 1px solid; border-left: #aaa 1px solid; padding: 5px; }
+        table th{ color: #fff; padding: 5px;}
+        table td:first-child{ border-left: #aaa 0px solid; }
+    </style>
+</head>
+<body>
+<div style="width: 90%; margin: auto; margin-top: 30px;">
+    <h1 style="text-align: center">菜单列表 [<a href="/admin/menus/add">添加新菜单</a>]</h1>
+    <table width="100%" style="border: #aaa 1px solid" cellspacing="0">
+        <tr style="background-color: #113366">
+            <th>序号</th>
+            <th>菜单名称</th>
+            <th>所属模块</th>
+            <th>控制器</th>
+            <th>方法</th>
+            <th>参数</th>
+            <th>图标</th>
+            <th>级别</th>
+            <th>操作</th>
+       </tr>
+        {volist name="lists" id="vo"}
+        <tr style="background-color:#336699; color: #fff;">
+            <td>{$vo.id}</td>
+            <td><a href="/{$vo.m_model}/{$vo.m_ctrl}/{$vo.m_method}/{$vo.m_param}">{$vo.m_name}</a></td>
+            <td>{$vo.m_model}</td>
+            <td>{$vo.m_ctrl}</td>
+            <td>{$vo.m_method}</td>
+            <td>{$vo.m_param}</td>
+            <td>{$vo.m_icon}</td>
+            <td>{$vo.levels}</td>
+            <td>
+                <a href="/admin/menus/edit/id/{$vo['id']}">编辑</a> |
+                <a href="/admin/menus/del/id/{$vo['id']}">删除</a>
+            </td>
+        </tr>
+        {php}
+            $subid = $vo["id"];
+            $submenus = $sublist[$subid];
+        {/php}
+        {volist name="submenus" id="vo2"}
+        <tr>
+            <td>{$vo2.id}</td>
+            <td><a href="/{$vo2.m_model}/{$vo2.m_ctrl}/{$vo2.m_method}/{$vo2.m_param}">{$vo2.m_name}</a></td>
+            <td>{$vo2.m_model}</td>
+            <td>{$vo2.m_ctrl}</td>
+            <td>{$vo2.m_method}</td>
+            <td>{$vo2.m_param}</td>
+            <td>{$vo2.m_icon}</td>
+            <td>{$vo2.levels}</td>
+            <td>
+                <a href="/admin/menus/edit/id/{$vo2['id']}">编辑</a> |
+                <a href="/admin/menus/del/id/{$vo2['id']}">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        {/volist}
+    </table>
+</div>
+
+</body>
+</html>

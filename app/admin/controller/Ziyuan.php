@@ -37,7 +37,7 @@ class Ziyuan extends Common
         $xmlist = $xmobj->getXmList("kecheng","project",1);
         $view->assign('xmlist',$xmlist);
 
-        $limit = 20;
+        $limit = 10;
 
         $status = Request::instance()->param("hsz");
         if(!empty($status)){
@@ -63,6 +63,10 @@ class Ziyuan extends Common
         $view->assign('hsz',$status);
         $view->assign('project',$project);
         $view->assign('keyword',$keyword);
+
+        $page = $zylist->render();
+        $view->assign('page', $page);
+
         return $view->fetch();
     }
     public function xueli()
@@ -77,7 +81,7 @@ class Ziyuan extends Common
         $xmlist = $xmobj->getXmList("xueli","project",1);
         $view->assign('xmlist',$xmlist);
 
-        $limit = 20;
+        $limit = 10;
 
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
@@ -107,6 +111,10 @@ class Ziyuan extends Common
 
         $view->assign('project',$project);
         $view->assign('keyword',$keyword);
+
+        $page = $zylist->render();
+        $view->assign('page', $page);
+
         return $view->fetch();
     }
     public function zhengshu()
@@ -117,7 +125,7 @@ class Ziyuan extends Common
         $keyword = Request::instance()->post("keyword");
         $view = new View();
 
-        $limit = 20;
+        $limit = 10;
 
         $xmobj = new XmModel();
         $xmlist = $xmobj->getXmList("zhengshu","project",1);
@@ -152,6 +160,10 @@ class Ziyuan extends Common
 
         $view->assign('project',$project);
         $view->assign('keyword',$keyword);
+
+        $page = $zylist->render();
+        $view->assign('page', $page);
+
         return $view->fetch();
     }
 

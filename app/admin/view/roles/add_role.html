@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>后台登录</title>
+   <link type="text/css" rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+<div class="main_bg">
+    <h1 style="text-align: center">{$title}角色 [<a href="/admin/roles/lists">角色列表</a>]</h1>
+    <form name="loginform" action="/admin/roles/save_role" method="post">
+<table width="100%">
+    <tr>
+        <td>角色名称：</td><td>
+        <input name="r_name" value="{$list.shenfen}">
+        <input name="id" type="hidden" value="{$list.id}">
+    </td>
+    </tr>
+    <tr>
+        <td> </td><td><input type="submit" name="b1" value=" 保 存 "></td>
+    </tr>
+</table>
+    </form>
+
+    <h1 style="text-align: center">角色列表</h1>
+    <table width="100%" cellspacing="0">
+        <tr style="background-color: #113366">
+            <th>序号</th>
+            <th>角色名称</th>
+            <th>操作</th>
+        </tr>
+        {volist name="lists" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.shenfen}</td>
+            <td>
+                {if condition = "$vo['id'] == 0"}
+                    <a class="disable" href="#">设置权限</a> |
+                    <a class="disable" href="#">编辑</a> |
+                    <a class="disable" href="#">删除</a>
+                {else /}
+                    <a href="/admin/roles/author/rid/{$vo['id']}">设置权限</a> |
+                    <a href="/admin/roles/add_role/id/{$vo['id']}">编辑</a> |
+                    <a onclick="return confirm('确认要删除吗？')" href="/admin/roles/del/id/{$vo['id']}">删除</a>
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+    </table>
+</div>
+
+</body>
+</html>

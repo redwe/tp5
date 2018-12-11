@@ -30,6 +30,9 @@ class Xiangmu extends Common
 
         $xmobj = new XmModel();
 
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
+
         $xmlist = $xmobj->getXmList("kecheng","project",1);
         $view->assign('xmlist',$xmlist);
         $prolist = $xmobj->getXmList("kecheng","ptype",1);
@@ -46,6 +49,9 @@ class Xiangmu extends Common
         $view->assign('nav2',$nav2);
 
         $xmobj = new XmModel();
+
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
 
         $xmlist = $xmobj->getXmList("xueli","project",1);
         $view->assign('xmlist',$xmlist);
@@ -64,6 +70,9 @@ class Xiangmu extends Common
         $view->assign('nav2',$nav2);
 
         $xmobj = new XmModel();
+
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
 
         $xmlist = $xmobj->getXmList("zhengshu","project",1);
         $view->assign('xmlist',$xmlist);

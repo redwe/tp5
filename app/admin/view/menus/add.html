@@ -3,17 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>后台登录</title>
-    <style>
-        a:link{
-            text-decoration: none; color: #333;;
-        }
-        a:visited{
-            text-decoration: none; color: #333;;
-        }
-    </style>
+   <link type="text/css" rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-<div style="width: 600px; margin: auto; margin-top: 30px;">
+<div class="main_bg">
     <h1 style="text-align: center">添加菜单 [<a href="/admin/menus/lists">菜单列表</a>]</h1>
     <form name="loginform" action="/admin/menus/save_menus" method="post">
 <table width="80%">
@@ -21,7 +14,7 @@
         <td>菜单层级：</td>
         <td>
             <select name="levels">
-                <option value="0">--顶级菜单--</option>
+                <option value="0">顶级菜单</option>
                 {volist name="lists" id="vo"}
                     <option value="{$vo.id}">{$vo.m_name}</option>
                 {/volist}
@@ -44,7 +37,7 @@
         <td>参数：</td><td><input name="m_param" value=""></td>
     </tr>
     <tr>
-        <td>图标：</td><td><input name="m_icon" value=""> <a target="_blank" href="http://fontawesome.dashgame.com/">[选择图标]</a> </td>
+        <td>图标 <a target="_blank" href="http://fontawesome.dashgame.com/">[选择图标]</a>：</td><td><input name="m_icon" value=""> </td>
     </tr>
     <tr>
         <td> </td><td><input type="submit" name="b1" value=" 保 存 "></td>

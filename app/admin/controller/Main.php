@@ -11,9 +11,9 @@ class Main extends Common
     public function index()
     {
         $view = new View();
-        $admin = Session::get('uname');
 
         $shengobj = new User();
+        $admin = Session::get('uname');
         $where["uname"] = $admin;
         $topuser = $shengobj->getUserList($where,1);
         if($topuser[0]){
@@ -24,8 +24,11 @@ class Main extends Common
             $topu = [];
         }
         $view->assign('topuser',$topu);
-
         $view->assign('admin',$admin);
+
+        $authorid = Session::get('authorid');
+        $view->assign('authorid',$authorid);
+
         return $view->fetch('index');
         //return view('index');
     }

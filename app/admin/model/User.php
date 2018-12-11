@@ -69,4 +69,18 @@ class User extends Model
             ->paginate($limit);
         return $lists;
     }
+
+    public function checkAuthor($role_id,$url){
+        $where["urls"] = $url;
+        $where["uid"] = $role_id;
+        $result = Db::name("author")->where($where)->find();
+        if(empty($result['id'])){
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
 }

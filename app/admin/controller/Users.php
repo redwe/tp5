@@ -62,6 +62,9 @@ class Users extends Common
         $gangwei = $shengobj->getShengfen2("gangweis","gangwei");
         $view->assign('gangweilist',$gangwei);
 
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
+
         $lists = $shengobj->getUserList($where,10);
 
         $view->assign('lists',$lists);
@@ -117,6 +120,9 @@ class Users extends Common
 
         $view = new View();
         $view->assign('nav',$nav);
+
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
 
         $view->assign('shengfen',$shengfen[1]);
         $view->assign('fenbu',$fenbu[1]);
@@ -292,6 +298,9 @@ class Users extends Common
         $shengfen = $shengobj->getShengfen2("shengs","sheng");
         $view->assign('shenglist',$shengfen);
 
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
+
         $fenbu = $shengobj->getShengfen2("fenbus","fenbu");
         $view->assign('fenbulist',$fenbu);
 
@@ -317,6 +326,10 @@ class Users extends Common
     public function password(){
 
         $view = new View();
+
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
+
         return $view->fetch();
 
     }

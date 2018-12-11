@@ -33,6 +33,9 @@ class Ziyuan extends Common
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
 
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
+
         $xmobj = new XmModel();
         $xmlist = $xmobj->getXmList("kecheng","project",1);
         $view->assign('xmlist',$xmlist);
@@ -86,6 +89,9 @@ class Ziyuan extends Common
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
 
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
+
         $status = Request::instance()->param("hsz");
         if(!empty($status)){
             $status = 0;
@@ -133,6 +139,9 @@ class Ziyuan extends Common
 
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
+
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
 
         $status = Request::instance()->param("hsz");
         if(!empty($status)){

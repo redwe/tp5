@@ -34,7 +34,7 @@ function getChecks(str){
     }
     else
     {
-        alert("请选择需要删除的记录！");
+        alert("请选择需要操作的记录！");
     }
 }
 

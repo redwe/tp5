@@ -1,0 +1,23 @@
+
+input,select{ padding: 10px; width: 90%;}
+a:link{
+    text-decoration: none; color: #333;;
+}
+a:visited{
+    text-decoration: none; color: #333;;
+}
+
+.main_bg{ width: 80%; margin: auto; margin-top: 30px;}
+
+.top_a{color: #fff; font-size: 16px; text-decoration: none}
+.menu{ color: #fff; font-size: 16px;}
+
+.main_table{width: 96%; margin: auto; margin-top: 30px;}
+
+table{border: #aaa 1px solid; border-bottom: 0px;}
+
+table td{ text-align: center; border-bottom: #aaa 1px solid; border-left: #aaa 1px solid; padding: 10px; }
+table th{ color: #fff; padding: 10px;}
+table td:first-child{ border-left: #aaa 0px solid; }
+
+.disable{ color: #666}

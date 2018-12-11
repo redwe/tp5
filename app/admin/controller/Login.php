@@ -33,6 +33,7 @@ class Login extends Controller
                 $list = Db::name("users")->where($where)->find();
                 if($list["uname"]){
                     Session::set('uname',$list['uname']);
+                    Session::set('authorid',$list['fid']);
                     $this->success('登录成功！','/admin/main/index');
                 }
                 else

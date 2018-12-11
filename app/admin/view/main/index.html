@@ -28,9 +28,12 @@
             color: #000000;
         }
         .top_a{color: #fff; font-size: 16px; text-decoration: none}
-        .menu{ color: #fff; font-size: 16px;}
+        .menu{ color: #fff; font-size: 18px;}
 	</style>
 	<body>
+    {php}
+    $userModel = model('app\admin\model\User');
+    {/php}
 		<div id="mainPageTop" class="mainPageTop">
 			<div class="personal">
 				<div class="personalCont">
@@ -44,14 +47,29 @@
                     <a target="rightmain" class="top_a" href="/admin/users/password">[修改密码]</a>
                     <a target="rightmain" class="top_a" href="/admin/login/logout">[安全退出]</a>
                     <a target="rightmain" class="menu" href="/admin/menus/lists"><i class="fa fa-list"></i></a>
+                    <a target="rightmain" class="menu" href="/admin/roles/add_role"><i class="fa fa-user"></i></a>
                 </div>
 			</div>
 		</div>
 		<div class="mainPageLeft">
 			<ul id="menus">
+                {php}
+                if($userModel->checkAuthor($authorid,"/admin/xiangmu/kecheng")){
+                {/php}
                 <li class="current"><a target="rightmain" href="/admin/xiangmu/kecheng/menu/0/nav2/0">项目管理</a></li>
+                {php}
+                }
+                if($userModel->checkAuthor($authorid,"/admin/ziyuan/kecheng")){
+                {/php}
                 <li><a target="rightmain" href="/admin/ziyuan/kecheng/menu/1/nav3/0">资源管理</a></li>
+                {php}
+                }
+                if($userModel->checkAuthor($authorid,"/admin/users/add")){
+                {/php}
                 <li><a target="rightmain" href="/admin/users/add/menu/2/nav/0">用户管理</a> </li>
+                {php}
+                }
+                {/php}
 			</ul>
 		</div>
 		<div class="mainPageRight">

@@ -1,23 +1,46 @@
 <ul>
+    {php}
+    $userModel = model('app\admin\model\User');
+    if($userModel->checkAuthor($authorid,"/admin/users/add")){
+    {/php}
     {if condition="($Request.param.nav == '0') "}
     <li class="current">
         {else /}
     <li>
         {/if}<a href="/admin/users/add/nav/0">新建用户</a> </li>
+
+    {php}
+    }
+    if($userModel->checkAuthor($authorid,"/admin/users/lists")){
+    {/php}
+
     {if condition="($Request.param.nav == '1') "}
     <li class="current">
         {else /}
     <li>
         {/if}<a href="/admin/users/lists/nav/1">用户列表</a> </li>
+
+    {php}
+    }
+    if($userModel->checkAuthor($authorid,"/admin/users/jilu")){
+    {/php}
     {if condition="($Request.param.nav == '2') "}
     <li class="current">
         {else /}
     <li>
         {/if}<a href="/admin/users/jilu/nav/2">通话记录</a></li>
+
+    {php}
+    }
+    if($userModel->checkAuthor($authorid,"/admin/users/shenpi")){
+    {/php}
     {if condition="($Request.param.nav == '3') "}
         <li class="current">
     {else /}
         <li>
     {/if}
         <a href="/admin/users/shenpi/nav/3"> 订单审批</a></li>
+    {php}
+    }
+    {/php}
 </ul>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>后台登录</title>
+   <link type="text/css" rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/jquery-2.1.4.min.js"></script>
+    <script src="/static/js/checkbox.js"></script>
+</head>
+<body>
+<div class="main_bg">
+    <h1 style="text-align: center">[{$sf}] 访问权限设置</h1>
+    <form name="authorform" method="post" action="/admin/roles/save_auth">
+    <table width="100%" cellspacing="0">
+        <tr style="background-color: #113366">
+            <th>序号</th>
+            <th>菜单名称</th>
+            <th>访问路径</th>
+            <th>授权 <input type="checkbox" name="checkall" onclick="setCheckbox(this,'checkid')" value=""></th>
+        </tr>
+        {volist name="lists" id="vo"}
+        <tr style="background-color: #ddd;">
+            <td>{$vo.id}</td>
+            <td>{$vo.m_name}</td>
+            <td style="text-align: left">/{$vo.m_model}/{$vo.m_ctrl}/{$vo.m_method}/{$vo.m_param}</td>
+            <td>
+                {if condition = "in_array($vo['id'], $aids)"}
+               <input type="checkbox" checked name="checkid" onclick="setCheck2(this,'check{$vo.id}')"  value="{$vo.id}">
+                {else /}
+                <input type="checkbox"  name="checkid" onclick="setCheck2(this,'check{$vo.id}')"  value="{$vo.id}">
+                {/if}
+            </td>
+        </tr>
+        {php}
+        $subid = $vo["id"];
+        $submenus = $sublist[$subid];
+        {/php}
+        {volist name="submenus" id="vo2"}
+        <tr>
+            <td>{$vo2.id}</td>
+            <td>{$vo2.m_name}</td>
+            <td style="text-align: left">/{$vo.m_model}/{$vo.m_ctrl}/{$vo.m_method}/{$vo.m_param}</td>
+            <td>
+                {if condition = "in_array($vo2['id'], $aids)"}
+                <input type="checkbox" checked class="check{$vo.id}" name="checkid" value="{$vo2.id}">
+                {else /}
+                <input type="checkbox" class="check{$vo.id}" name="checkid" value="{$vo2.id}">
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+        {/volist}
+    </table>
+    <div style="text-align: center; padding-top: 20px;">
+        <input type="hidden" name="rid" value="{$rid}">
+        <input type="hidden" id="ids" name="ids" value="">
+        <input type="button" onclick="submitids()" name="sub1" value="保存">
+    </div>
+    </form>
+</div>
+<script>
+    function setCheck2(obj,str){
+        if(obj.checked){
+            checkAll2(str);
+        }
+        else
+        {
+            cancleAll2(str)
+        }
+    }
+    function checkAll2(str){
+        $("."+str).each(function(i){
+            this.checked = true;
+        })
+    }
+    function cancleAll2(str){
+        $("."+str).each(function(i){
+            this.checked = false;
+        })
+    }
+    function submitids(){
+        var ids = getChecks('checkid');
+        $("#ids").val(ids);
+        authorform.submit();
+    }
+
+</script>
+</body>
+</html>

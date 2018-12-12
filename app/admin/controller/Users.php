@@ -345,13 +345,30 @@ class Users extends Common
         $id = Request::instance()->post("id");
         $sugges = Request::instance()->post("sugges");
         if(isset($sugges)){
-            //ump($sugges);
-            $this->success("驳回操作成功！");
+            $where["id"] = $id;
+            $data["sugges"] = $sugges;
+            $result = Db::name("resource")->where($where)->update($data);
+            if($result){
+                $this->success("驳回操作成功！");
+            }
+            else
+            {
+                $this->error("审核失败!");
+            }
         }
         else
         {
-            //dump($id);
-            $this->success("审批成功！");
+            $where["id"] = $id;
+            $data["exam"] = 1;
+            $result = Db::name("resource")->where($where)->update($data);
+            if($result){
+                $this->success("审批成功！");
+            }
+            else
+            {
+                $this->error("审核失败!");
+            }
+
         }
 
     }

@@ -260,6 +260,10 @@ body{
     font-size: 20px!important;
     color: #303030;
 }
+.condtionCont1 .optionAdd{
+    padding: 0px 6px;
+    vertical-align: sub;
+}
 .condtionArea {
     display: inline-block;
 }
@@ -278,19 +282,6 @@ body{
     background-color: #1d2088;
     color: #fff;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 .approvalTop ul li:last-child {
     	border-right: none;
     	width: 18%;
@@ -314,6 +305,10 @@ body{
 	}
 	.approvalCont ul li:last-child {
     	width: 19%;
+    	cursor: pointer;
+	}
+	.approvalCont ul li:last-child span{
+    	font-size: 18px;		
 	}
 	.selectionTop ul li{
 		padding: 1px 10px;
@@ -335,3 +330,686 @@ body{
 .condtionArea span.current a{
 	color: #fff;
 }
+
+/*select下拉框箭头样式*/
+.reg_testdate{
+	display: inline-block;
+}
+.reg_testdate option{
+	font-size: 20px;
+	background-color: #1d2088;
+	color: #fff;
+}
+.reg_testdate select{
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	background: url(../images/down.png) no-repeat right;
+}
+.reg_testdate select.current{
+	background: url(../images/up.png) no-repeat right;
+}
+.reg_testdate select{
+    font-size: 18px!important;
+    color: #303030;
+    border-radius: 4px;
+    border: 1px solid #1d2088;
+    padding: 0 40px 2px 5px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 8px;
+    border-right: none;
+}
+.Ftextdate{
+	margin-top: 8px;
+}
+.Separator{
+	color: #1d2077;
+	display: inline-block;
+}
+.timeBtn{
+	display: inline-block;
+}
+.timeBtn input{
+    border: 1px solid #1d2088;
+    font-size: 20px;
+    background: transparent;
+    padding: 0 10px;
+    border-radius: 4px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.Dels span{}
+
+/*订单管理页面*/
+/*弹窗遮罩层*/
+.popUps{
+	display: none;
+}
+.mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+.proposal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 320px;
+    height: 220px;
+    margin: -100px 0px 0px -150px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px #252525;
+}
+.maskClose {
+    font-size: 22px;
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+    font-family: 黑体;
+}
+.proposal p {
+    font-size: 23px;
+    color: #333;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+.proposal textarea {
+    border: 2px solid #00a0e9;
+    width: 290px;
+    height: 100px;
+    margin-left: 8px;
+    padding: 5px;
+    font-size: 16px;
+}
+.proposalBtn {
+    text-align: center;
+}
+.proposalBtn input {
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+}
+
+/*弹窗遮罩层 第二套样式*/
+.popUps1{
+	display: none;
+}
+.mask1 {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+.proposal1 {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 320px;
+    height: 220px;
+    margin: -100px 0px 0px -150px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px #252525;
+}
+.maskClose1 {
+    font-size: 22px;
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+    font-family: 黑体;
+}
+.proposal1 p {
+    font-size: 23px;
+    color: #333;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+.proposal1 textarea {
+    border: 2px solid #00a0e9;
+    width: 290px;
+    height: 100px;
+    margin-left: 8px;
+    padding: 5px;
+    font-size: 16px;
+}
+.proposalBtn1 {
+    text-align: center;
+}
+.proposalBtn1 input {
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+}
+/*弹窗遮罩层 第三套样式*/
+.popUps2{
+	display: none;
+}
+.mask2 {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+.proposal2 {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 320px;
+    height: 220px;
+    margin: -100px 0px 0px -150px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px #252525;
+}
+.maskClose2 {
+    font-size: 22px;
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+    font-family: 黑体;
+}
+.proposal2 p {
+    font-size: 23px;
+    color: #333;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+.proposal2 textarea {
+    border: 2px solid #00a0e9;
+    width: 290px;
+    height: 100px;
+    margin-left: 8px;
+    padding: 5px;
+    font-size: 16px;
+}
+.proposalBtn2 {
+    text-align: center;
+    margin-top: 50px;
+}
+.proposalBtn2 input {
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+}
+/*弹窗遮罩层 第四套样式*/
+.popUps3{
+	display: none;
+}
+.mask3 {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+.proposal3 {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 390px;
+    margin: -100px 0px 0px -150px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px #252525;
+}
+.maskClose3 {
+    font-size: 22px;
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+    font-family: 黑体;
+}
+.proposal3 p {
+    font-size: 23px;
+    color: #333;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+.proposal3 textarea {
+    border: 2px solid #00a0e9;
+    width: 290px;
+    height: 100px;
+    margin-left: 8px;
+    padding: 5px;
+    font-size: 16px;
+}
+.proposalBtn3 {
+    text-align: center;
+    text-align: right;
+    margin-top: 35px;
+    margin-right: 32px;
+    margin-bottom: 20px;
+}
+.proposalBtn3 input {
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+}
+/*弹窗遮罩层 第五套样式*/
+.popUps4{
+	display: none;
+}
+.mask4 {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+.proposal4 {
+    position: fixed;
+    left: 35%;
+    top: 18%;
+    width: 900px;
+    margin: -100px 0px 0px -150px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px #252525;
+}
+.maskClose4 {
+    font-size: 22px;
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+    font-family: 黑体;
+    color: #fff;
+}
+.proposal4 p {
+    font-size: 23px;
+    color: #333;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    text-align: left;
+    margin-left: 30px;
+    line-height: 23px;
+}
+.proposal4 p label{
+	font-size: 14px;	
+}
+.ThjlTop{
+	height: 130px;
+    background-color: #5db9e2;
+}
+.ThjlTop .thName{
+	font-size: 80px;
+    color: #fff;
+    border-right: 2px solid #fff;
+    height: 90px;
+    margin-top: 20px;
+    float: left;
+    line-height: 75px;
+    padding: 0 32px 0 18px;
+}
+.ThjlTop .thlist{
+    float: left;
+    margin-top: 20px;
+}
+.ThjlCont{
+	margin: 0 15px;
+}
+/*左侧*/
+.ThjlL{
+    width: 720px;
+    float: left;
+}
+.ThjlBq{
+	font-size: 28px;
+	color: #333;
+}
+.ThjlName{
+	font-size: 18px;
+	color: #333;
+}
+.Bqlist{
+	display: inline-block;
+}
+.Bqlist .gzdq{
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #5db9e2;
+    font-size: 18px;
+    color: #333;
+    width: 95px;
+    height: 26px;
+    text-align: center;
+}
+.Bqlist .gzdqAdd{
+	display: inline-block;
+    border: 1px solid #5db9e2;
+    border-radius: 4px;
+    padding: 0px 4px;
+    height: 26px;
+    vertical-align: bottom;
+    line-height: 22px;
+    cursor: pointer;
+}
+.ThjlBqName:nth-of-type(10) .Bqlist .gzdq:nth-of-type(3){
+	width: 100px;
+}
+.ThjlBqName:nth-of-type(10)  .ThjlName{
+	letter-spacing: 6px;
+}
+.ThjlBqName:nth-of-type(10)  .Bqlist{
+	margin-left: -6px;
+}
+.ThjlBqName{
+	margin-bottom: 5px;
+}
+.ThilInput{
+	position: relative;
+}
+.ThilInput .input{
+	border: 2px solid #00a0e9;
+    background: transparent;
+    width: 700px;
+    padding: 5px 0;
+    min-height: 70px;
+    font-size: 14px;
+    color: #333;
+    resize:none;
+    margin-top: 5px;
+}
+.ThilBtn{
+	position: absolute;
+	bottom: 15px;
+	right: 35px;
+}
+.ThilBtn input{
+	background: transparent;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+.Luyin input{
+    border: 2px solid #00A0E9;
+    background-color: #5DB9E2;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #fff;
+    padding: 4px 7px;
+    cursor: pointer;
+    margin: 8px 0;
+}
+/*右侧*/
+.ThjlR{
+	width: 138px;
+    float: left;
+    border-left: 1px solid #eaeaea;
+    padding-left: 10px;
+}
+.Thz{
+	
+}
+.Thtop span:first-of-type{
+	background: url(../images/ic_tonghua_call.png) no-repeat;
+	width: 38px!important;
+    height: 38px!important;
+    display: inline-block;
+    
+}
+.Thtop span:last-of-type{
+	font-size: 22px!important;
+	color: #30dd34!important;
+    vertical-align: super;
+}
+.thLz span:first-of-type{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	background: url(../images/ic_tonghua_luzhi.png) no-repeat center;
+}
+.thLz span:last-of-type{
+	font-size: 11px!important;
+	color: #1afff7!important;
+	vertical-align: super;
+}
+.thLz{    
+	border-bottom: 1px solid #61BBE3;
+}
+.ThjlR div span:first-of-type{
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	color: #000;
+}
+.ThjlR div span:last-of-type{
+	font-size: 22px;
+    color: #333;
+    vertical-align: super;
+    margin-left: 5px;
+}
+.Duanxin{
+    margin-top: -20px;
+}
+.Duanxin span:first-of-type{
+	background: url(../images/ic_tonghua_message.png) no-repeat center;
+}
+.Yidong span:first-of-type{
+	background: url(../images/ic_tonghua_move.png) no-repeat center;
+}
+.thDel span:first-of-type{
+	background: url(../images/ic_tonghua_delete.png) no-repeat center;
+}
+.thNext span:first-of-type{
+	background:url(../images/ic_tonghua_next.png) no-repeat center;
+}
+.thXd span:first-of-type{
+	background:url(../images/ic_tonghua_xiadan.png) no-repeat center;
+}
+.thTf span:first-of-type{
+	background:url(../images/ic_tonghua_money.png) no-repeat center;
+}
+.ThjlR div{
+	margin-bottom: 38px;
+}
+.ThjlR div a{
+	text-decoration: none;
+}
+.ThjlR div:first-of-type{
+	margin-bottom: 0;
+}
+.ThjlBqName .Bqlist .gzdq{
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*订单管理-领取客户-回收站*/
+.LQ-huishouz{
+	border-bottom: 1px solid #626262;
+    padding: 15px 0;
+    width: 100%;
+    text-align: right;
+}
+.LQ-huishouz span{
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: 1px solid #1d2088;
+    cursor: pointer;
+}
+.LQ-huishouz .Hsz{
+    background-color: #1d2088;
+    color: #fff;
+    	
+}
+.LQ-huishouz .reg_testdate select{
+    padding: 4px 30px 4px 10px;
+    margin-left: 25px;
+    font-size: 16px!important;
+}
+/*我的客户*/
+.LQ-huishouz .condition{
+	display: inline-block;
+    float: left;
+}
+.LQ-huishouz .condition .condtionCont1:first-child{
+	border-top: none;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+/*可伸缩table表格样式*/
+table{
+		table-layout: fixed;
+    	padding: 25px 40px;
+    		
+	}
+table tr th,td{
+		text-align: center;
+        overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;  
+		border: none;
+		font-weight: normal;
+		height: 40px;
+		
+}
+table tr th{
+		background-color: #556fb5;
+		color: #FFFFFF;
+		font-size: 24px;
+		border-right: 2px solid #1d2088;
+		
+}
+table tr th:last-of-type{
+	border-right: none;
+}
+table tr td{
+	font-size: 18px;
+    color: #626262;
+    border: none !important;
+    border-bottom: 1px solid #1d2088!important;
+    
+}
+table tr td span{
+	font-size: 18px;
+    color: #626262;
+    cursor: pointer;	
+}
+
+/*我的客户/导入/弹窗*/
+#Tctable .proposal {
+    width: 95%;
+    height: 260px;
+    left: 10%;
+}
+#Tctable table{
+	width: 100%;
+	font-size: 26px;
+	color: #333;
+}
+#Tctable table tr th,td{
+	border: 1px solid #00a0e9;
+}
+#Tctable table tr th{
+	background: transparent;
+	border-right: none;
+	color: #333;
+}
+#Tctable table tr th:last-of-type{
+	width: auto;
+	border: 1px solid #00a0e9;
+}
+#Tctable table tr td{
+	border-bottom: 1px solid #00a0e9;
+	border-top: none;
+	border-right: none;
+}
+#Tctable table tr td:last-of-type{
+	border-right: 1px solid #00a0e9;
+}
+#Tctable input {
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.divHSZ{
+	display: inline-block;
+}
+
+/*编辑分组弹窗*/
+.kehuFenzu .Fenlei1{
+    border-radius: 4px;
+    border: 1px solid #00A0E9;
+    color: #333333;
+    margin-bottom: 15px;
+    padding: 2px 16px;
+    font-size: 18px;
+    margin-right: 8px;
+    float: left;
+}
+.kehuFenzu .Felei{
+	padding: 0 25px;
+}
+.Felei .optionAdd{
+	display: inline-block;
+    border: 1px solid #00A0E9;
+    padding: 0 5px;
+    border-radius: 4px;
+    height: 27px;
+    line-height: 24px;
+    cursor: pointer;	
+    vertical-align: top;
+}
+
+

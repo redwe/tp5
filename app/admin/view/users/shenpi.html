@@ -11,6 +11,7 @@
 		<div class="selectionTop">
             {include file="nav" /}
 		</div>
+
         <table id="tb_3" cellspacing="0" cellpadding="2" width="100%" border="1">
             <tbody>
             <tr align="center" bgcolor="#dcdcdc">
@@ -22,54 +23,20 @@
                 <th>标签</th>
                 <th>操作</th>
             </tr>
+            {volist name="lists" id="vo"}
             <tr>
-                <td>一级建造师</td>
-                <td>广东-深圳</td>
-                <td>2018年6月</td>
-                <td>邓子明</td>
-                <td>B</td>
-                <td>意向度较高</td>
+                <td>{$vo.project}</td>
+                <td>{$vo.province}-{$vo.city}</td>
+                <td>{:date("Y年m月d日",strtotime($vo['datetime']))}</td>
+                <td>{$vo.guest}</td>
+                <td>{$vo.intent}</td>
+                <td>{$vo.label}</td>
                 <td>
-                    <span class="ratify">批准</span>
-                    <span class="turnDown">驳回</span>
+                    <span onclick="setexam({$vo.id},1)" data-id="{$vo.id}" class="ratify">批准</span>
+                    <span onclick="setexam({$vo.id},0)" class="turnDown">驳回</span>
                 </td>
             </tr>
-            <tr>
-                <td>一级建造师</td>
-                <td>广东-深圳</td>
-                <td>2018年6月</td>
-                <td>邓子明</td>
-                <td>B</td>
-                <td>意向度较高</td>
-                <td>
-                    <span class="ratify">批准</span>
-                    <span class="turnDown">驳回</span>
-                </td>
-            </tr>
-            <tr>
-                <td>一级建造师</td>
-                <td>广东-深圳</td>
-                <td>2018年6月</td>
-                <td>邓子明</td>
-                <td>B</td>
-                <td>意向度较高</td>
-                <td>
-                    <span class="ratify">批准</span>
-                    <span class="turnDown">驳回</span>
-                </td>
-            </tr>
-            <tr>
-                <td>一级建造师</td>
-                <td>广东-深圳</td>
-                <td>2018年6月</td>
-                <td>邓子明</td>
-                <td>B</td>
-                <td>意向度较高</td>
-                <td>
-                    <span class="ratify">批准</span>
-                    <span class="turnDown">驳回</span>
-                </td>
-            </tr>
+            {/volist}
             </tbody>
         </table>
 
@@ -78,13 +45,16 @@
 		<div class="mask"></div>
 		<div class="popUpsCont">
 			<div class="proposal">
+                <form name="shenpiform" method="post" action="/admin/users/doshenpi">
+                <input type="hidden" name="id" id="shenhe_id" value="">
 				<span class="maskClose">x</span>
 				<p>驳回意见</p>
-				<textarea></textarea>
+				<textarea disabled="true" id="sugges" name="sugges"></textarea>
 				<div class="proposalBtn">
-					<input class="certainBtn" type="button" value="确定"/>
+					<input class="certainBtn" onclick="return checkExam()" type="submit" value="确定"/>
 					<input class="cancelBtn" type="button" value="取消"/>
 				</div>
+                </form>
 			</div>
 		</div>
 	</div>
@@ -94,8 +64,29 @@
 <script>
 	$('.turnDown').click(function(){
 		$('.popUps').css('display','block');
-	})
+	});
 	$('.maskClose').click(function(){
-		$('.popUps').css('display','none');
-	})
+        $('.popUps').css('display','none');
+    });
+    $('.cancelBtn').click(function(){
+        $('.popUps').css('display','none');
+    });
+    function setexam(v,t){
+        $("#shenhe_id").val(v);
+        switch (t){
+            case 1:
+                shenpiform.submit();
+                break;
+            default :
+                $("#sugges").attr("disabled",false);
+                break;
+        }
+    }
+    function checkExam(){
+        var sugges = $("#sugges").val();
+        if(sugges.length<1){
+            alert("请输入驳回意见！");
+            return false;
+        }
+    }
 </script>

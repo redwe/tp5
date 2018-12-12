@@ -26,20 +26,27 @@ class Login extends Controller
             //$request = request();
             $uname = Request::instance()->post("uname");
             $password = Request::instance()->post("password");
+
             if(!empty($uname) && !empty($password)){
                 ///dump($uname.$password);
                 $where['uid'] = $uname;
                 $where['pwd'] = $password;
                 $list = Db::name("users")->where($where)->find();
-                if($list["uname"]){
-                    Session::set('uname',$list['uname']);
-                    Session::set('authorid',$list['fid']);
+
+                $uname = $list['uname'];
+                $fid = $list['fid'];
+
+                if($list){
+                    Session::set('uname',$uname);
+                    Session::set('authorid',$fid);
                     $this->success('登录成功！','/admin/main/index');
+                    //header('Location: /admin/main/index');
                 }
                 else
                 {
                     $this->error('登录名或密码错误！');
                 }
+
             }
             else
             {
@@ -56,6 +63,6 @@ class Login extends Controller
 
     public function logout(){
         Session::delete('uname');
-        $this->success('您已经成功退出！','/admin/login/index');
+        $this->success('您已经成功退出！','/admin');
     }
 }

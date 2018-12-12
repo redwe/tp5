@@ -123,7 +123,6 @@
 							<span class="Move" data-id="{$vo.id}">删除</span>
                         </td>
                     </tr>
-
 		           {/volist}
             </tbody>
         </table>
@@ -176,6 +175,7 @@
     //	删除
     $('.Move').click(function(){
         $(this).parent().parent().remove();
+        getdeluser();
     });
     function getdeluser(){
         var delsheng = $("#delsheng").find("option:selected").text();

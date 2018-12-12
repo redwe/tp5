@@ -6,6 +6,9 @@
 	</head>
 	<link rel="stylesheet" href="/static/css/common.css" />
 	<link rel="stylesheet" href="/static/css/index.css" />
+    <style>
+        .jilu_td span{ padding-top: 10px;}
+    </style>
 	<body>
 			<div class="selectionTop">
                 {include file="nav" /}
@@ -55,13 +58,14 @@
                     <th>业务员</th>
                     <th width="500">操作</th>
                 </tr>
+                {volist name="lists" id="vo"}
                 <tr>
-                    <td>一级建造师</td>
-                    <td>梁超</td>
-                    <td>2018/10/12-2014:30:32</td>
-                    <td>00:05:36</td>
-                    <td>木桐</td>
-                    <td>
+                    <td>{$vo.project}</td>
+                    <td>{$vo.guest}</td>
+                    <td>{$vo.datetime}</td>
+                    <td>{$vo.times}</td>
+                    <td>{$vo.saler}</td>
+                    <td class="jilu_td">
                         <span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="电话" /></span>
                         <span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="邮箱" /></span>
                         <span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="操作" /></span>
@@ -70,6 +74,7 @@
                         <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
                     </td>
                 </tr>
+                {/volist}
                 </tbody>
             </table>
 	</body>

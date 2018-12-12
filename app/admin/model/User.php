@@ -58,11 +58,11 @@ class User extends Model
 
     public function getSoundList($where,$limit){
         $join = [
-            ["users u",'u.uname = d.saler'],["shengs s",'s.id=u.sid'],["fenbus b","b.id=u.bid"],["shenfens f","u.fid=f.id"],["gangweis g","g.id=u.gid"]
+            ["users u",'u.uname = ds.saler'],["shengs s",'s.id=u.sid'],["fenbus b","b.id=u.bid"],["shenfens f","u.fid=f.id"],["gangweis g","g.id=u.gid"]
         ];
-        $field = 'd.*,u.uname,s.sheng,b.fenbu,f.shenfen,g.gangwei';
+        $field = 'ds.*,u.uname,s.sheng,b.fenbu,f.shenfen,g.gangwei';
         $lists = Db::name("sounds")
-            ->alias("d")
+            ->alias("ds")
             ->join($join)
             ->field($field)
             ->where($where)

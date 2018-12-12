@@ -14,16 +14,11 @@ class Main extends Common
 
         $shengobj = new User();
         $admin = Session::get('uname');
+
         $where["uname"] = $admin;
-        $topuser = $shengobj->getUserList($where,1);
-        if($topuser[0]){
-            $topu = $topuser[0];
-        }
-        else
-        {
-            $topu = [];
-        }
-        $view->assign('topuser',$topu);
+        $topusers = $shengobj->getUserList($where,1);
+
+        $view->assign('topusers',$topusers);
         $view->assign('admin',$admin);
 
         $authorid = Session::get('authorid');

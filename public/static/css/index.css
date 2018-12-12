@@ -446,6 +446,15 @@ body{
     height: 50px;
     line-height: 50px;
 }
+.drMb div a{
+    font-size: 20px;
+    text-decoration: none;
+    color: #333;
+}
+.drMb div input{
+    font-size: 20px;
+    color: #333;
+}
 
 /*加入a标签后调整的样式*/
 .condtionArea span a{
@@ -577,7 +586,7 @@ table tr td:last-of-type span{
     margin-left: 25px;
     cursor: pointer;
     height: 40px;
-    line-height: 55px;
+    line-height: 40px;
 }
 table tr td.YHBli{
     width: 12%;
@@ -616,7 +625,7 @@ table tr td select.Sel{
     background-size: 8%;
 }
 table tr td input.Cur {
-    background: url(../images/ic_editor.png) no-repeat right 8px;
+    background: url(../images/ic_editor.png) no-repeat 150px 0px;
     background-size: 8%;
 }
 table tr td a{
@@ -628,3 +637,23 @@ table tr td input{
     font-size: 13px;
     height: auto;
 }
+/*用户管理、删除操作弹窗*/
+.YHxyzy {
+    font-size: 20px;
+    display: block;
+    text-align: center;
+}
+.proposal select.YHarea {
+    margin-left: 7%;
+}
+.proposal select {
+    border: 1px solid #00a0e9;
+    border-radius: 4px;
+    font-size: 20px;
+    margin-right: 5%;
+    margin: 15px 0 20px;
+}
+.proposal select option {
+    font-size: 20px;
+}
+

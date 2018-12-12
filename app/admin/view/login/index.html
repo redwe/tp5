@@ -3,15 +3,17 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>后台登录</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/main.css">
     <style>
         body{ background:#556fb5; }
+        table td{ border: 0px; }
     </style>
 </head>
 <body>
-<div style="width: 360px; padding: 30px; margin: auto; margin-top: 300px; background-color:#336699; border: #113366 1px solid">
+<div style="width: 560px; padding: 30px; margin: auto; margin-top: 200px; background-color:#336699; border: #113366 1px solid">
     <h1 style="color: #fff; text-align: center">后台登录</h1>
     <form name="loginform" action="/admin/login/dologin" method="post">
-<table>
+<table style="border: 0px; width: 100%">
     <tr>
         <td>用户名：</td><td><input type="text" name="uname" value=""></td>
    </tr>
@@ -19,7 +21,7 @@
         <td>密 码：</td><td><input type="password" name="password" value=""></td>
     </tr>
     <tr>
-        <td> </td><td><input type="submit" name="b1" value="登录"></td>
+        <td> </td><td><input style="background-color: #113366; color: #fff; border: 0px;" type="submit" name="b1" value=" 登 录 "></td>
     </tr>
 </table>
     </form>

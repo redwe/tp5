@@ -294,6 +294,7 @@ class Ziyuan extends Common
         $result = 0;
         //dump($ids);
         $where["status"] = 1;
+        $where['exam'] = 0;
 
             if(!empty($ids)){
                 $where["id"] = ["in",$ids];
@@ -346,6 +347,7 @@ class Ziyuan extends Common
         //dump($ids);
         $result = 0;
         $where["status"] = 0;
+        $where['exam'] = 0;
         if(!empty($ids)){
             $where["id"] = ["in",$ids];
         }

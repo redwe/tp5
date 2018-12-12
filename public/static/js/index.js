@@ -13,8 +13,9 @@ $(function(){
     //用户管理、用户操作可以修改input可编辑状态
     $('table tr td .edit').click(function(){
         if($(this).html()=='保存'){
-            $(this).css('background-color','#fff')
-            $(this).css('color','#626262')
+            editform.submit();
+            $(this).css('background-color','#fff');
+            $(this).css('color','#626262');
             $(this).html('修改');
             $(this).parent().siblings().children('input').attr("disabled","disabled");
             $(this).parent().siblings().children('select').attr("disabled","disabled");
@@ -33,7 +34,7 @@ $(function(){
 
     })
     //用户管理、用户操作可以删除用户信息状态
-    $('.approvalCont ul div .Move').click(function(){
+    $('.Move').click(function(){
         var delid = $(this).data("id");
         $("#delid").val(delid);
         $('.popUps').css('display','block');

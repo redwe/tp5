@@ -29,16 +29,18 @@ function getChecks(str){
     $('input[name='+str+']:checked').each(function(){
         ids.push($(this).val());
     });
-    if(ids){
-        return ids;
+    if(ids.length > 0){
+       return ids;
     }
     else
     {
         alert("请选择需要操作的记录！");
+        return false;
     }
 }
 
 function delAll(m,d){
+
     if(d==1){
         url = "/admin/ziyuan/delzy";
     }
@@ -46,21 +48,28 @@ function delAll(m,d){
     {
         url = "/admin/ziyuan/del";
     }
-    switch (m){
-        case 200:
-            window.location.href = url+"/limit/200";
-            break;
-        case 500:
-            window.location.href = url+"/limit/500";
-            break;
-        default :
-            var ids = getChecks("delid");
-            //alert(ids);
-            $("#ids").val(ids);
-            delform.action = url;
-            delform.submit();
-            break;
-    }
+        switch (m){
+            case 200:
+                if(confirm("确认要删除200条最旧的信息吗？")) {
+                    window.location.href = url + "/limit/200";
+                }
+                break;
+            case 500:
+                if(confirm("确认要删除500条最旧的信息吗？")) {
+                    window.location.href = url + "/limit/500";
+                }
+                break;
+            default :
+                var ids = getChecks("delid");
+                if(ids && confirm("确认要删除勾选的信息吗？")) {
+                    //alert(ids);
+                    $("#ids").val(ids);
+                    delform.action = url;
+                    delform.submit();
+                }
+                break;
+        }
+
 }
 
 $("#recycle").click(function(){

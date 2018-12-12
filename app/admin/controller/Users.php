@@ -78,6 +78,7 @@ class Users extends Common
     //编辑用户
     public function editpost(){
 
+        //dump($_POST);
         $mid = Request::instance()->post("mid");
         $uid = Request::instance()->post("uid");
         $pwd = Request::instance()->post("pwd");
@@ -103,7 +104,6 @@ class Users extends Common
         {
             $this->error("保存失败！");
         }
-
     }
 
     //新建用户
@@ -137,6 +137,7 @@ class Users extends Common
         return $view->fetch();
     }
 
+    //添加用户
     public function addpost(){
 
         $uname = Request::instance()->post("userName");
@@ -209,7 +210,7 @@ class Users extends Common
             }
         }
     }
-
+    //删除用户
     public function deluser(){
 
         $delid = Request::instance()->param("delid");
@@ -224,6 +225,7 @@ class Users extends Common
         $this->success("删除成功！");
     }
 
+    //用户列表
     public function getuserlist(){
         $delsheng = Request::instance()->param("dels");
         $delfenbu = Request::instance()->param("delf");
@@ -267,14 +269,14 @@ class Users extends Common
         return $result;
     }
 
-
+    //通话记录
     public function jilu()
     {
         $nav = Request::instance()->get("nav");
         $view = new View();
         $view->assign('nav',$nav);
 
-        $where['d.status'] = 1;
+        $where['ds.status'] = 1;
 
         $province = Request::instance()->post("province");
         $department = Request::instance()->post("department");
@@ -306,6 +308,8 @@ class Users extends Common
 
         $lists = $shengobj->getSoundList($where,10);
 
+        //dump($lists);
+
         $view->assign('lists',$lists);
         $view->assign('nav',$nav);
         $page = $lists->render();
@@ -314,19 +318,48 @@ class Users extends Common
         return $view->fetch();
     }
 
+    //审批列表
     public function shenpi()
     {
         $nav = Request::instance()->get("nav");
         $view = new View();
+
+        $where['status'] = 1;
+        $where['exam'] = 0;
+
+        $authorid = $this->getAuthor();
+        $view->assign('authorid',$authorid);
+
+        $lists = Db::name("resource")->where($where)->paginate(20);
+        //dump($lists);
+        $view->assign('lists',$lists);
         $view->assign('nav',$nav);
+        $page = $lists->render();
+        $view->assign('page', $page);
         return $view->fetch();
+    }
+
+    //操作审批或驳回
+    public function doshenpi(){
+
+        $id = Request::instance()->post("id");
+        $sugges = Request::instance()->post("sugges");
+        if(isset($sugges)){
+            //ump($sugges);
+            $this->success("驳回操作成功！");
+        }
+        else
+        {
+            //dump($id);
+            $this->success("审批成功！");
+        }
+
     }
 
     //修改密码
     public function password(){
 
         $view = new View();
-
         $authorid = $this->getAuthor();
         $view->assign('authorid',$authorid);
 

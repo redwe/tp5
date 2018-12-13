@@ -32,14 +32,20 @@
                 <td>{$vo.intent}</td>
                 <td>{$vo.label}</td>
                 <td>
-                    <span onclick="setexam({$vo.id},1)" data-id="{$vo.id}" class="ratify">批准</span>
-                    <span onclick="setexam({$vo.id},0)" class="turnDown">驳回</span>
+                    {if condition="$vo['exam']==0"}
+                    <span onclick="setexam({$vo.oid},1)" data-id="{$vo.id}" class="ratify">批准</span>
+                    <span onclick="setexam({$vo.oid},0)" data-id="{$vo.sugges}" class="turnDown">驳回</span>
+                    {else /}
+                    <span style="color: #999"  data-id="{$vo.id}" class="">已批准</span>
+                    <span style="color: #999" data-id="{$vo.sugges}" class="">驳回</span>
+                    {/if}
+
                 </td>
             </tr>
             {/volist}
             </tbody>
         </table>
-
+        {$page}
 	</body>
 	<div class="popUps">
 		<div class="mask"></div>
@@ -63,6 +69,8 @@
 <script src="/static/js/table.js"></script>
 <script>
 	$('.turnDown').click(function(){
+        var temp = $(this).data("id");
+        $("#sugges").val(temp);
 		$('.popUps').css('display','block');
 	});
 	$('.maskClose').click(function(){

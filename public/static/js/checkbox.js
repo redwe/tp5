@@ -39,15 +39,8 @@ function getChecks(str){
     }
 }
 
-function delAll(m,d){
+function delAll(m,url){
 
-    if(d==1){
-        url = "/admin/ziyuan/delzy";
-    }
-    else
-    {
-        url = "/admin/ziyuan/del";
-    }
         switch (m){
             case 200:
                 if(confirm("确认要删除200条最旧的信息吗？")) {

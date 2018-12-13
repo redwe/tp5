@@ -324,13 +324,21 @@ class Users extends Common
         $nav = Request::instance()->get("nav");
         $view = new View();
 
-        $where['status'] = 1;
-        $where['exam'] = 0;
+        $where['r.status'] = 1;
+        //$where['o.exam'] = 0;
 
         $authorid = $this->getAuthor();
         $view->assign('authorid',$authorid);
-
-        $lists = Db::name("resource")->where($where)->paginate(20);
+        $join = [
+            ["orders o","o.pid=r.id"]
+        ];
+        $field = "r.*,o.exam,o.sugges,o.id as oid";
+        $lists = Db::name("resource")
+            ->alias("r")
+            ->join($join)
+            ->field($field)
+            ->where($where)
+            ->paginate(20);
         //dump($lists);
         $view->assign('lists',$lists);
         $view->assign('nav',$nav);
@@ -347,7 +355,7 @@ class Users extends Common
         if(isset($sugges)){
             $where["id"] = $id;
             $data["sugges"] = $sugges;
-            $result = Db::name("resource")->where($where)->update($data);
+            $result = Db::name("orders")->where($where)->update($data);
             if($result){
                 $this->success("驳回操作成功！");
             }
@@ -360,7 +368,7 @@ class Users extends Common
         {
             $where["id"] = $id;
             $data["exam"] = 1;
-            $result = Db::name("resource")->where($where)->update($data);
+            $result = Db::name("orders")->where($where)->update($data);
             if($result){
                 $this->success("审批成功！");
             }

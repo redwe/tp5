@@ -38,13 +38,11 @@
 		<div id="mainPageTop" class="mainPageTop">
 			<div class="personal">
 				<div class="personalCont">
-                    {volist name='$topusers' id='vo'}
 					<span>{$admin}</span>
 					<img src="/static/images/bg_touxiang.png" width="64" height="64"/>
-					<span>{$vo.sheng} </span>
-					<span>{$vo.fenbu}</span>
-					<span>{$vo.gangwei}</span>
-                    {/volist}
+					<span>{$topusers.sheng} </span>
+					<span>{$topusers.fenbu}</span>
+					<span>{$topusers.gangwei}</span>
 				</div>
                 <div style="position: absolute; top:30px; right:30px;">
                     <a target="rightmain" class="top_a" href="/admin/users/password">[修改密码]</a>
@@ -73,16 +71,16 @@
                 <li><a target="rightmain" href="/admin/ziyuan/kecheng/menu/1/nav3/0">资源管理</a></li>
                 {php}
                 }
-                if($userModel->checkAuthor($authorid,"/admin/users/add")){
+                if($userModel->checkAuthor($authorid,"/admin/users/jilu")){
                 {/php}
-                <li><a target="rightmain" href="/admin/users/add/menu/2/nav/0">用户管理</a> </li>
+                <li><a target="rightmain" href="/admin/users/jilu/menu/2/nav/2">用户管理</a> </li>
                 {php}
                 }
                 {/php}
 			</ul>
 		</div>
 		<div class="mainPageRight">
-			<iframe id="rightmain" style="width: 100%; height: 100%;" name="rightmain" src="/admin/xiangmu/kecheng/menu/0/nav2/0"></iframe>
+			<iframe id="rightmain" style="width: 100%; height: 100%;" name="rightmain" src="/admin/main/welcome"></iframe>
 		</div>
 	</body>
 </html>

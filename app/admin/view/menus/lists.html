@@ -9,7 +9,7 @@
 <div class="main_table">
     <h1 style="text-align: center">菜单列表 [<a href="/admin/menus/add">添加新菜单</a>]</h1>
     <table width="100%" style="border: #aaa 1px solid" cellspacing="0">
-        <tr style="background-color: #113366">
+        <tr style="background-color: #3366aa">
             <th>序号</th>
             <th>菜单名称</th>
             <th>所属模块</th>
@@ -21,9 +21,9 @@
             <th>操作</th>
        </tr>
         {volist name="lists" id="vo"}
-        <tr style="background-color:#336699; color: #fff;">
+        <tr style="background-color:#5577aa; color: #fff;">
             <td>{$vo.id}</td>
-            <td><a href="/{$vo.m_model}/{$vo.m_ctrl}/{$vo.m_method}/{$vo.m_param}">{$vo.m_name}</a></td>
+            <td><a style="color: #fff" href="/{$vo.m_model}/{$vo.m_ctrl}/{$vo.m_method}/{$vo.m_param}">{$vo.m_name}</a></td>
             <td>{$vo.m_model}</td>
             <td>{$vo.m_ctrl}</td>
             <td>{$vo.m_method}</td>
@@ -31,8 +31,8 @@
             <td>{$vo.m_icon}</td>
             <td>{$vo.levels}</td>
             <td>
-                <a href="/admin/menus/edit/id/{$vo['id']}">编辑</a> |
-                <a href="/admin/menus/del/id/{$vo['id']}">删除</a>
+                <a style="color: #fff" href="/admin/menus/edit/id/{$vo['id']}">编辑</a> |
+                <a style="color: #fff" href="/admin/menus/del/id/{$vo['id']}">删除</a>
             </td>
         </tr>
         {php}

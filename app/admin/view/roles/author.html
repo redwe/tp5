@@ -12,11 +12,11 @@
     <h1 style="text-align: center">[{$sf}] 访问权限设置</h1>
     <form name="authorform" method="post" action="/admin/roles/save_auth">
     <table width="100%" cellspacing="0">
-        <tr style="background-color: #113366">
+        <tr style="background-color: #335599">
             <th>序号</th>
             <th>菜单名称</th>
             <th>访问路径</th>
-            <th>授权 <input type="checkbox" name="checkall" onclick="setCheckbox(this,'checkid')" value=""></th>
+            <th>授权 <input style="width: 40px;" type="checkbox" name="checkall" onclick="setCheckbox(this,'checkid')" value=""></th>
         </tr>
         {volist name="lists" id="vo"}
         <tr style="background-color: #ddd;">

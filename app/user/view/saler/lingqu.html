@@ -3,96 +3,115 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>CRM主界面-销售员-领取客户</title>
+    <link rel="stylesheet" href="/static/css/common.css" />
     <link rel="stylesheet" href="/static/css/Seller.css" />
 <body>
 <div class="condition">
+    <form name="lqform" method="post" action="/user/saler/lingqu">
     <div class="condtionCont1">
         <span>地区：</span>
         <div class="condtionArea">
-            <span class=""><a href="#">广东省</a></span>
-            <span class=""><a href="#">湖南省</a></span>
-            <span class="current"><a href="#">河南省</a></span>
+            {volist name="shenglist" id="vo" key="key"}
+            {if condition = "$province == $vo['sheng']"}
+            <span data-id="{$vo['sheng']}" class="getspanv1 current">{$vo['sheng']}</span>
+            {else /}
+            <span data-id="{$vo['sheng']}" class="getspanv1">{$vo['sheng']}</span>
+            {/if}
+            {/volist}
+            <input name="province" type="hidden" id="province" value="{$province}">
         </div>
     </div>
     <div class="condtionCont1">
         <span>项目：</span>
-        <div class="reg_testdate" name="reg_testdate">
-            <select>
-                <option value="">课程</option>
-                <option value="">课程1</option>
-                <option value="">课程2</option>
-                <option value="">课程3</option>
+        <div class="reg_testdate">
+            <select name="project">
+                <option value="">选择项目</option>
+                {volist name="xmlist" id="vo"}
+                {if condition = "$project == $vo['project']"}
+                <option selected value="{$vo.project}">{$vo.project}</option>
+                {else /}
+                <option value="{$vo.project}">{$vo.project}</option>
+                {/if}
+                {/volist}
             </select>
-            <select>
-                <option value="">学历</option>
-                <option value="">学历1</option>
-                <option value="">学历2</option>
+            <select name="xueli">
+                <option value="">选择学历</option>
+                {volist name="xmlist2" id="vo2"}
+                 <option value="{$vo2.project}">{$vo2.project}</option>
+                {/volist}
             </select>
-            <select>
-                <option value="">证书</option>
-                <option value="">证书1</option>
-                <option value="">证书2</option>
+            <select name="zhengshu">
+                <option value="">选择证书</option>
+                {volist name="xmlist3" id="vo3"}
+                <option value="{$vo3.project}">{$vo3.project}</option>
+                {/volist}
             </select>
         </div>
     </div>
     <div class="condtionCont1">
         <span>时间：</span>
         <div class="condtionArea">
-            <span class=""><a href="#">本周</a></span>
-            <span class="current"><a href="#">本月</a></span>
-            <div class="Ftextdate">
-                <form class="reg_testdate" name="reg_testdate">
-                    <select name="YYYY" onChange="YYYYDD(this.value)">
+            <div>
+                <span class="getspanv2 " data-id="7">本周</span>
+                <span class="getspanv2" data-id="30">本月</span>
+                <input name="day_num" type="hidden" id="day_num" value="">
+            </div>
+
+            <div class="Ftextdate" style="padding-top: 3px;">
+                <div class="reg_testdate">
+                    <select name="startY" id="startY" onChange="YYYYDD(this,this.value,'startD')">
                         <option value="">请选择 年</option>
                     </select>
-                    <select name="MM" onChange="MMDD(this.value)">
+                    <select name="startM" id="startM" onChange="MMDD(this,this.value,'startD')">
                         <option value="">选择 月</option>
                     </select>
-                    <select name="DD">
+                    <select name="startD" id="startD">
                         <option value="">选择 日</option>
                     </select>
-                </form>
+                </div>
                 <div class="Separator">—</div>
-                <form class="reg_testdate" name="reg_testdatew">
-                    <select name="YYYY" onChange="YYYYDD(this.value)">
+                <div class="reg_testdate">
+                    <select name="endY" id="endY" onChange="YYYYDD(this,this.value,'endD')">
                         <option value="">请选择 年</option>
                     </select>
-                    <select name="MM" onChange="MMDD(this.value)">
+                    <select name="endM" id="endM" onChange="MMDD(this,this.value,'endD')">
                         <option value="">选择 月</option>
                     </select>
-                    <select name="DD">
+                    <select name="endD" id="endD">
                         <option value="">选择 日</option>
                     </select>
-                </form>
-                <div class="timeBtn"><input type="button" value="确认"/></div>
+                </div>
+                <!----<div class="timeBtn"><input type="button" value="确认"/></div>--->
             </div>
         </div>
     </div>
     <div class="condtionCont1">
         <span>意向：</span>
         <div class="condtionArea">
-            <span class=""><a href="#">A (要报班)</a></span>
-            <span class="current"><a href="#">B (考虑中)</a></span>
-            <span class=""><a href="#">C (以后再说)</a></span>
+            <span data-id="A" class="getspanv3">A (要报班)</span>
+            <span data-id="B" class="getspanv3 ">B (考虑中)</span>
+            <span data-id="C" class="getspanv3">C (以后再说)</span>
+            <input name="intent" type="hidden" id="intent" value="">
         </div>
     </div>
-
-
     <div class="conditionSearch">
-        <input class="searchBtn" type="button" value="搜索"/>
-        <input class="searchInput" type="text" />
+        <input class="searchBtn" type="submit" value="搜索"/>
+        <input class="searchInput" type="text" name="keyword" />
         <div class="Dels">
             <span>操作：</span>
-            <input type="button" value="批量删除200条"/>
-            <input type="button" value="批量删除500条"/>
-            <input type="button" value="删除所勾选客户"/>
+            <input type="button" onclick="delAll(200,'/user/saler/delzy')" value="批量删除200条"/>
+            <input type="button" onclick="delAll(500,'/user/saler/delzy')" value="批量删除500条"/>
+            <input type="button" onclick="delAll(0,'/user/saler/delzy')"  value="删除所勾选客户"/>
         </div>
     </div>
+    </form>
 </div>
+<div class="condtionArea">
+<form name="delform" method="post" action="/user/saler/delzy">
 <table id="tb_3" cellspacing="0" cellpadding="2" width="100%" border="1">
     <tbody>
     <tr align="center" bgcolor="#dcdcdc">
-        <th><input id="all" type="checkbox" value="" /></th>
+        <th><input id="all" type="checkbox" onclick="setCheckbox(this,'delid')" value="" /></th>
         <th>项目</th>
         <th>地区</th>
         <th>时间</th>
@@ -101,68 +120,26 @@
         <th>标签</th>
         <th>操作</th>
     </tr>
+    {volist name="zylist" id="vo"}
     <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
+        <td><input type="checkbox" name="delid" class="delid" value="{$vo.id}" /></td>
+        <td>{$vo.project}</td>
+        <td>{$vo.province}-{$vo.city}</td>
+        <td>{$vo.datetime}</td>
+        <td>{$vo.guest}</td>
+        <td>{$vo.intent}</td>
+        <td>{$vo.label}</td>
         <td>
-            <span class="">领取</span>
+            <span class="span"><a href="/user/saler/dolingqu/id/{$vo.id}">领取</a></span>
         </td>
     </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
+    {/volist}
     </tbody>
 </table>
+{$page}
+<input name="ids" id="ids" type="hidden" value="">
+</form>
+</div>
 <div class="popUps">
     <div class="mask"></div>
     <div class="popUpsCont">
@@ -178,78 +155,111 @@
     </div>
 </div>
 <script src="/static/js/jquery-2.1.4.min.js"></script>
-<script src="/static/js/fanxuan.js"></script>
+<script src="/static/js/checkbox.js"></script>
 <script src="/static/js/table.js"></script>
 
 <script>
     $('.condtionCont1 div span').click(function(){
         $(this).addClass('current').siblings().removeClass();
-    })
-    //删除操作效果
-    //  $('.zyDel').click(function(){
-    //  	$(this).parent().parent('ul').remove();
-    //  })
-
+    });
     //  select样式调整
     $('.reg_testdate select').click(function(){
         $(this).toggleClass('current');
-    })
-
-
+    });
+    $(function(){
+        YMDstart("startY","startM","startD");
+        YMDstart("endY","endM","endD");
+    });
     //	时间选择三级联动111
-    function YYYYMMDDstart(){
+    function YMDstart(yid,mid,did){
         MonHead = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
+        var data = new Date();
+        var now = data.getTime();   //获取当前时间毫秒
+        //alert(now);
         //先给年下拉框赋内容
-        var y  = new Date().getFullYear();
-        for (var i = (y-30); i < (y+30); i++) //以今年为准，前30年，后30年
-            document.reg_testdate.YYYY.options.add(new Option(" "+ i +" 年", i));
+        var y  = data.getFullYear();
+        var M = data.getMonth() + 1;
+        var n = MonHead[data.getMonth()];
 
+        for (var i = (y-30); i < (y+1); i++) //以今年为准，前30年，后30年
+        {
+            if(y==i){
+                $("#"+yid).append("<option selected value='"+i+"'>"+ i +" 年</option>");
+            }else{
+                $("#"+yid).append("<option value='"+i+"'>"+ i +" 年</option>");
+            }
+        }
         //赋月份的下拉框
         for (var i = 1; i < 13; i++)
-            document.reg_testdate.MM.options.add(new Option(" " + i + " 月", i));
-
-        document.reg_testdate.YYYY.value = y;
-        document.reg_testdate.MM.value = new Date().getMonth() + 1;
-        var n = MonHead[new Date().getMonth()];
-        if (new Date().getMonth() ==1 && IsPinYear(YYYYvalue)) n++;
-        writeDay(n); //赋日期下拉框Author:meizz
-        document.reg_testdate.DD.value = new Date().getDate();
+        {
+            if(M==i){
+                $("#"+mid).append("<option selected value='"+i+"'>"+ i +" 月</option>");
+            }else{
+                $("#"+mid).append("<option value='"+i+"'>"+ i +" 月</option>");
+            }
+        }
+        if (M == 1 && IsPinYear(y)) n++;
+        writeDay(n,did);
     }
-    if(document.attachEvent)
-        window.attachEvent("onload", YYYYMMDDstart);
-    else
-        window.addEventListener('load', YYYYMMDDstart, false);
-    function YYYYDD(str) //年发生变化时日期发生变化(主要是判断闰平年)
+    function YYYYDD(s1,str,did) //年发生变化时日期发生变化(主要是判断闰平年)
     {
-        var MMvalue = document.reg_testdate.MM.options[document.reg_testdate.MM.selectedIndex].value;
-        if (MMvalue == ""){ var e = document.reg_testdate.DD; optionsClear(e); return;}
+        var MMvalue = s1.options[s1.selectedIndex].value;
+        if (MMvalue == ""){ optionsClear(did); return;}
         var n = MonHead[MMvalue - 1];
         if (MMvalue ==2 && IsPinYear(str)) n++;
-        writeDay(n)
+        writeDay(n,did)
     }
-    function MMDD(str)   //月发生变化时日期联动
+    function MMDD(s1,str,did)   //月发生变化时日期联动
     {
-        var YYYYvalue = document.reg_testdate.YYYY.options[document.reg_testdate.YYYY.selectedIndex].value;
-        if (YYYYvalue == ""){ var e = document.reg_testdate.DD; optionsClear(e); return;}
+        var YYYYvalue = s1.options[s1.selectedIndex].value;
+        if (YYYYvalue == ""){ optionsClear(did); return;}
         var n = MonHead[str - 1];
         if (str ==2 && IsPinYear(YYYYvalue)) n++;
-        writeDay(n)
-    }
-    function writeDay(n)   //据条件写日期的下拉框
-    {
-        var e = document.reg_testdate.DD; optionsClear(e);
-        for (var i=1; i<(n+1); i++)
-            e.options.add(new Option(" "+ i + " 日", i));
+        writeDay(n,did)
     }
     function IsPinYear(year)//判断是否闰平年
     {
-        return(0 == year%4 && (year%100 !=0 || year%400 == 0));
+        return (0 == year%4 && (year%100 !=0 || year%400 == 0));
     }
-    function optionsClear(e)
+    function writeDay(n,did){
+        var d = new Date().getDate();
+        for (var i = 1; i <= n; i++) {
+            if(i==d){
+                $("#"+did).append("<option selected value='"+i+"'>"+ i +" 日</option>");
+            }
+            else
+            {
+                $("#"+did).append("<option value='"+i+"'>"+ i +" 日</option>");
+            }
+        }
+    }
+    function optionsClear(id)
     {
-        e.options.length = 1;
+        $("#"+id).empty();
     }
+//获取span的值地区
+    $(".getspanv1").each(function(){
+        $(this).click(function(){
+            var temp = $(this).html();
+            $("#province").val(temp);
+        })
+    });
+
+    //获取span的值时间
+    $(".getspanv2").each(function(){
+        $(this).click(function(){
+            var temp = $(this).data("id");
+            $("#day_num").val(temp);
+        })
+    });
+
+    //获取span的值意向
+    $(".getspanv3").each(function(){
+        $(this).click(function(){
+            var temp = $(this).data("id");
+            $("#intent").val(temp);
+        })
+    })
 
 </script>
 </body>

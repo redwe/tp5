@@ -67,13 +67,13 @@
 					<div class="Dels">
 						<span>操作：</span>
                         {if condition = "$hsz==1"}
-                            <input type="button" onclick="delAll(200,1)" value="批量删除200条"/>
-                            <input type="button" onclick="delAll(500,1)" value="批量删除500条"/>
-                            <input type="button" onclick="delAll(0,1)" value="删除所勾选客户"/>
+                            <input type="button" onclick="delAll(200,'/admin/ziyuan/delzy')" value="批量删除200条"/>
+                            <input type="button" onclick="delAll(500,'/admin/ziyuan/delzy')" value="批量删除500条"/>
+                            <input type="button" onclick="delAll(0,'/admin/ziyuan/delzy')" value="删除所勾选客户"/>
                         {else /}
-                            <input type="button" onclick="delAll(200,0)" value="彻底删除200条"/>
-                            <input type="button" onclick="delAll(500,0)" value="彻底删除500条"/>
-                            <input type="button" onclick="delAll(0,0)" value="彻底删除勾选客户"/>
+                            <input type="button" onclick="delAll(200,'/admin/ziyuan/del')" value="彻底删除200条"/>
+                            <input type="button" onclick="delAll(500,'/admin/ziyuan/del')" value="彻底删除500条"/>
+                            <input type="button" onclick="delAll(0,'/admin/ziyuan/del')" value="彻底删除勾选客户"/>
                         {/if}
 					</div>
 				</div>

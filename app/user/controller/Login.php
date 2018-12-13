@@ -5,6 +5,7 @@ use think\View;
 use think\Request;
 use think\Db;
 use think\Session;
+use app\user\model\User;
 
 class Login extends Controller
 {
@@ -18,24 +19,37 @@ class Login extends Controller
     {
         if (Request::instance()->isPost()){
             //$request = request();
-            $uname = Request::instance()->post("uname");
+            $uid = Request::instance()->post("uname");
             $password = Request::instance()->post("password");
 
-            if(!empty($uname) && !empty($password)){
-                ///dump($uname.$password);
-                $where['uid'] = $uname;
-                $where['pwd'] = $password;
-                $list = Db::name("users")->where($where)->find();
+            if(!empty($uid) && !empty($password)){
 
+                $where['u.uid'] = $uid;
+                $where['u.pwd'] = $password;
+                //$where['u.status'] = 1;
+
+                $userObj = new User();
+                $list = $userObj->getUserList($where,1);
+
+                $uid = $list['id'];
                 $uname = $list['uname'];
                 $fid = $list['fid'];
+                $province = $list['sheng'];
+                $status = $list['status'];
 
                 if($list){
-                    Session::set('uname',$uname);
-                    Session::set('authorid',$fid);
-                    //dump($list);
-                    $this->success('登录成功！','/user/main/index');
-                    //header('Location: /user/main/index');
+                    if($status==0){
+                        $this->error('该用户已经被禁用，请与管理员联系！');
+                    }
+                    else{
+                        Session::set('uid',$uid);
+                        Session::set('saler',$uname);
+                        Session::set('authorid',$fid);
+                        Session::set('province',$province);
+                        //dump($list);
+                        $this->success('登录成功！','/user/main/index');
+                        //header('Location: /user/main/index');
+                    }
                 }
                 else
                 {

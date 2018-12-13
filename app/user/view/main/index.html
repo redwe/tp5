@@ -33,18 +33,15 @@
 	<body>
     {php}
         $userModel = model('app\user\model\User');
-        //dump($topusers);
     {/php}
 		<div id="mainPageTop" class="mainPageTop">
 			<div class="personal">
 				<div class="personalCont">
-                    {volist name='$topusers' id='vo'}
 					<span>{$admin}</span>
 					<img src="/static/images/bg_touxiang.png" width="64" height="64"/>
-					<span>{$vo.sheng} </span>
-					<span>{$vo.fenbu}</span>
-					<span>{$vo.gangwei}</span>
-                    {/volist}
+					<span>{$topusers.sheng} </span>
+					<span>{$topusers.fenbu}</span>
+					<span>{$topusers.gangwei}</span>
 				</div>
                 <div style="position: absolute; top:30px; right:30px;">
                     <a target="rightmain" class="top_a" href="/user/main/password">[修改密码]</a>

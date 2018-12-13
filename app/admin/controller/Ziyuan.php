@@ -7,6 +7,7 @@
  */
 namespace app\admin\controller;
 use app\admin\controller\Common;
+use think\Session;
 use think\View;
 use think\Request;
 use think\Db;
@@ -53,6 +54,13 @@ class Ziyuan extends Common
         $where['status'] = $status;
         $where['zytype'] = "kecheng";
 
+        $User_province = Session::get("province");
+        $view->assign('User_province',$User_province);
+
+        if(!empty($User_province) && $authorid != 3){
+            $where["province"] = $User_province;
+        }
+
         if(!empty($project)){
             $where['project'] = $project;
         }
@@ -91,6 +99,13 @@ class Ziyuan extends Common
 
         $authorid = $this->getAuthor();
         $view->assign('authorid',$authorid);
+
+        $User_province = Session::get("province");
+        $view->assign('User_province',$User_province);
+
+        if(!empty($User_province) && $authorid != 3){
+            $where["province"] = $User_province;
+        }
 
         $status = Request::instance()->param("hsz");
         if(!empty($status)){
@@ -142,6 +157,13 @@ class Ziyuan extends Common
 
         $authorid = $this->getAuthor();
         $view->assign('authorid',$authorid);
+
+        $User_province = Session::get("province");
+        $view->assign('User_province',$User_province);
+
+        if(!empty($User_province) && $authorid != 3){
+            $where["province"] = $User_province;
+        }
 
         $status = Request::instance()->param("hsz");
         if(!empty($status)){
@@ -250,7 +272,7 @@ class Ziyuan extends Common
                 $datas['marks'] = (string)$objPHPExcel->getActiveSheet()->getCell("I$j")->getValue();   //需要导入的备注
                 $datas['datetime'] = date("Y-m-d h:i:s",time());
                 $datas['status'] = 1;
-                $datas['exam'] = 0;
+                $datas['uid'] = 0;
                 $datas['zytype'] = $zytype;
 
                 if(!empty($datas['project'])){
@@ -294,7 +316,6 @@ class Ziyuan extends Common
         $result = 0;
         //dump($ids);
         $where["status"] = 1;
-        $where['exam'] = 0;
 
             if(!empty($ids)){
                 $where["id"] = ["in",$ids];

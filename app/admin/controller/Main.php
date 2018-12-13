@@ -27,4 +27,11 @@ class Main extends Common
         return $view->fetch('index');
         //return view('index');
     }
+
+    public function welcome(){
+        $view = new View();
+        $uname = Session::get('uname');
+        $view->assign('uname',$uname);
+        return $view->fetch();
+    }
 }

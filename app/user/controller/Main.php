@@ -16,9 +16,9 @@ class Main extends Common
         $view = new View();
 
         $shengobj = new User();
-        $admin = Session::get('uname');
+        $admin = Session::get('saler');
 
-        $where["uname"] = $admin;
+        $where["u.uname"] = $admin;
         $topusers = $shengobj->getUserList($where,1);
 
         $view->assign('topusers',$topusers);

@@ -10,11 +10,11 @@ class Common extends Controller
 {
     public function _initialize()
     {
-        $islogin = Session::has('uname');
+        $islogin = Session::has('saler');
         $isauthor = Session::has('authorid');
         if(!$islogin || !$isauthor){
-            //$this->error("请登录后访问！","/admin/login/index");
-            header('Location: /admin/login/index');
+            //$this->error("请登录后访问！","/user/login/index");
+            header('Location: /user/login/index');
         }
     }
 

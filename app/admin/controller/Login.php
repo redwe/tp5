@@ -11,6 +11,7 @@ use think\View;
 use think\Request;
 use think\Db;
 use think\Session;
+use app\admin\model\User;
 
 class Login extends Controller
 {
@@ -24,29 +25,41 @@ class Login extends Controller
     {
         if (Request::instance()->isPost()){
             //$request = request();
-            $uname = Request::instance()->post("uname");
+            $uid = Request::instance()->post("uname");
             $password = Request::instance()->post("password");
 
-            if(!empty($uname) && !empty($password)){
-                ///dump($uname.$password);
-                $where['uid'] = $uname;
-                $where['pwd'] = $password;
-                $list = Db::name("users")->where($where)->find();
+            if(!empty($uid) && !empty($password)){
+
+                $where['u.uid'] = $uid;
+                $where['u.pwd'] = $password;
+                //$where['u.status'] = 1;
+                $userObj = new User();
+                $list = $userObj->getUserList($where,1);
 
                 $uname = $list['uname'];
                 $fid = $list['fid'];
-
+                $province = $list['sheng'];
+                $status = $list['status'];
                 if($list){
-                    Session::set('uname',$uname);
-                    Session::set('authorid',$fid);
-                    $this->success('登录成功！','/admin/main/index');
-                    //header('Location: /admin/main/index');
+                    if($status==0){
+                        $this->error('该用户已经被禁用，请与管理员联系！');
+                    }
+                    else if($fid<2){
+                        $this->error('权限不足，无法登陆！');
+                    }
+                    else
+                    {
+                        Session::set('uname',$uname);
+                        Session::set('authorid',$fid);
+                        Session::set('province',$province);
+                        $this->success('登录成功！','/admin/main/index');
+                        //header('Location: /admin/main/index');
+                    }
                 }
                 else
                 {
                     $this->error('登录名或密码错误！');
                 }
-
             }
             else
             {

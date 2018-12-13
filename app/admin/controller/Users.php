@@ -218,10 +218,15 @@ class Users extends Common
         $delfenbu = Request::instance()->param("delfenbu");
         $deluser = Request::instance()->param("deluser");
 
+        $param["uid"] = $delid;
+        $data0["uid"] = $deluser;
+
+        $result = Db::name("resource")->where($param)->update($data0);
+        $result = Db::name("orders")->where($param)->update($data0);
+
         $where["id"] = $delid;
         $data["status"] = 0;
         Db::name("users")->where($where)->update($data);
-
         $this->success("删除成功！");
     }
 

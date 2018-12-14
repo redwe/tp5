@@ -27,13 +27,25 @@
     </div>
     <div class="condition">
         <div class="condtionCont1">
+            <form name="myform" method="post" action="/user/saler/mykehu">
             <div class="condtionArea">
-                <span class="current">所有客户</span>
-                <span>A类客户</span>
-                <span>B类客户</span>
-                <span>C类客户</span>
+                {if condition="''==$intent"}
+                <span data-id="" class="getspanv3 current">所有客户</span>
+                {else /}
+                <span data-id="" class="getspanv3">所有客户</span>
+                {/if}
+
+                {volist name="levels" id="vo"}
+                {if condition="$vo['level']==$intent"}
+                <span data-id="{$vo.level}" class="getspanv3 current">{$vo.level}类客户</span>
+                {else /}
+                <span data-id="{$vo.level}" class="getspanv3">{$vo.level}类客户</span>
+                {/if}
+                {/volist}
             </div>
             <div class="optionAdd">+</div>
+                <input name="intent" id="intent" type="hidden" value="">
+            </form>
         </div>
     </div>
 </div>
@@ -47,84 +59,53 @@
         <th>业务员</th>
         <th>操作</th>
     </tr>
+    {volist name="zylist" id="vo"}
     <tr>
-        <td>一级建造师</td>
-        <td>梁超</td>
-        <td>2018/10/12-2014:30:32</td>
+        <td>{$vo.project}</td>
+        <td>{$vo.guest}</td>
+        <td>{$vo.datetime}</td>
         <td>00:05:36</td>
-        <td>木桐</td>
+        <td>{$saler}</td>
         <td>
-            <span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="电话" /></span>
-            <span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="邮箱" /></span>
-            <span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="操作" /></span>
-            <span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="删除" /></span>
+            <span class=""><img class="approvalPhone" onclick="call(10086)" src="/static/images/ic_call.png" alt="电话" /></span>
+            <span class=""><img class="approvalEmal" data-id="{$vo.email}" src="/static/images/ic_.png" alt="邮箱" /></span>
+            <span class=""><img class="approvalB" data-id="{$vo.id}" data-lv="{$vo.intent}" src="/static/images/ic_move.png" alt="操作" /></span>
+            <span class=""><img class="approvalDel" data-id="{$vo.id}" src="/static/images/ic_delete.png" alt="删除" /></span>
             <span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span>
             <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
         </td>
     </tr>
-    <tr>
-        <td>一级建造师</td>
-        <td>梁超</td>
-        <td>2018/10/12-2014:30:32</td>
-        <td>00:05:36</td>
-        <td>木桐</td>
-        <td>
-            <span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="电话" /></span>
-            <span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="邮箱" /></span>
-            <span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="操作" /></span>
-            <span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="删除" /></span>
-            <span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span>
-            <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
-        </td>
-    </tr>
-    <tr>
-        <td>一级建造师</td>
-        <td>梁超</td>
-        <td>2018/10/12-2014:30:32</td>
-        <td>00:05:36</td>
-        <td>木桐</td>
-        <td>
-            <span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="电话" /></span>
-            <span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="邮箱" /></span>
-            <span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="操作" /></span>
-            <span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="删除" /></span>
-            <span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span>
-            <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
-        </td>
-    </tr>
-    <tr>
-        <td>一级建造师</td>
-        <td>梁超</td>
-        <td>2018/10/12-2014:30:32</td>
-        <td>00:05:36</td>
-        <td>木桐</td>
-        <td>
-            <span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="电话" /></span>
-            <span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="邮箱" /></span>
-            <span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="操作" /></span>
-            <span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="删除" /></span>
-            <span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span>
-            <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
-        </td>
-    </tr>
-    <tr>
-        <td>一级建造师</td>
-        <td>梁超</td>
-        <td>2018/10/12-2014:30:32</td>
-        <td>00:05:36</td>
-        <td>木桐</td>
-        <td>
-            <span class=""><img class="approvalPhone" src="/static/images/ic_call.png" alt="电话" /></span>
-            <span class=""><img class="approvalEmal" src="/static/images/ic_.png" alt="邮箱" /></span>
-            <span class=""><img class="approvalB" src="/static/images/ic_move.png" alt="操作" /></span>
-            <span class=""><img class="approvalDel" src="/static/images/ic_delete.png" alt="删除" /></span>
-            <span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span>
-            <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
-        </td>
-    </tr>
+    {/volist}
     </tbody>
 </table>
-
+<script>
+    function call(number){
+        if(number != '10086' && number !='10010'&& number !='0'){
+            var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            if(!myreg.test(number)) {
+                alert('手机号码格式错误');
+                return;
+            }
+        }
+        var ws = new WebSocket('ws://127.0.0.1:50000');
+        ws.onopen = function(event) {
+            ws.send(number)
+        };
+        ws.onerror = function(event){
+            alert('手机连接失败，请检查USB连接是否拔除，如果已重新连接USB，请等待一小会');
+        }
+        ws.onmessage = function(event) { //监听中
+            var content = event.data;
+            //返回输入的号码
+            console.log('即将拔打:'+content)
+            //用完就关
+            ws.close();
+        };
+        ws.onclose = function(event){
+            console.log('关闭连接');
+        }
+    }
+</script>
 <!--点击下拉框触发事件-->
 <div id="Tctable" class="popUps">
     <div class="mask"></div>
@@ -161,11 +142,14 @@
         <div class="proposal1">
             <span class="maskClose1">x</span>
             <p>正在编辑短信</p>
-            <textarea placeholder="在此编辑内容"></textarea>
+            <form name="sendmsg" method="post" action="/user/saler/sendmsg">
+            <textarea name="message" id="message" placeholder="在此编辑内容"></textarea>
+            <input name="email" type="hidden" id="email" value="">
             <div class="proposalBtn1">
                 <input class="certainBtn1" type="button" value="发送">
                 <input class="cancelBtn1" type="button" value="取消">
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -176,10 +160,13 @@
         <div class="proposal2">
             <span class="maskClose2">x</span>
             <p>确认放弃客户</p>
+            <form name="delguest" method="post" action="/user/saler/del_guest">
             <div class="proposalBtn2">
+                <input name="delid" id="delid" type="hidden" value="">
                 <input class="certainBtn2" type="button" value="确定">
                 <input class="cancelBtn2" type="button" value="取消">
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -191,15 +178,16 @@
             <span class="maskClose3">x</span>
             <p>正在编辑分组</p>
             <div class="kehuFenzu">
+                <form name="setlevel" method="post" action="/user/saler/setlevel">
                 <div class="Felei">
-                    <div class="Fenlei1">A类客户</div>
-                    <div class="Fenlei1">B类客户</div>
-                    <div class="Fenlei1">C类客户</div>
-                    <div class="Fenlei1">D类客户</div>
-                    <div class="Fenlei1">E类客户</div>
+                    {volist name="levels" id="vo"}
+                        <div data-id="{$vo.level}" id="lv{$key}" class="Fenlei1">{$vo.level}类客户</div>
+                    {/volist}
                     <span class="optionAdd">+</span>
+                    <input name="levelid" id="levelid" type="hidden" value="">
+                    <input name="level" id="level" type="hidden" value="">
                 </div>
-
+                </form>
             </div>
             <div class="proposalBtn3">
                 <input class="certainBtn3" type="button" value="确定">
@@ -394,9 +382,25 @@
     //点击短信弹出层
     $('.approvalEmal').click(function(){
         $('.popUps1').css('display','block');
+        var email = $(this).data("id");
+        $('#email').val(email);
     });
     $('.maskClose1').click(function(){
         $('.popUps1').css('display','none');
+    });
+    $('.cancelBtn1').click(function(){
+        $('.popUps1').css('display','none');
+    });
+    $(".certainBtn1").click(function () {
+        var email_url = $('#email').val();
+        var message = $('#message').val();
+        if(email_url.length>0 && message.length>0){
+            sendmsg.submit();
+        }
+        else
+        {
+            alert("邮箱地址或发送内容不能为空！");
+        }
     });
 
     //切换通话记录及回收站切换效果
@@ -406,22 +410,49 @@
     //点击删除客户按钮效果弹窗
     $('.approvalDel').click(function(){
         $('.popUps2').css('display','block');
+        var delid = $(this).data("id");
+        $('#delid').val(delid);
     });
     $('.maskClose2').click(function(){
         $('.popUps2').css('display','none');
     });
+    $('.cancelBtn2').click(function(){
+        $('.popUps2').css('display','none');
+    });
+
+    $(".certainBtn2").click(function(){
+        //if(confirm("确定要放弃客户吗？")){
+            delguest.submit();
+        //}
+    });
 
     //我的客户  点击加号 动态创建类别
     $('.condtionCont1 .optionAdd').click(function(){
-        var str = '<span>D类客户</span>';
-        $('.condtionArea').append(str);
+        //var str = '<span>D类客户</span>';
+        //$('.condtionArea').append(str);
     });
 
     //我的客户 点击分组弹窗效果
     $('.approvalB').click(function(){
         $('.popUps3').css('display','block');
+        var levelid = $(this).data("id");
+        var levellv = $(this).data("lv");
+        $('#levelid').val(levelid);
+        if(levellv=='A'){
+            $("#lv0").addClass('current');
+        }
+        else if(levellv=='B'){
+            $("#lv1").addClass('current');
+        }
+        else if(levellv=='C'){
+            $("#lv2").addClass('current');
+        }
     });
     $('.maskClose3').click(function(){
+        $('.popUps3').css('display','none');
+    });
+
+    $('.cancelBtn3').click(function(){
         $('.popUps3').css('display','none');
     });
 
@@ -430,6 +461,18 @@
         var ss = 'D类客户';
         var str = '<div class="Fenlei1">'+ ss +'</div>';
         $(this).before(str);
+    });
+
+    $(".Fenlei1").each(function(){
+        $(this).click(function(){
+            $(".Fenlei1").each(function(){
+                $(this).removeClass('current');
+            });
+            var lid = $(this).data("id");
+            $("#level").val(lid);
+            $(this).addClass('current');
+            setlevel.submit();
+        })
     });
 
     //通话记录弹出框
@@ -445,6 +488,14 @@
         var str = '<div class="gzdq">广东省</div>';
         $(this).before(str);
     });
+
+    $(".getspanv3").each(function(){
+        $(this).click(function(){
+            var temp = $(this).data("id");
+            $("#intent").val(temp);
+            myform.submit();
+        })
+    })
 </script>
 </body>
 </html>

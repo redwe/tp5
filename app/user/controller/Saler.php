@@ -160,9 +160,67 @@ class Saler extends Common
 
     public function mykehu()
     {
+        $intent = Request::instance()->post("intent");
+        if(!empty($intent)){
+            $where['intent'] = $intent;
+        }
+        $xmobj = new XmModel();
+        $levels = $xmobj->getLevels();
         $view = new View();
+        $view->assign('levels',$levels);
+        $view->assign('intent',$intent);
+
+        $uid = Session::get("uid");
+        //$view->assign('uid',$uid);
+
+        $limit = 10;
+        $where['uid'] = $uid;
+        $zylist = $xmobj->getResources($limit,$where);
+        $view->assign('zylist',$zylist);
+
+        $saler = Session::get('saler');
+        $view->assign('saler',$saler);
+
+        //dump($saler);
+
         return $view->fetch();
         //return view('index');
+    }
+
+    public function setlevel(){
+        $levelid = Request::instance()->post("levelid");
+        $level = Request::instance()->post("level");
+        $where["id"] = $levelid;
+        $data["intent"] = $level;
+        $result = Db::name("resource")->where($where)->update($data);
+        if($result){
+            $this->success("设置成功!");
+        }
+        else
+        {
+            $this->error("删除失败!");
+        }
+    }
+
+    public function del_guest(){
+        $delid = Request::instance()->post("delid");
+        $where["id"] = $delid;
+        $data["uid"] = 0;
+        $result = Db::name("resource")->where($where)->update($data);
+        if($result){
+            $this->success("设置成功!");
+        }
+        else
+        {
+            $this->error("操作失败!");
+        }
+    }
+
+    public function sendmsg(){
+        $message = Request::instance()->post("message");
+        $email = Request::instance()->post("email");
+        dump($message.$email);
+        $this->success("短信发送成功!");
     }
 
     public function order()

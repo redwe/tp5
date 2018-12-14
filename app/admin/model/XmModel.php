@@ -24,4 +24,9 @@ class XmModel extends Model
         $lists = Db::name("resource")->where($where)->paginate($limit);
         return $lists;
     }
+
+    public function getLevels(){
+        $lists = Db::name("levels")->select();
+        return $lists;
+    }
 }

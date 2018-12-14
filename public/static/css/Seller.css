@@ -1012,4 +1012,8 @@ table tr td span{
     vertical-align: top;
 }
 
+.Felei div.current{
+    border: 1px solid #ff0000;
+}
+
 

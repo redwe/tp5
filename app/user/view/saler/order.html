@@ -32,11 +32,13 @@
         <td>{$vo.intent}</td>
         <td>{$vo.label}</td>
         <td>{if condition="$vo['exam']==-1"}
-            <span data-id="{$vo.sugges}" class="dingdanOverrule">驳回意见</span>
+            <span data-id="{$vo.sugges}" class="dingdanOverrule">
+                {$vo.sugges}
+            </span>
             {elseif condition="$vo['exam']==1"}
-            <span class="">已批准</span>
+            <span class="#">已批准</span>
             {else /}
-            <span class="">申请中</span>
+            <span class="#">申请中</span>
             {/if}
         </td>
     </tr>

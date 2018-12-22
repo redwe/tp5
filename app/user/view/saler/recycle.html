@@ -33,66 +33,21 @@
         <th>标签</th>
         <th>操作</th>
     </tr>
+    {volist name="zylist" id="vo"}
     <tr>
         <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
+        <td>{$vo.project}</td>
+        <td>{$vo.province}-{$vo.city}</td>
+        <td>{$vo.datetime}</td>
+        <td>{$vo.guest}</td>
+        <td>{$vo.intent}</td>
+        <td>{$vo.label}</td>
         <td>
-            <span class="">领取</span>
+            <a href="/user/saler/restore/id/{$vo.id}" class="zyDel">还原</a> /
+            <a href="/user/saler/del/delid/{$vo.id}" class="zyDel">彻底删除</a>
         </td>
     </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" value="" /></td>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>空号</td>
-        <td>
-            <span class="">领取</span>
-        </td>
-    </tr>
+    {/volist}
     </tbody>
 </table>
 <script src="/static/js/jquery-2.1.4.min.js"></script>

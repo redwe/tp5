@@ -32,19 +32,25 @@
                 {if condition="''==$intent"}
                 <span data-id="" class="getspanv3 current">所有客户</span>
                 {else /}
-                <span data-id="" class="getspanv3">所有客户</span>
+                <span data-id="" class="getspanv3">所有客户
+
+                </span>
                 {/if}
 
                 {volist name="levels" id="vo"}
                 {if condition="$vo['level']==$intent"}
-                <span data-id="{$vo.level}" class="getspanv3 current">{$vo.level}类客户</span>
+                <span data-id="{$vo.level}" class="getspanv3 current">{$vo.level}
+                    <div data-id="{$vo.id}" class="optionDel">-</div>
+                </span>
                 {else /}
-                <span data-id="{$vo.level}" class="getspanv3">{$vo.level}类客户</span>
+                <span data-id="{$vo.level}" class="getspanv3">{$vo.level}
+                    <div data-id="{$vo.id}" class="optionDel">-</div>
+                </span>
                 {/if}
                 {/volist}
             </div>
             <div class="optionAdd">+</div>
-                <input name="intent" id="intent" type="hidden" value="">
+                <input name="intent" type="hidden" id="intent" value="">
             </form>
         </div>
     </div>
@@ -71,7 +77,7 @@
             <span class=""><img class="approvalEmal" data-id="{$vo.email}" src="/static/images/ic_.png" alt="邮箱" /></span>
             <span class=""><img class="approvalB" data-id="{$vo.id}" data-lv="{$vo.intent}" src="/static/images/ic_move.png" alt="操作" /></span>
             <span class=""><img class="approvalDel" data-id="{$vo.id}" src="/static/images/ic_delete.png" alt="删除" /></span>
-            <a href="http://www.acbkjg.com"><span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span></a>
+            <a href="#"><span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span></a>
             <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
         </td>
     </tr>
@@ -164,6 +170,7 @@
             <form name="delguest" method="post" action="/user/saler/del_guest">
             <div class="proposalBtn2">
                 <input name="delid" id="delid" type="hidden" value="">
+                <input name="uid" id="uid" type="hidden" value="{$uid}">
                 <input class="certainBtn2" type="button" value="确定">
                 <input class="cancelBtn2" type="button" value="取消">
             </div>
@@ -176,24 +183,27 @@
     <div class="mask3"></div>
     <div class="popUpsCont3">
         <div class="proposal3">
+            <form name="setlevel" method="post" action="/user/saler/setlevel">
             <span class="maskClose3">x</span>
             <p>正在编辑分组</p>
             <div class="kehuFenzu">
-                <form name="setlevel" method="post" action="/user/saler/setlevel">
                 <div class="Felei">
                     {volist name="levels" id="vo"}
-                        <div data-id="{$vo.level}" id="lv{$key}" class="Fenlei1">{$vo.level}类客户</div>
+                        <div data-id="{$vo.level}" id="lv{$key}" class="Fenlei1">{$vo.level}
+                            <div data-id="{$vo.id}" class="optionDel">-</div>
+                        </div>
                     {/volist}
                     <span class="optionAdd">+</span>
+                    <input name="intent" type="hidden" id="intent0" value="">
                     <input name="levelid" id="levelid" type="hidden" value="">
                     <input name="level" id="level" type="hidden" value="">
                 </div>
-                </form>
             </div>
             <div class="proposalBtn3">
-                <input class="certainBtn3" type="button" value="确定">
+                <input class="certainBtn3" type="submit" value="确定">
                 <input class="cancelBtn3" type="button" value="取消">
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -391,9 +401,14 @@
 
 <script src="/static/js/jquery-2.1.4.min.js"></script>
 <script src="/static/js/table.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/addInput.js"></script>
 <script>
     $('.condtionArea span').click(function(){
         $(this).addClass('current').siblings().removeClass();
+        //var level = $(this).val();
+        //$("#intent").val(level);
+        //myform.submit();
     })
     //	我的客户/回收站页面 点击下拉框触发事件
     $('.LQ-huishouz select').change(function(){
@@ -431,13 +446,13 @@
     $(".certainBtn1").click(function () {
         var email_url = $('#email').val();
         var message = $('#message').val();
-        //if(email_url.length>0 && message.length>0){
+        if(email_url.length>0 && message.length>0){
             sendmsg.submit();
-        //}
-        //else
-        //{
-          //  alert("邮箱地址或发送内容不能为空！");
-       // }
+        }
+        else
+       {
+           alert("邮箱地址或发送内容不能为空！");
+       }
     });
 
     //切换通话记录及回收站切换效果
@@ -472,8 +487,17 @@
 
     //我的客户  点击加号 动态创建类别
     $('.condtionCont1 .optionAdd').click(function(){
-          var str = '<span>D类客户</span>';
+          var str = '<input class="Fenlei0" value="">';
           $('.condtionArea').append(str);
+
+        $('.Fenlei0').on("blur",function(){
+            var level = $(this).val();
+            $("#intent").val(level);
+            if(level){
+                myform.action = "/user/saler/saveClass";
+                myform.submit();
+            }
+        });
     });
 
     //我的客户 点击分组弹窗效果
@@ -482,15 +506,11 @@
         var levelid = $(this).data("id");
         var levellv = $(this).data("lv");
         $('#levelid').val(levelid);
-        if(levellv=='A'){
-            $("#lv0").addClass('current');
-        }
-        else if(levellv=='B'){
-            $("#lv1").addClass('current');
-        }
-        else if(levellv=='C'){
-            $("#lv2").addClass('current');
-        }
+        $(".Fenlei1").each(function(){
+            if(levellv==$(this).html()){
+                $(this).addClass('current').sibling().removeClass('current');
+            }
+        });
     });
     $('.maskClose3').click(function(){
         $('.popUps3').css('display','none');
@@ -508,9 +528,17 @@
 
     //编辑分组窗台创建分组
     $('.Felei .optionAdd').click(function(){
-        var ss = 'D类客户';
-        var str = '<div class="Fenlei1">'+ ss +'</div>';
+        var ss = '';
+        var str = '<input class="Fenlei0" value="'+ ss +'">';
         $(this).before(str);
+        $('.Fenlei0').on("blur",function(){
+            var fenlei = $(this).val();
+            $("#intent0").val(fenlei);
+            if(fenlei){
+                setlevel.action = "/user/saler/saveClass";
+                setlevel.submit();
+            }
+        });
     });
 
     $(".Fenlei1").each(function(){
@@ -521,9 +549,10 @@
             var lid = $(this).data("id");
             $("#level").val(lid);
             $(this).addClass('current');
-            setlevel.submit();
-        })
+            //setlevel.submit();
+        });
     });
+
 
     //通话记录弹出框
 //  $('.divHSZ span:first-of-type').click(function(){
@@ -554,7 +583,7 @@ $('.mask4').click(function(){
             $("#intent").val(temp);
             myform.submit();
         })
-    })
+    });
 //  通话界面弹窗切换效果
 $('.ThjlBqName .Bqlist div').click(function(){
 	$(this).addClass('current').siblings().removeClass('current');
@@ -565,6 +594,23 @@ $('.tAdd').click(function(){
 $('.Bc').click(function(){
 	$('.ThilInput .input').attr("readonly","readonly");
 })
+    $('.optionDel').click(function(){
+        var id = $(this).data("id");
+        var delobj = $(this).parent();
+        var table = 'levels';
+        //alert(id)
+        if(id){
+            var isdo = confirm("是否删除已经保存的数据？");
+            if(isdo){
+                 delobj.remove();
+                 deloption(table,id,"/user/saler/del_lv");
+            }
+        }
+        else
+        {
+            delobj.remove();
+        }
+    })
 </script>
 </body>
 </html>

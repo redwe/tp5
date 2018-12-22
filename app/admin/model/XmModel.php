@@ -25,8 +25,10 @@ class XmModel extends Model
         return $lists;
     }
 
-    public function getLevels(){
-        $lists = Db::name("levels")->select();
+    public function getLevels($uid){
+        $where["status"] = 1;
+        $where['uid'] = $uid;
+        $lists = Db::name("levels")->where($where)->select();
         return $lists;
     }
 }

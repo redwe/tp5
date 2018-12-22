@@ -16,9 +16,14 @@
         {/if}<a href="/admin/ziyuan/zhengshu/nav3/2">证书</a></li>
     {php}
     if($authorid=='3'){
-    {/php}
-    <input type="button" class="Hsz" id="recycle" value="回收站">
-    {php}
+        if($hsz){
+             echo '<input type="button" class="Hsz" id="recycle" value="回收站">';
+        }
+        else
+        {
+            echo '<input type="button" class="Hsz" style="background-color: #1d2088; color: #ffffff;" id="recycle" value="回收站">';
+        }
+
     }
     {/php}
 </ul>

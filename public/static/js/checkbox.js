@@ -43,18 +43,18 @@ function delAll(m,url){
 
         switch (m){
             case 200:
-                if(confirm("确认要删除200条最旧的信息吗？")) {
+                if(confirm("确认要批量操作200条信息吗？")) {
                     window.location.href = url + "/limit/200";
                 }
                 break;
             case 500:
-                if(confirm("确认要删除500条最旧的信息吗？")) {
+                if(confirm("确认要批量操作500条的信息吗？")) {
                     window.location.href = url + "/limit/500";
                 }
                 break;
             default :
                 var ids = getChecks("delid");
-                if(ids && confirm("确认要删除勾选的信息吗？")) {
+                if(ids && confirm("确认要批量操作勾选的信息吗？")) {
                     //alert(ids);
                     $("#ids").val(ids);
                     delform.action = url;

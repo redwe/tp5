@@ -27,6 +27,12 @@ class Main extends Common
         $authorid = Session::get('authorid');
         $view->assign('authorid',$authorid);
 
+            $userObj = new User();
+            $list = $userObj->getUserList($where,1);
+            $picurl = $list['picurl'];
+
+        $view->assign('picurl',$picurl);
+
         return $view->fetch('index');
     }
 

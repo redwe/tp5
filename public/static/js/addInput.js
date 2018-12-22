@@ -1,4 +1,5 @@
 $(function(){
+
     //主界面课程 动态追加及删除项目名称分类等效果
     $('.itmeA .optionAdd').click(function(){
         var Element= $(this).siblings('span').html();

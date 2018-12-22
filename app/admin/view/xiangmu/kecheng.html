@@ -18,7 +18,7 @@
                         {volist name="xmlist" id="vo"}
 						<div class="option1">
 							{$vo.project}
-							<div id="xm{$vo.id}" data-id="{$vo.project}" class="optionDel">-</div>
+							<div id="{$vo.id}" data-id="{$vo.project}" class="optionDel">-</div>
 						</div>
 						{/volist}
 					</div>
@@ -34,7 +34,7 @@
                         {volist name="prolist" id="vo"}
                         <div class="option1">
                             {$vo.project}
-                            <div id="zy{$vo.id}" data-id="{$vo.project}"  class="optionDel">-</div>
+                            <div id="{$vo.id}" data-id="{$vo.project}"  class="optionDel">-</div>
                         </div>
                         {/volist}
                     </div>
@@ -63,7 +63,6 @@
 	</body>
 </html>
 <script src="/static/js/jquery-2.1.4.min.js"></script>
-<script src="/static/js/index.js"></script>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/addInput.js"></script>
 <script>

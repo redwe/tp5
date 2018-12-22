@@ -179,6 +179,7 @@ body{
     padding-left: 15px;
     font-size: 17px;
     width: 20%;
+    vertical-align: bottom;
 }
 .Dels {
     display: inline-block;
@@ -271,7 +272,7 @@ body{
     font-size: 20px!important;
     color: #303030;
     border-radius: 4px;
-    border: 1px solid #1d2088;
+    /*border: 1px solid #1d2088;*/
     padding:0 10px;
     display: inline-block;
     text-align: center;
@@ -281,6 +282,10 @@ body{
 .condtionArea span.current {
     background-color: #1d2088;
     color: #fff;
+}
+.condtionArea span.queren.current{
+	background:transparent;
+	color:#303030;
 }
 .approvalTop ul li:last-child {
     	border-right: none;
@@ -453,7 +458,7 @@ body{
     top: 0;
     bottom: 0;
     background: rgba(0, 0, 0, .3);
-    z-index: 1;
+    z-index: 101;
 }
 .proposal1 {
     position: fixed;
@@ -462,7 +467,7 @@ body{
     width: 320px;
     height: 220px;
     margin: -100px 0px 0px -150px;
-    z-index: 100;
+    z-index: 101;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0px 0px 10px #252525;
@@ -511,7 +516,7 @@ body{
     top: 0;
     bottom: 0;
     background: rgba(0, 0, 0, .3);
-    z-index: 1;
+    z-index: 101;
 }
 .proposal2 {
     position: fixed;
@@ -520,7 +525,7 @@ body{
     width: 320px;
     height: 220px;
     margin: -100px 0px 0px -150px;
-    z-index: 100;
+    z-index: 101;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0px 0px 10px #252525;
@@ -570,7 +575,7 @@ body{
     top: 0;
     bottom: 0;
     background: rgba(0, 0, 0, .3);
-    z-index: 1;
+    z-index: 101;
 }
 .proposal3 {
     position: fixed;
@@ -578,7 +583,7 @@ body{
     top: 50%;
     width: 390px;
     margin: -100px 0px 0px -150px;
-    z-index: 100;
+    z-index: 101;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0px 0px 10px #252525;
@@ -736,9 +741,17 @@ body{
 }
 .ThilInput{
 	position: relative;
+	border: 2px solid #00a0e9;
+    background: transparent;
+    width: 700px;
+    padding: 30px 0;
+    min-height: 70px;
+    font-size: 14px;
+    color: #333;
+    resize: none;
+    margin-top: 5px;
 }
 .ThilInput .input{
-	border: 2px solid #00a0e9;
     background: transparent;
     width: 700px;
     padding: 5px 0;
@@ -747,6 +760,7 @@ body{
     color: #333;
     resize:none;
     margin-top: 5px;
+    outline: none;
 }
 .ThilBtn{
 	position: absolute;
@@ -852,6 +866,10 @@ body{
 .ThjlBqName .Bqlist .gzdq{
 	cursor: pointer;
 }
+.ThjlBqName .Bqlist div.current{
+	background-color: #5db9e2;
+	color: #fff;
+}
 
 
 
@@ -886,6 +904,10 @@ body{
     color: #fff;
     	
 }
+.LQ-huishouz a{
+	text-decoration: none;
+	color: #303030;
+}
 .LQ-huishouz .reg_testdate select{
     padding: 4px 30px 4px 10px;
     margin-left: 25px;
@@ -905,14 +927,14 @@ body{
 /*可伸缩table表格样式*/
 table{
 		table-layout: fixed;
-    	padding: 25px 40px;
+    	padding: 25px 25px;
     		
 	}
 table tr th,td{
 		text-align: center;
-        overflow: hidden;
+        /*overflow: hidden;
 		text-overflow: ellipsis;
-		white-space: nowrap;  
+		white-space: nowrap;  */
 		border: none;
 		font-weight: normal;
 		height: 40px;
@@ -933,12 +955,22 @@ table tr td{
     color: #626262;
     border: none !important;
     border-bottom: 1px solid #1d2088!important;
+     overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
     
 }
 table tr td span{
 	font-size: 18px;
     color: #626262;
-    cursor: pointer;	
+    cursor: pointer;
+    height: 40px;
+    line-height: 47px;	
+    display: inline-block;
+    margin: 0 10px;
+}
+table tr td span img{
+	vertical-align: sub;
 }
 
 /*我的客户/导入/弹窗*/
@@ -1015,5 +1047,83 @@ table tr td span{
 .Felei div.current{
     border: 1px solid #ff0000;
 }
+
+/*<!--我的客户导入下拉框样式-->*/
+.popUps5 .mask5 {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+}
+.popUps5 .proposal {
+    width: 450px!important;
+    height: 280px!important;
+}
+
+.popUps5 .proposal {
+    position: fixed;
+    left: 49%;
+    top: 49%;
+    width: 320px;
+    height: 220px;
+    margin: -225px 0px 0px -225px;
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 10px #252525;
+    padding: 20px;
+}
+.popUps5 .maskClose {
+    font-size: 22px;
+    right: 10px;
+    top: 5px;
+    position: absolute;
+    cursor: pointer;
+    font-family: "黑体";
+}
+.popUps5 .proposal p {
+    font-size: 20px;
+}
+
+.popUps5 .proposal p {
+    font-size: 23px;
+    color: #333;
+    text-align: center;
+    height: 45px;
+    border-bottom: 1px solid #e7e7e7;
+}
+.popUps5 .drMb div {
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+}
+.popUps5 .drMb div a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #333;
+}
+.popUps5 .proposalBtn1 {
+    text-align: right;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-top: 75px;
+}
+.popUps5 .proposalBtn1 input {
+    background: transparent;
+    font-size: 18px;
+    color: #333;
+    border-radius: 5px;
+    border: 2px solid #00a0e9;
+    padding: 1px 18px;
+    cursor: pointer;
+}
+.personalCont img{
+	cursor: pointer;
+    border-radius: 50%;
+}
+
 
 

@@ -40,6 +40,8 @@ class Login extends Controller
                 $fid = $list['fid'];
                 $province = $list['sheng'];
                 $status = $list['status'];
+                $picurl = $list['picurl'];
+
                 if($list){
                     if($status==0){
                         $this->error('该用户已经被禁用，请与管理员联系！');
@@ -52,6 +54,7 @@ class Login extends Controller
                         Session::set('uname',$uname);
                         Session::set('authorid',$fid);
                         Session::set('province',$province);
+                        Session::set('picurl',$picurl);
                         $this->success('登录成功！','/admin/main/index');
                         //header('Location: /admin/main/index');
                     }

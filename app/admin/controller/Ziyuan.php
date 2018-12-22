@@ -14,6 +14,7 @@ use think\Db;
 use app\admin\model\XmModel;
 use app\admin\model\ZyModel;
 use PHPExcel;
+use app\admin\model\Upload;
 
 class Ziyuan extends Common
 {
@@ -188,7 +189,6 @@ class Ziyuan extends Common
         $view->assign('zylist',$zylist);
         $view->assign('hsz',$status);
 
-
         $view->assign('project',$project);
         $view->assign('keyword',$keyword);
 
@@ -205,35 +205,17 @@ class Ziyuan extends Common
         $params = Request::instance()->param();
         $zytype = $params["zytype"];
 
-        if (!empty($_FILES['excel']['name'])) {
-            $fileName = $_FILES['excel']['name'];    //得到文件全名
-            $dotArray = explode('.', $fileName);    //把文件名安.区分，拆分成数组
-            $type = end($dotArray);
+        $exps = array("xls","xlsx");
 
-            if ($type != "xls" && $type != "xlsx") {
-                $ret['res'] = "0";
-                $ret['msg'] = "不是Excel文件，请重新上传!";
-                //return json_encode($ret);
-                $this->error($ret['msg']);
-            }
+        $uploadData = new Upload();
+        $upfile = $uploadData->uploadpic('excel',"/uploads/",$exps);
 
-            //取数组最后一个元素，得到文件类型
-            $uploaddir = $rootUrl."/uploads/" . date("Ymd") . '/';//设置文件保存目录 注意包含
-            if (!file_exists($uploaddir)) {
-                mkdir($uploaddir, 0777, true);
-            }
+        $code = $upfile['res'];
+        $msg = $upfile['msg'];
+        $path = $upfile['data'];
+        $path = $rootUrl.$path;
 
-            $path = $uploaddir . md5(uniqid(rand())) . '.' . $type; //产生随机文件名
-            //$path = "images/".$fileName; //客户端上传的文件名；
-            //下面必须是tmp_name 因为是从临时文件夹中移动
-            move_uploaded_file($_FILES['excel']['tmp_name'], $path); //从服务器临时文件拷贝到相应的文件夹下
-
-            $file_path = $path;
-            if (!file_exists($path)) {
-                $ret['res'] = "0";
-                $ret['msg'] = "上传文件丢失!" . $_FILES['excel']['error'];
-                $this->error($ret['msg']);
-            }
+        if($code){
 
             $zyObject = new ZyModel();
             $objPHPExcel = new \PHPExcel();
@@ -242,10 +224,10 @@ class Ziyuan extends Common
             $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
             if ($ext == 'xlsx') {
                 $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
-                $objPHPExcel = $objReader->load($file_path, 'utf-8');
+                $objPHPExcel = $objReader->load($path, 'utf-8');
             } elseif ($ext == 'xls') {
                 $objReader = \PHPExcel_IOFactory::createReader('Excel5');
-                $objPHPExcel = $objReader->load($file_path, 'utf-8');
+                $objPHPExcel = $objReader->load($path, 'utf-8');
             }
 
             $sheet = $objPHPExcel->getSheet(0);
@@ -299,9 +281,7 @@ class Ziyuan extends Common
             $this->success("导入成功！");
 
         } else {
-            $ret['res'] = "0";
-            $ret['msg'] = "上传文件失败!";
-            $this->error($ret['msg']);
+            $this->error($msg);
         }
 
     }

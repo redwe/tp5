@@ -34,7 +34,7 @@
                 <td>
                     {if condition="$vo['exam']==0"}
                     <span onclick="setexam({$vo.oid},1)" data-id="{$vo.id}" class="ratify">批准</span>
-                    <span onclick="setexam({$vo.oid},0)" data-id="{$vo.sugges}" class="turnDown">驳回</span>
+                    <span onclick="setexam({$vo.oid},2)" data-id="{$vo.sugges}" class="turnDown">驳回</span>
                     {else /}
                     <span style="color: #999"  data-id="{$vo.id}" class="">已批准</span>
                     <span style="color: #999" data-id="{$vo.sugges}" class="">驳回</span>

@@ -10,7 +10,7 @@ function deloption(table,id,url){
         dataType: "text",
         success: function(res){
             if(res){
-                //alert("删除成功！");
+                //alert("删除成功！"+id);
             }
         }
     });

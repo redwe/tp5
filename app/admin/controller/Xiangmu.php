@@ -90,19 +90,26 @@ class Xiangmu extends Common
         $class = Request::instance()->param("class");
         $addinput = Request::instance()->param("addinput");
 
-        $data["project"] = $addinput;
-        $data["ptype"] = $addpro;
-        $data["class"] = $class;
-        $data["status"] = 1;
+        if(!empty($addinput)){
+            $data["project"] = $addinput;
+            $data["ptype"] = $addpro;
+            $data["class"] = $class;
+            $data["status"] = 1;
 
-        $result = Db::name("projects")->insert($data);
-        if($result){
-            $this->success($addinput." 添加成功！");
+            $result = Db::name("projects")->insert($data);
+            if($result){
+                $this->success($addinput." 添加成功！");
+            }
+            else
+            {
+                $this->error("保存失败！");
+            }
         }
         else
         {
-            $this->error("保存失败！");
+            $this->error("参数错误！");
         }
+
     }
 
     public function isdelOr(){

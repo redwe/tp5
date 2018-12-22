@@ -150,5 +150,40 @@
             return false;
         }
     }
+
+    $('.options').on('click','.optionDel',function(){
+        var sid = $(this).data('id');
+        var table = $(this).data('table');
+        var id = $(this).attr('id');
+        var delobj = $(this).parent();
+        if($(this).attr("id")){
+            var isdo = confirm("是否删除已经保存的数据？");
+            if(isdo){
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/users/isdelOr",
+                    data: {sid:sid, id:id},
+                    dataType: "text",
+                    success: function(data){
+                        if(data){
+                            if(confirm("此属性已经关联用户信息，删除后会影响用户信息的完整性，是否真的要删除？")) {
+                                delobj.remove();
+                                deloption(table,id,"/admin/users/deloption");
+                            }
+                        }
+                        else
+                        {
+                            delobj.remove();
+                            deloption(table,id,"/admin/users/deloption");
+                        }
+                    }
+                });
+            }
+        }
+        else
+        {
+            delobj.remove();
+        }
+    })
 </script>
 

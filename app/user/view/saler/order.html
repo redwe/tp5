@@ -23,28 +23,24 @@
         <th>标签</th>
         <th>反馈</th>
     </tr>
+    {volist name="orderlist" id="vo"}
     <tr>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>意向度较高</td>
-        <td>
+        <td>{$vo.project}</td>
+        <td>{$vo.province}-{$vo.city}</td>
+        <td>{:date("Y年m月d日",strtotime($vo['datetime']))}</td>
+        <td>{$vo.guest}</td>
+        <td>{$vo.intent}</td>
+        <td>{$vo.label}</td>
+        <td>{if condition="$vo['exam']==-1"}
+            <span data-id="{$vo.sugges}" class="dingdanOverrule">驳回意见</span>
+            {elseif condition="$vo['exam']==1"}
+            <span class="">已批准</span>
+            {else /}
             <span class="">申请中</span>
+            {/if}
         </td>
     </tr>
-    <tr>
-        <td>一级建造师</td>
-        <td>广东-深圳</td>
-        <td>2018年6月</td>
-        <td>邓子明</td>
-        <td>B</td>
-        <td>意向度较高</td>
-        <td>
-            <span class="dingdanOverrule">驳回意见</span>
-        </td>
-    </tr>
+    {/volist}
     </tbody>
 </table>
 
@@ -54,7 +50,7 @@
         <div class="proposal">
             <span class="maskClose">x</span>
             <p>驳回意见</p>
-            <textarea placeholder="用户信息不完善"></textarea>
+            <textarea id="sugges" placeholder="用户信息不完善"></textarea>
             <!--<div class="proposalBtn">
                 <input class="certainBtn" type="button" value="确定">
                 <input class="cancelBtn" type="button" value="取消">
@@ -71,13 +67,15 @@
     $('.zyDel').click(function(){
         $(this).parent().parent('ul').remove();
     })
-    $('.dingdanOverrule').click(function(){
-        $('.popUps').css('display','block');
-    })
-    //  关闭弹窗效果
-    $('.maskClose').click(function(){
-        $('.popUps').css('display','none');
-    })
+//  $('.dingdanOverrule').click(function(){
+//      var sugges = $(this).data("id");
+//      $("#sugges").val(sugges);
+//      $('.popUps').css('display','block');
+//  })
+//  //  关闭弹窗效果
+//  $('.maskClose').click(function(){
+//      $('.popUps').css('display','none');
+//  })
 
 </script>
 </body>

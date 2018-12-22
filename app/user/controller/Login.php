@@ -36,6 +36,7 @@ class Login extends Controller
                 $fid = $list['fid'];
                 $province = $list['sheng'];
                 $status = $list['status'];
+                $picurl = $list['picurl'];
 
                 if($list){
                     if($status==0){
@@ -46,6 +47,7 @@ class Login extends Controller
                         Session::set('saler',$uname);
                         Session::set('authorid',$fid);
                         Session::set('province',$province);
+                        Session::set('picurl',$picurl);
                         //dump($list);
                         $this->success('登录成功！','/user/main/index');
                         //header('Location: /user/main/index');

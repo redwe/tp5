@@ -1,0 +1,87 @@
+
+
+.index-page .solution-more-slide .container {
+    height:928px;;
+    position: relative;
+}
+
+.index-page .solution-more-slide .hd {
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    background: #00045e;
+    height: 928px;;
+    left: 0;
+    top: 0;
+    color: #fff;
+}
+
+.index-page .solution-more-slide .hd ul {
+    margin-top: 30px;
+}
+
+.index-page .solution-more-slide .hd li {
+    position: relative;
+    cursor: default;
+    transition: all .5s;
+    cursor: pointer;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+
+.index-page .solution-more-slide .hd li:after {
+    content: "";
+    width: 80%;
+    border-bottom: 1px solid #2A2A2A;
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+}
+
+
+.index-page .solution-more-slide .hd li:before {
+    background: #fff;
+    /* Old browsers */
+    background: -moz-linear-gradient(left, #fff 0%, #fff 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #fff 0%,#fff 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #fff 0%,#fff 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fd7d7d', endColorstr='#f05251',GradientType=1 );
+    /* IE6-9 */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 0;
+    transition: all .5s;
+    color: #000;
+}
+
+.index-page .solution-more-slide .hd li.on:before {
+    width: 100%;
+}
+
+.index-page .solution-more-slide .hd li.on:after {
+    display: none;
+}
+.index-page .solution-more-slide .hd li a{
+	color: #fff;
+	text-decoration: none;
+}
+.index-page .solution-more-slide .hd li.on a{
+	color: #000000;
+	position: relative;
+	z-index: 1;
+}
+/*侧边栏动画*/
+.index-page{
+	    display: inline-block;
+    width: 10%;
+    float: left;
+}
+

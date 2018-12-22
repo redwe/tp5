@@ -1,61 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>CRM管理系统</title>
 	</head>
 	<link rel="stylesheet" href="/static/css/common.css" />
 	<link rel="stylesheet" href="/static/css/index.css" />
-    <link rel="stylesheet" href="/static/font/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/font/css/font-awesome.min.css">
 	<style>
-		.approvalTop ul li{
+		.approvalTop ul li {
 			width: 11.6%;
 		}
+		
 		.approvalTop ul li:nth-child(3) {
-    		background:transparent;
+			background: transparent;
 		}
-        .mainPageLeft ul li a{
-            color: #d0d0d0;
-            text-align: center;
-            height: 50px;
-            line-height: 50px;
-            margin-top: 30px;
-            text-decoration: none;
-            display: block;
-        }
-        .mainPageLeft ul li.current a{
-            background-color: #ffffff;
-            color: #000000;
-        }
-        .top_a{color: #fff; font-size: 16px; text-decoration: none}
-        .menu{ color: #fff; font-size: 18px;}
+		
+		.top_a {
+			color: #fff;
+			font-size: 16px;
+			text-decoration: none
+		}
+		
+		.menu {
+			color: #fff;
+			font-size: 18px;
+		}
 	</style>
+
 	<body>
-    {php}
+		{php}
         $userModel = model('app\admin\model\User');
         //dump($topusers);
-    {/php}
+        if(empty($picurl)){
+            $picurl = "/static/images/bg_touxiang.png";
+        }
+        {/php}
 		<div id="mainPageTop" class="mainPageTop">
 			<div class="personal">
 				<div class="personalCont">
+
 					<span>{$admin}</span>
-					<img src="/static/images/bg_touxiang.png" width="64" height="64"/>
+					<img src="{$picurl}" width="64" height="64" />
 					<span>{$topusers.sheng} </span>
 					<span>{$topusers.fenbu}</span>
 					<span>{$topusers.gangwei}</span>
 				</div>
-                <div style="position: absolute; top:30px; right:30px;">
-                    <a target="rightmain" class="top_a" href="/admin/users/password">[修改密码]</a>
-                    <a class="top_a" href="/admin/login/logout">[安全退出]</a>
-                    {php}
-                    if($authorid=='3'){
-                    {/php}
-                    <a target="rightmain" class="menu" href="/admin/menus/lists"><i class="fa fa-list"></i></a>
-                     <a target="rightmain" class="menu" href="/admin/roles/add_role"><i class="fa fa-user"></i></a>
-                    {php}
-                     }
-                    {/php}
-                </div>
+				<div style="position: absolute; top:30px; right:30px;">
+					<a target="rightmain" class="top_a" href="/admin/users/password">[修改密码]</a>
+					<a class="top_a" href="/admin/login/logout">[安全退出]</a>
+					{php} if($authorid=='3'){ {/php}
+					<a target="rightmain" class="menu" href="/admin/menus/lists"><i class="fa fa-list"></i></a>
+					<a target="rightmain" class="menu" href="/admin/roles/add_role"><i class="fa fa-user"></i></a>
+					{php} } {/php}
+				</div>
 			</div>
 		</div>
 		<div class="mainPageLeft">
@@ -82,16 +81,56 @@
 		<div class="mainPageRight">
 			<iframe id="rightmain" style="width: 100%; height: 100%;" name="rightmain" src="/admin/main/welcome"></iframe>
 		</div>
+		
+	<!--更换头像弹窗-->
+<div id="Pil" class="popUps5" style="display: none;">
+		<div class="mask5"></div>
+		<div class="popUpsCont">
+			<div class="proposal">
+				<span class="maskClose">x</span>
+				<p>更换头像</p>
+                <form name="toExcel" enctype="multipart/form-data" action="/admin/main/uploadpic" method="post">
+				<div class="drMb">
+					<div>
+                        <input type="file" name="file">
+                    </div>
+				</div>
+				
+				<div class="proposalBtn1">
+                    <input name="uid" type="hidden" value="{$admin}">
+					<input class="startDr" type="submit" value="更换">
+					<input class="cancelDr" type="button" value="取消">
+				</div>
+                </form>
+			</div>
+		</div>
+        </div>
+
 	</body>
+
 </html>
 <script src="/static/js/jquery-2.1.4.min.js"></script>
+<script src="/static/js/SuperSlide.js"></script>
 <script>
-   $(function(){
-       $("#menus").find("li").click(function(){
-           $("#menus").find("li").each(function(){
-               $(this).attr("class","");
-           });
-           $(this).attr("class","current");
-       })
-   })
+	$(function() {
+		$("#menus").find("li").click(function() {
+			$("#menus").find("li").each(function() {
+				$(this).attr("class", "");
+			});
+			$(this).attr("class", "current");
+		})
+	})
+	//点击头像展示上传弹窗
+$('.personalCont').click(function(){
+        $('#Pil').css('display','block');	
+})
+    $('#Pil .mask5').click(function(){
+        $('#Pil').css('display','none');
+    });
+    $('#Pil .maskClose').click(function(){
+        $('#Pil').css('display','none');    	
+    })
+    $('#Pil .cancelDr').click(function(){
+        $('#Pil').css('display','none');
+    })
 </script>

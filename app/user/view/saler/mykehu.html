@@ -23,7 +23,7 @@
     </div>
     <div class="divHSZ">
         <span class="">通话记录</span>
-        <a href="/user/saler/recycle"><span class="Hsz">回收站</span></a>
+        <a href="/user/saler/recycle/menu/1"><span>回收站</span></a>
     </div>
     <div class="condition">
         <div class="condtionCont1">
@@ -71,7 +71,7 @@
             <span class=""><img class="approvalEmal" data-id="{$vo.email}" src="/static/images/ic_.png" alt="邮箱" /></span>
             <span class=""><img class="approvalB" data-id="{$vo.id}" data-lv="{$vo.intent}" src="/static/images/ic_move.png" alt="操作" /></span>
             <span class=""><img class="approvalDel" data-id="{$vo.id}" src="/static/images/ic_delete.png" alt="删除" /></span>
-            <span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span>
+            <a href="http://www.acbkjg.com"><span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span></a>
             <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
         </td>
     </tr>
@@ -107,7 +107,7 @@
     }
 </script>
 <!--点击下拉框触发事件-->
-<div id="Tctable" class="popUps">
+<!--<div id="Tctable" class="popUps">
     <div class="mask"></div>
     <div class="popUpsCont">
         <div class="proposal">
@@ -134,7 +134,8 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
+
 <!--编辑短信弹窗-->
 <div class="popUps1">
     <div class="mask1"></div>
@@ -302,10 +303,11 @@
                         </div>
                     </div>
                     <div class="ThilInput">
-                        <textarea class="input">2018/10/03-何雪：客户意向度较低；</textarea>
+                    	2018/10/03-何雪：客户意向度较低；
+                        <textarea class="input" readonly="readonly"></textarea>
                         <div class="ThilBtn">
-                            <input type="button"  value="添加"/>
-                            <input type="button"  value="保存"/>
+                            <input class="tAdd" type="button"  value="添加"/>
+                            <input class="Bc" type="button"  value="保存"/>
                         </div>
                     </div>
                     <div class="Luyin">
@@ -330,16 +332,12 @@
                         </a>
                     </div>
                     <div class="Yidong">
-                        <a href="">
-                            <span></span>
-                            <span>移动</span>
-                        </a>
+                       <span></span>
+                       <span>移动</span>
                     </div>
                     <div class="thDel">
-                        <a href="">
                             <span></span>
                             <span>放弃</span>
-                        </a>
                     </div>
                     <div class="thNext">
                         <a href="">
@@ -348,7 +346,7 @@
                         </a>
                     </div>
                     <div class="thXd">
-                        <a href="">
+                        <a href="http://www.acbkjg.com">
                             <span></span>
                             <span>下单</span>
                         </a>
@@ -365,6 +363,32 @@
         </div>
     </div>
 </div>
+
+<!--我的客户导入下拉框样式-->
+<div id="Pil" class="popUps5" style="display: none;">
+		<div class="mask5"></div>
+		<div class="popUpsCont">
+			<div class="proposal">
+				<span class="maskClose">x</span>
+				<p>导入</p>
+            <form name="toExcel" enctype="multipart/form-data" action="/admin/ziyuan/importExcel" method="post">
+				<div class="drMb">
+					<div>一、模板下载：<a href="/template/template1.xlsx">《客户资源数据模板》 </a></div>
+					<div>
+                        二、上传已完成模板数据文件
+                        <input type="file" name="excel">
+                    </div>
+				</div>
+				<div class="proposalBtn1">
+                    <input name="zytype" type="hidden" value="kecheng">
+					<input class="startDr" type="submit" value="开始导入">
+					<input class="cancelDr" type="button" value="取消导入">
+				</div>
+                </form>
+			</div>
+		</div>
+        </div>
+
 <script src="/static/js/jquery-2.1.4.min.js"></script>
 <script src="/static/js/table.js"></script>
 <script>
@@ -374,33 +398,46 @@
     //	我的客户/回收站页面 点击下拉框触发事件
     $('.LQ-huishouz select').change(function(){
 //	alert($('.LQ-huishouz option:selected').html());
-        $('#Tctable').css('display','block');
+        $('#Pil').css('display','block');
     });
-    $('#Tctable .mask').click(function(){
-        $('#Tctable').css('display','none');
+    $('#Pil .mask5').click(function(){
+        $('#Pil').css('display','none');
     });
+    $('#Pil .maskClose').click(function(){
+        $('#Pil').css('display','none');    	
+    })
     //点击短信弹出层
     $('.approvalEmal').click(function(){
         $('.popUps1').css('display','block');
         var email = $(this).data("id");
         $('#email').val(email);
     });
+    $('.Duanxin').click(function(){
+        $('.popUps1').css('display','block');
+        var email = $(this).data("id");
+        $('#email').val(email);
+    });
+    
+    
     $('.maskClose1').click(function(){
         $('.popUps1').css('display','none');
     });
     $('.cancelBtn1').click(function(){
         $('.popUps1').css('display','none');
     });
+    $('.mask1').click(function(){
+         $('.popUps1').css('display','none');   	
+    })
     $(".certainBtn1").click(function () {
         var email_url = $('#email').val();
         var message = $('#message').val();
-        if(email_url.length>0 && message.length>0){
+        //if(email_url.length>0 && message.length>0){
             sendmsg.submit();
-        }
-        else
-        {
-            alert("邮箱地址或发送内容不能为空！");
-        }
+        //}
+        //else
+        //{
+          //  alert("邮箱地址或发送内容不能为空！");
+       // }
     });
 
     //切换通话记录及回收站切换效果
@@ -419,6 +456,13 @@
     $('.cancelBtn2').click(function(){
         $('.popUps2').css('display','none');
     });
+    $('.thDel').click(function(){
+        $('.popUps2').css('display','block');   	
+    })
+    $('.mask2').click(function(){
+    	$('.popUps2').css('display','none');
+    })
+
 
     $(".certainBtn2").click(function(){
         //if(confirm("确定要放弃客户吗？")){
@@ -428,8 +472,8 @@
 
     //我的客户  点击加号 动态创建类别
     $('.condtionCont1 .optionAdd').click(function(){
-        //var str = '<span>D类客户</span>';
-        //$('.condtionArea').append(str);
+          var str = '<span>D类客户</span>';
+          $('.condtionArea').append(str);
     });
 
     //我的客户 点击分组弹窗效果
@@ -455,6 +499,12 @@
     $('.cancelBtn3').click(function(){
         $('.popUps3').css('display','none');
     });
+    $('.Yidong').click(function(){
+         $('.popUps3').css('display','block');   	
+    })
+    $('.mask3').click(function(){
+         $('.popUps3').css('display','none');     	
+    })
 
     //编辑分组窗台创建分组
     $('.Felei .optionAdd').click(function(){
@@ -476,12 +526,21 @@
     });
 
     //通话记录弹出框
-    $('.divHSZ span:first-of-type').click(function(){
+//  $('.divHSZ span:first-of-type').click(function(){
+//      $('.popUps4').css('display','block');
+//  });
+ $('.approvalPhone').click(function(){
         $('.popUps4').css('display','block');
     });
     $('.maskClose4').click(function(){
         $('.popUps4').css('display','none');
     });
+ $('.approvalP').click(function(){
+        $('.popUps4').css('display','block');
+    });
+$('.mask4').click(function(){
+	$('.popUps4').css('display','none');
+})
 
     //通话记录弹窗
     $('.gzdqAdd').click(function(){
@@ -496,6 +555,16 @@
             myform.submit();
         })
     })
+//  通话界面弹窗切换效果
+$('.ThjlBqName .Bqlist div').click(function(){
+	$(this).addClass('current').siblings().removeClass('current');
+})
+$('.tAdd').click(function(){
+	$('.ThilInput .input').removeAttr("readonly");
+})
+$('.Bc').click(function(){
+	$('.ThilInput .input').attr("readonly","readonly");
+})
 </script>
 </body>
 </html>

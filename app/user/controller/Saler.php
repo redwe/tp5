@@ -9,6 +9,9 @@ use think\Db;
 use think\Request;
 use app\admin\model\XmModel;
 use app\admin\model\ZyModel;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use app\user\model\Sendmail;
 
 class Saler extends Common
 {
@@ -219,13 +222,72 @@ class Saler extends Common
     public function sendmsg(){
         $message = Request::instance()->post("message");
         $email = Request::instance()->post("email");
-        dump($message.$email);
-        $this->success("短信发送成功!");
+        //dump($message.$email);
+
+        $nickname = '奥创百科';
+        $from = 'zkzhw1018@126.com';
+        $password = '';
+        $getname = '收件人';
+        $to = '18364120@qq.com';
+        $subject = '发送邮件测试标题';
+        $content = '邮件内容测试';
+
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        try {
+            //Server settings
+            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = $from;  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = $from;                 // SMTP username
+            $mail->Password = $password;                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;                                    // TCP port to connect to
+
+            //设置收件人
+            $mail->setFrom($from, $nickname);
+            $mail->addAddress($to, $getname);     // Add a recipient
+
+            //添加附件
+            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body    = $content;
+
+            $mail->send();
+            $this->success("短信发送成功!");
+        } catch (Exception $e) {
+            $this->error("发送失败!");
+        }
+
     }
 
     public function order()
     {
+        $keyword = Request::instance()->post("keyword");
+
+        $where["o.status"]=["<",2];
+        $limit = 10;
+
+        if(!empty($keyword)){
+            $where['project'] = $keyword;
+        }
+        $join = [
+            ["resource r","r.id=o.pid"],["users u","o.uid=u.id"]
+        ];
+        $field = "o.*,r.project,r.province,r.city,r.guest,r.intent,r.label,o.exam";
+        $orderlist = Db::name("orders")
+            ->alias("o")
+            ->join($join)
+            ->where($where)
+            ->paginate($limit);
+
         $view = new View();
+        $page = $orderlist->render();
+        $view->assign('page', $page);
+        $view->assign('orderlist', $orderlist);
         return $view->fetch();
         //return view('index');
     }

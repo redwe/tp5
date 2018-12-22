@@ -360,6 +360,7 @@ class Users extends Common
         if(isset($sugges)){
             $where["id"] = $id;
             $data["sugges"] = $sugges;
+            $data["exam"] = -1;
             $result = Db::name("orders")->where($where)->update($data);
             if($result){
                 $this->success("驳回操作成功！");

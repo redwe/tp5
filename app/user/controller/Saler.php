@@ -12,6 +12,7 @@ use app\admin\model\ZyModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use app\user\model\Sendmail;
+use app\admin\model\Upload;
 
 class Saler extends Common
 {
@@ -278,6 +279,21 @@ class Saler extends Common
         $message = Request::instance()->post("message");
         $email = Request::instance()->post("email");
         //dump($message.$email);
+        $uploadData = new Upload();
+        $result = $uploadData->sendMsg($email,$message);
+        if($result){
+            $this->success("发送成功!");
+        }
+        else
+        {
+            $this->error("发送失败!");
+        }
+    }
+
+    public function sendmsg_mail(){
+        $message = Request::instance()->post("message");
+        $email = Request::instance()->post("email");
+        //dump($message.$email);
 
         $nickname = '奥创百科';
         $from = 'zkzhw1018@126.com';
@@ -453,6 +469,38 @@ class Saler extends Common
                 $this->error("领取失败!");
             }
     }
+
+
+    public function importExcel(){
+
+        //port('PHPExcel', EXTEND_PATH);
+        $rootUrl = $_SERVER['DOCUMENT_ROOT'];
+        $params = Request::instance()->param();
+        $zytype = $params["zytype"];
+
+        $exps = array("xls","xlsx");
+
+        $uploadData = new Upload();
+        $upfile = $uploadData->uploadpic('excel',"/uploads/",$exps);
+
+        $code = $upfile['res'];
+        $msg = $upfile['msg'];
+        $path = $upfile['data'];
+        $path = $rootUrl.$path;
+
+        $uid = Session::get("uid");
+
+        if($code){
+            $zytype = 'kecheng';
+            $ret = $uploadData->importExcels($path,$zytype,$uid);
+            $this->success($ret["msg"]);
+
+        } else {
+            $this->error($msg);
+        }
+
+    }
+
 
     public function restore(){
         $id = Request::instance()->param("id");

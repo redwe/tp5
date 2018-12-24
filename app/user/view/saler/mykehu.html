@@ -74,7 +74,7 @@
         <td>{$saler}</td>
         <td>
             <span class=""><img class="approvalPhone" onclick="call(10086)" src="/static/images/ic_call.png" alt="电话" /></span>
-            <span class=""><img class="approvalEmal" data-id="{$vo.email}" src="/static/images/ic_.png" alt="邮箱" /></span>
+            <span class=""><img class="approvalEmal" data-id="{$vo.tel}" src="/static/images/ic_.png" alt="手机" /></span>
             <span class=""><img class="approvalB" data-id="{$vo.id}" data-lv="{$vo.intent}" src="/static/images/ic_move.png" alt="操作" /></span>
             <span class=""><img class="approvalDel" data-id="{$vo.id}" src="/static/images/ic_delete.png" alt="删除" /></span>
             <a href="#"><span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span></a>
@@ -381,7 +381,7 @@
 			<div class="proposal">
 				<span class="maskClose">x</span>
 				<p>导入</p>
-            <form name="toExcel" enctype="multipart/form-data" action="/admin/ziyuan/importExcel" method="post">
+            <form name="toExcel" enctype="multipart/form-data" action="/user/saler/importExcel" method="post">
 				<div class="drMb">
 					<div>一、模板下载：<a href="/template/template1.xlsx">《客户资源数据模板》 </a></div>
 					<div>
@@ -420,6 +420,9 @@
     });
     $('#Pil .maskClose').click(function(){
         $('#Pil').css('display','none');    	
+    })
+    $('#Pil .cancelDr').click(function(){
+        $('#Pil').css('display','none');
     })
     //点击短信弹出层
     $('.approvalEmal').click(function(){

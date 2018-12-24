@@ -42,7 +42,7 @@ class Ziyuan extends Common
         $xmlist = $xmobj->getXmList("kecheng","project",1);
         $view->assign('xmlist',$xmlist);
 
-        $limit = 10;
+        $limit = 12;
 
         $status = Request::instance()->param("hsz");
         if(!empty($status)){
@@ -217,6 +217,9 @@ class Ziyuan extends Common
 
         if($code){
 
+            $ret = $uploadData->importExcels($path,$zytype);
+            $this->success($ret["msg"]);
+/*
             $zyObject = new ZyModel();
             $objPHPExcel = new \PHPExcel();
 
@@ -279,6 +282,7 @@ class Ziyuan extends Common
             $ret['sucNum'] = $importRows;
             $ret['mdata'] = "导入成功!";
             $this->success("导入成功！");
+            */
 
         } else {
             $this->error($msg);

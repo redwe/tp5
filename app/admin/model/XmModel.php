@@ -20,8 +20,8 @@ class XmModel extends Model
         return $lists;
     }
 
-    public function getResources($limit,$where){
-        $lists = Db::name("resource")->where($where)->paginate($limit);
+    public function getResources($limit,$where,$order='id desc'){
+        $lists = Db::name("resource")->where($where)->order($order)->paginate($limit);
         return $lists;
     }
 

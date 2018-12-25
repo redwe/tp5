@@ -81,15 +81,15 @@
 			<div class="proposal">
 				<span class="maskClose">x</span>
 				<p>更换头像</p>
-                <form name="toExcel" enctype="multipart/form-data" action="/admin/ziyuan/importExcel" method="post">
+                <form name="toExcel" enctype="multipart/form-data" action="/user/main/uploadpic" method="post">
 				<div class="drMb">
 					<div>
-                        <input type="file" name="excel">
+                        <input type="file" name="file">
                     </div>
 				</div>
 				
 				<div class="proposalBtn1">
-                    <input name="zytype" type="hidden" value="kecheng">
+                    <input name="uid" type="hidden" value="{$admin}">
 					<input class="startDr" type="submit" value="更换">
 					<input class="cancelDr" type="button" value="取消">
 				</div>

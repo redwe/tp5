@@ -10,4 +10,8 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
-
+function getThumbName($picurl){
+    $uploads = explode("/",$picurl);
+    $thumb_name = "/".$uploads[1]."/".$uploads[2]."/thumb_".$uploads[3];
+    return $thumb_name;
+}

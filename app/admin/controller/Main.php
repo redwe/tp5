@@ -32,6 +32,14 @@ class Main extends Common
             $list = $userObj->getUserList($where,1);
             $picurl = $list['picurl'];
 
+        if(strpos($picurl,"uploads")){
+            $thumb_name = getThumbName($picurl);
+        }
+        else
+        {
+            $thumb_name = $picurl;
+        }
+        $view->assign('thumb_name',$thumb_name);
         $view->assign('picurl',$picurl);
         return $view->fetch('index');
         //return view('index');

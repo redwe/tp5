@@ -7,6 +7,7 @@ use think\View;
 use think\Session;
 use think\Db;
 use think\Request;
+use app\admin\model\Upload;
 
 class Main extends Common
 {
@@ -79,5 +80,38 @@ class Main extends Common
         } else {
             $this->error("修改密码失败！");
         }
+    }
+
+    public function uploadpic(){
+
+        $params = Request::instance()->param();
+        $uid = $params["uid"];
+
+        $exps = array("jpg","jpeg","png","gif");
+
+        $uploadData = new Upload();
+        $upfile = $uploadData->uploadpic('file',"/uploads/",$exps);
+
+        $code = $upfile['res'];
+        $msg = $upfile['msg'];
+        $uppath = $upfile['data'];
+
+        if($code){
+            $where["uname"]=$uid;
+            $data["picurl"]=$uppath;
+            $result = Db::name("users")->where($where)->update($data);
+            if($result){
+                $this->success("上传头像成功！");
+            }
+            else
+            {
+                $this->error("更新头像失败！");
+            }
+        }
+        else
+        {
+            $this->error($msg);
+        }
+
     }
 }

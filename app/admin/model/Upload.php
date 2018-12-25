@@ -26,17 +26,25 @@ class Upload extends Model
             }
 
             //取数组最后一个元素，得到文件类型
-            $uploaddir = $url . date("Ymd") . '/';//设置文件保存目录 注意包含
-            if (!file_exists($rootUrl.$uploaddir)) {
-                mkdir($rootUrl.$uploaddir, 0777, true);
+            $uploaddir0 = $url . date("Ymd") . '/';//设置文件保存目录 注意包含
+            if (!file_exists($rootUrl.$uploaddir0)) {
+                mkdir($rootUrl.$uploaddir0, 0777, true);
             }
-            $uploaddir = $uploaddir. md5(uniqid(rand())) . '.' . $type;
+            $savename = md5(uniqid(rand())) . '.' . $type;
+            $uploaddir = $uploaddir0. $savename;
             $path = $rootUrl.$uploaddir; //产生随机文件名
             //$path = "images/".$fileName; //客户端上传的文件名；
             //下面必须是tmp_name 因为是从临时文件夹中移动
             move_uploaded_file($file['tmp_name'], $path); //从服务器临时文件拷贝到相应的文件夹下
+            //$file_path = $path;
 
-            $file_path = $path;
+            if($type=='jpg' || $type=="jpeg" || $type=="png"){
+                $image = \think\Image::open($path);
+                $portrait_thumbnail_180 = $rootUrl.$uploaddir0."thumb_".$savename;
+                //dump($portrait_thumbnail_180);
+                $image->thumb(180, 180, \think\Image::THUMB_CENTER)->save($portrait_thumbnail_180, null, 100, true);
+            }
+
             if (!file_exists($path)) {
                 $ret['res'] = "0";
                 $ret['msg'] = "上传文件丢失!" . $file['error'];
@@ -49,6 +57,26 @@ class Upload extends Model
                 $ret['data'] = $uploaddir;
             }
             return $ret;
+        }
+    }
+
+    public function thumbImage($file,$pic,$uploaddir,$filename)      //$file保存文件路径，$pic上传文件路径,$uploaddir保存目录
+    {
+        $image = \think\Image::open($file);
+        $getSaveName = str_replace('\\', '/', $pic->getSaveName());
+
+        $portrait_thumbnail_180 = $uploaddir . str_replace($pic->getFilename(), '180_' . $pic->getFilename(), $getSaveName);
+        $image = \think\Image::open($file);
+        $image->thumb(180, 180, \think\Image::THUMB_CENTER)->save(ROOT_PATH . DS . $portrait_thumbnail_180, null, 100, true);
+        /*
+        $portrait_thumbnail_80 = $uploaddir . str_replace($pic->getFilename(), '80_' . $pic->getFilename(), $getSaveName);
+        $image->thumb(80, 80, \think\Image::THUMB_CENTER)->save(ROOT_PATH . DS . $portrait_thumbnail_80, null, 100, true);
+        $portrait_thumbnail_50 = $uploaddir . str_replace($pic->getFilename(), '50_' . $pic->getFilename(), $getSaveName);
+        $image->thumb(50, 50, \think\Image::THUMB_CENTER)->save(ROOT_PATH . DS . $portrait_thumbnail_50, null, 100, true);
+        */
+
+        if ($image) {
+            return $getSaveName;
         }
     }
 

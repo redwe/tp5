@@ -11,6 +11,7 @@
         table tr td span img{
             padding: 0 13px;
         }
+        .ThilInput ul li{ font-size: 14px;}
     </style>
 </head>
 <body>
@@ -73,12 +74,12 @@
         <td>00:05:36</td>
         <td>{$saler}</td>
         <td>
-            <span class=""><img class="approvalPhone" onclick="call(10086)" src="/static/images/ic_call.png" alt="电话" /></span>
+            <span class=""><img class="approvalPhone" onclick="setPopData('{$vo.guest}','{$vo.province}','{$vo.project}','{$vo.company}','{$vo.tel}','{$vo.id}')" src="/static/images/ic_call.png" alt="电话" /></span>
             <span class=""><img class="approvalEmal" data-id="{$vo.tel}" src="/static/images/ic_.png" alt="手机" /></span>
             <span class=""><img class="approvalB" data-id="{$vo.id}" data-lv="{$vo.intent}" src="/static/images/ic_move.png" alt="操作" /></span>
             <span class=""><img class="approvalDel" data-id="{$vo.id}" src="/static/images/ic_delete.png" alt="删除" /></span>
             <a href="#"><span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span></a>
-            <span class=""><img class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
+            <span class=""><img onclick="setPopData('{$vo.guest}','{$vo.province}','{$vo.project}','{$vo.company}','{$vo.tel}','{$vo.id}')" class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
         </td>
     </tr>
     {/volist}
@@ -214,12 +215,13 @@
         <div class="proposal4">
             <span class="maskClose4">x</span>
             <div class="ThjlTop">
-                <span class="thName">赵杰</span>
+                <span id="username" class="thName">赵杰</span>
 					<span class="thlist">
-						<p>地区：<label>广东</label></p>
-						<p>资源：<label>一级建造师</label></p>
-						<p>公司：<label>广东御城建筑有限公司</label></p>
-						<p>电话：<label>13265489725</label></p>
+						<p>地区：<label id="province">广东</label></p>
+						<p>资源：<label id="project">一级建造师</label></p>
+						<p>公司：<label id="company">广东御城建筑有限公司</label></p>
+						<p>电话：<label id="phone">13265489725</label></p>
+                        <input type="hidden" name="user_id" id="user_id" value="">
 					</span>
             </div>
             <div class="ThjlCont">
@@ -228,96 +230,108 @@
                     <div class="ThjlBqName">
                         <span class="ThjlName">工作地区：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">广东省</div>
-                            <div class="gzdq">湖南省</div>
-                            <div class="gzdq">河南省</div>
+                            {volist name="shenglist" id="vo" key="key"}
+                            <div onclick="setlabels(this,'area')" class="gzdq">{$vo['sheng']}</div>
+                            {/volist}
                             <span class="gzdqAdd">+</span>
                         </div>
+                        <input type="hidden" name="area" id="area" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">需求人数：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">1人</div>
-                            <div class="gzdq">2-5人</div>
-                            <div class="gzdq">5-10人</div>
-                            <div class="gzdq">10人以上</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq">1人</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq">2-5人</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq">5-10人</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq">10人以上</div>
                         </div>
+                        <input type="hidden" name="people" id="people" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">教育经历：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">高中及以下</div>
-                            <div class="gzdq">中专</div>
-                            <div class="gzdq">大专</div>
-                            <div class="gzdq">本科</div>
-                            <div class="gzdq">研究生</div>
-                            <div class="gzdq">博士及以上</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq">高中及以下</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq">中专</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq">大专</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq">本科</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq">研究生</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq">博士及以上</div>
                         </div>
+                        <input type="hidden" name="edu" id="edu" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">培训经历：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">有</div>
-                            <div class="gzdq">无</div>
+                            <div onclick="setlabels(this,'train')" class="gzdq">有</div>
+                            <div onclick="setlabels(this,'train')" class="gzdq">无</div>
                         </div>
+                        <input type="hidden" name="train" id="train" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">年龄层次：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">25岁以下</div>
-                            <div class="gzdq">25-30岁</div>
-                            <div class="gzdq">30-35岁</div>
-                            <div class="gzdq">35-40岁</div>
-                            <div class="gzdq">40岁以上</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq">25岁以下</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq">25-30岁</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq">30-35岁</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq">35-40岁</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq">40岁以上</div>
                         </div>
+                        <input type="hidden" name="age" id="age" value="">
                     </div>
                     <div class="ThjlBqName">
-                        <span class="ThjlName">教育经历：</span>
+                        <span class="ThjlName">用户性别：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">男</div>
-                            <div class="gzdq">女</div>
+                            <div onclick="setlabels(this,'sex')" class="gzdq">男</div>
+                            <div onclick="setlabels(this,'sex')" class="gzdq">女</div>
                         </div>
+                        <input type="hidden" name="sex" id="sex" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">岗位层级：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">高层</div>
-                            <div class="gzdq">中层</div>
-                            <div class="gzdq">企业主</div>
+                            <div onclick="setlabels(this,'capa')" class="gzdq">高层</div>
+                            <div onclick="setlabels(this,'capa')" class="gzdq">中层</div>
+                            <div onclick="setlabels(this,'capa')" class="gzdq">企业主</div>
                         </div>
+                        <input type="hidden" name="capa" id="capa" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">项目需求：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">一建</div>
-                            <div class="gzdq">二建</div>
-                            <div class="gzdq">消防</div>
-                            <div class="gzdq">公路水运</div>
-                            <div class="gzdq">湖南中共</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq">一建</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq">二建</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq">消防</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq">公路水运</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq">湖南中共</div>
                         </div>
+                        <input type="hidden" name="pros" id="pros" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">意向度：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">A(要报班)</div>
-                            <div class="gzdq">B(考虑中)</div>
-                            <div class="gzdq">C(以后再说)</div>
+                            <div onclick="setlabels(this,'will')" class="gzdq">A(要报班)</div>
+                            <div onclick="setlabels(this,'will')" class="gzdq">B(考虑中)</div>
+                            <div onclick="setlabels(this,'will')" class="gzdq">C(以后再说)</div>
                         </div>
+                        <input type="hidden" name="will" id="will" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">通话质量：</span>
                         <div class="Bqlist">
-                            <div class="gzdq">其他行业</div>
-                            <div class="gzdq">未接听</div>
-                            <div class="gzdq">空号</div>
+                            <div onclick="setlabels(this,'call')" class="gzdq">通话良好</div>
+                            <div onclick="setlabels(this,'call')" class="gzdq">未接听</div>
+                            <div onclick="setlabels(this,'call')" class="gzdq">空号</div>
                         </div>
+                        <input type="hidden" name="call" id="call" value="">
                     </div>
                     <div class="ThilInput">
-                    	2018/10/03-何雪：客户意向度较低；
-                        <textarea class="input" readonly="readonly"></textarea>
+                    	<ul id="label_ul">
+                            <li>2018/10/03-何雪：客户意向度较低；</li>
+                        </ul>
+                        <textarea class="input" name="marks" placeholder="请在此处输入内容" id="marks"></textarea>
                         <div class="ThilBtn">
-                            <input class="tAdd" type="button"  value="添加"/>
-                            <input class="Bc" type="button"  value="保存"/>
+                            <!---<input class="tAdd" type="button" value="添加"/>--->
+                            <input class="Bc" type="button"  onclick="return saveLabel()"  value="保存"/>
                         </div>
                     </div>
                     <div class="Luyin">
@@ -350,13 +364,11 @@
                             <span>放弃</span>
                     </div>
                     <div class="thNext">
-                        <a href="">
-                            <span></span>
-                            <span>下一个</span>
-                        </a>
+                        <span></span>
+                        <span onclick="clicknext()">下一个 </span>
                     </div>
                     <div class="thXd">
-                        <a href="http://www.acbkjg.com">
+                        <a href="#">
                             <span></span>
                             <span>下单</span>
                         </a>
@@ -454,7 +466,7 @@
         }
         else
        {
-           alert("邮箱地址或发送内容不能为空！");
+           alert("短信内容不能为空！");
        }
     });
 
@@ -556,28 +568,164 @@
         });
     });
 
+    //设置面板数据，主要用于点击下一个按钮时
+function setPopData(username,province,project,company,phone,rid){
+    $("#username").html(username);
+    $("#province").html(province);
+    $("#project").html(project);
+    $("#company").html(company);
+    $("#phone").html(phone);
+    $("#user_id").val(rid);
+    $("#delid").val(rid);
+    $("#levelid").val(rid);
+    $("#email").val(phone);
+    $('.popUps4').css('display','block');
+    getLabelist(rid);
+    //call(phone);
+}
 
-    //通话记录弹出框
-//  $('.divHSZ span:first-of-type').click(function(){
-//      $('.popUps4').css('display','block');
-//  });
- $('.approvalPhone').click(function(){
-        $('.popUps4').css('display','block');
-    });
-    $('.maskClose4').click(function(){
+    //初始化标签值
+function resetPop(){
+    $("#area").val("");
+    $("#people").val("");
+    $("#edu").val("");
+    $("#train").val("");
+    $("#age").val("");
+    $("#sex").val("");
+    $("#capa").val("");
+    $("#pros").val("");
+    $("#will").val("");
+    $("#call").val("");
+    $("#marks").val("");
+    $('.ThjlBqName .Bqlist div').removeClass('current');
+}
+
+//获取选中的标签数据
+function getPopValue(){
+    var area = $("#area").val();
+    var people = $("#people").val();
+    var edu = $("#edu").val();
+    var train = $("#train").val();
+    var age = $("#age").val();
+    var sex = $("#sex").val();
+    var capa = $("#capa").val();
+    var pros = $("#pros").val();
+    var will = $("#will").val();
+    var call = $("#call").val();
+    return {
+        "area":area,
+        "people":people,
+        "edu":edu,
+        "train":train,
+        "age":age,
+        "sex":sex,
+        "capa":capa,
+        "pros":pros,
+        "will":will,
+        "call":call
+    };
+}
+//提交保存标签数据
+ function saveLabel(){
+        var label_values = getPopValue();
+        var id = $("#user_id").val();
+        var marks = $("#marks").val();
+         if(marks.length == 0 || marks == '请在此处输入内容'){
+             alert("请输入内容！");
+             return false;
+         }
+         else
+         {
+             $.ajax({
+                 type: "GET",
+                 url: "/user/saler/saveLabels",
+                 //contentType: "application/json; charset=utf-8",
+                 data: {id:id,labels:JSON.stringify(label_values),marks:marks},
+                 dataType: "json",
+                 success: function(res){
+                     //console.log(res);
+                     if(res.code){
+                         resetPop();
+                     }
+                     else
+                     {
+
+                     }
+                     alert(res.msg);
+                 }
+             });
+         }
+    }
+
+//点击下一个按钮，请求数据
+ function clicknext(){
+     //saveLabel();
+     var nextid = $("#user_id").val();
+     $.ajax({
+         type: "POST",
+         url: "/user/saler/nextUser",
+         data: {id:nextid},
+         dataType: "text",
+         success: function(res){
+             var data =  JSON.parse(res);
+             //alert(data.id);
+             if(data.id){
+                 setPopData(data.guest,data.province,data.project,data.company,data.tel,data.id);
+                 resetPop();
+             }
+             else
+             {
+                 alert("暂时无信息！");
+             }
+         }
+     });
+ }
+
+function setlabels(obj,label){
+    var old_label = $(obj).html();
+    //alert(old_label);
+    $("#"+label).val(old_label);
+}
+ //获取保存的备注列表
+function getLabelist(rid){
+        $.ajax({
+            type: "GET",
+            url: "/user/saler/getLabelist",
+            //contentType: "application/json; charset=utf-8",
+            data: {rid:rid},
+            dataType: "json",
+            success: function(json){
+                //var res = JSON.parse(json);
+                var result = json.data;
+                if(json.code){
+                    var tempst = '';
+                    for(var i=0;i<result.length;i++){
+                        //var res = JSON.parse(result);
+                        console.log(result[i]);
+                        tempst = tempst+"<li>"+result[i].datetime+"-"+result[i].uname+"："+result[i].marks+"</li>"
+                    }
+                    $("#label_ul").html(tempst);
+                }
+                else
+                {
+                    $("#label_ul").html('<li>暂时无内容</li>');
+                }
+            }
+        });
+    }
+
+//通话记录弹出框
+ $('.maskClose4').click(function(){
         $('.popUps4').css('display','none');
     });
  $('.approvalP').click(function(){
         $('.popUps4').css('display','block');
     });
-$('.mask4').click(function(){
-	$('.popUps4').css('display','none');
-})
 
     //通话记录弹窗
     $('.gzdqAdd').click(function(){
-        var str = '<div class="gzdq">广东省</div>';
-        $(this).before(str);
+        //var str = '<div class="gzdq">广东省</div>';
+        //$(this).before(str);
     });
 
     $(".getspanv3").each(function(){
@@ -593,10 +741,13 @@ $('.ThjlBqName .Bqlist div').click(function(){
 })
 $('.tAdd').click(function(){
 	$('.ThilInput .input').removeAttr("readonly");
-})
-$('.Bc').click(function(){
+    $("#marks").html('');
+    $("#marks").focus();
+});
+
+/*$('.Bc').click(function(){
 	$('.ThilInput .input').attr("readonly","readonly");
-})
+})*/
     $('.optionDel').click(function(){
         var id = $(this).data("id");
         var delobj = $(this).parent();

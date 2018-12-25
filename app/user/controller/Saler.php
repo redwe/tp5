@@ -176,6 +176,10 @@ class Saler extends Common
         $view->assign('levels',$levels);
         $view->assign('intent',$intent);
 
+        $shengobj = new User();
+        $shengfen = $shengobj->getShengfen2("shengs","sheng");
+        $view->assign('shenglist',$shengfen);
+
         $limit = 10;
         $where['uid'] = $uid;
         $where['status'] = 1;
@@ -189,6 +193,40 @@ class Saler extends Common
 
         return $view->fetch();
         //return view('index');
+    }
+
+    public function getLabelist(){
+        $uid = Session::get("uid");
+        $rid = Request::instance()->param("rid");
+        $where['a.rid'] = $rid;
+        //$where['a.uid'] = $uid;
+        $join = [
+            ["users u","u.id=a.uid"]
+        ];
+        $result = Db::name("labels")
+            ->alias("a")
+            ->join($join)
+            ->field("a.uid,a.marks,a.datetime,u.uname")
+            ->where($where)
+            ->select();
+
+        if($result){
+            $data = [];
+            foreach($result as $vo){
+                $data[] = ["uname"=>$vo["uname"],"marks"=>$vo["marks"],"datetime"=>date("Y/m/d",strtotime($vo["datetime"]))];
+            }
+
+            $res["code"] = 1;
+            $res["msg"] = '查询成功！';
+            $res["data"] = $data;
+        }
+        else
+        {
+            $res["code"] = 0;
+            $res["msg"] = '暂时无数据！';
+            $res["data"] = '';
+        }
+        return json($res);
     }
 
     public function setlevel(){
@@ -554,4 +592,58 @@ class Saler extends Common
         }
     }
 
+    public function nextUser(){
+        $id = Request::instance()->param("id");
+        $uid = Session::get("uid");
+        if(!empty($id)){
+            $where["id"] = ['lt',$id];
+            $where["uid"] = $uid;
+            $result = Db::name("resource")->where($where)->order('id desc')->find();
+        }
+        else
+        {
+            $result = '0';
+        }
+        return json($result);
+    }
+
+    public function saveLabels(){
+
+        $uid = Session::get("uid");
+        $rid = Request::instance()->param("id");
+        $labels = Request::instance()->param("labels");
+        $marks = Request::instance()->param("marks");
+
+        $where["rid"] = $rid;
+        $where["uid"] = $uid;
+        $where["marks"] = $marks;
+        $where["labels"] = $labels;
+
+        $data["labels"] = $labels;
+        $data["marks"] = $marks;
+        $data["rid"] = $rid;
+        $data["uid"] = $uid;
+        $data["status"] = 1;
+        $data["datetime"] = date("Y-m-d h:i:s",time());
+
+        $result = Db::name("labels")->where($where)->find();
+        if($result['id']){
+            $result = Db::name("labels")->update($data);
+        }
+        else
+        {
+            $result = Db::name("labels")->insert($data);
+        }
+
+        if($result){
+            $res["code"] = 1;
+            $res["msg"] = "保存成功！";
+        }
+        else
+        {
+            $res["code"] = 0;
+            $res["msg"] = "保存失败！";
+        }
+       return json($res);
+    }
 }

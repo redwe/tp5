@@ -91,8 +91,9 @@
 				<p>更换头像</p>
                 <form name="toExcel" enctype="multipart/form-data" action="/admin/main/uploadpic" method="post">
 				<div class="drMb">
-					<div>
-                        <input type="file" name="file">
+                    <div style="padding-top: 10px; cursor: pointer">
+                        <img width="120" id="file_img" onclick="$('#file').click();" src="/static/images/default.png">
+                        <input type="file" onchange="setdeafultpic(this,'file')" name="file" id="file">
                     </div>
 				</div>
 				
@@ -111,6 +112,7 @@
 </html>
 <script src="/static/js/jquery-2.1.4.min.js"></script>
 <script src="/static/js/SuperSlide.js"></script>
+<script src="/static/js/thumb.js"></script>
 <script>
 	$(function() {
 		$("#menus").find("li").click(function() {

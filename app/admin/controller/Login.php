@@ -34,15 +34,16 @@ class Login extends Controller
                 $where['u.pwd'] = $password;
                 //$where['u.status'] = 1;
                 $userObj = new User();
-                $list = $userObj->getUserList($where,1);
+                $list = $userObj->checkUser($where);
 
-                $uname = $list['uname'];
-                $fid = $list['fid'];
-                $province = $list['sheng'];
-                $status = $list['status'];
-                $picurl = $list['picurl'];
+                //dump(Db::name("users")->getLastSql());
+                if(!empty($list)){
+                    $uname = $list['uname'];
+                    $sid = $list['sid'];
+                    $fid = $list['fid'];
+                    $status = $list['status'];
+                    $picurl = $list['picurl'];
 
-                if($list){
                     if($status==0){
                         $this->error('该用户已经被禁用，请与管理员联系！');
                     }
@@ -51,6 +52,8 @@ class Login extends Controller
                     }
                     else
                     {
+                        $res = Db::name("shengs")->where(array("id"=>$sid))->find();
+                        $province = $res['sheng'];
                         Session::set('uname',$uname);
                         Session::set('authorid',$fid);
                         Session::set('province',$province);
@@ -61,7 +64,7 @@ class Login extends Controller
                 }
                 else
                 {
-                    $this->error('登录名或密码错误！');
+                    //$this->error('登录名或密码错误！');
                 }
             }
             else

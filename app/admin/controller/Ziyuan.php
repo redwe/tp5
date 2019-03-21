@@ -62,12 +62,13 @@ class Ziyuan extends Common
             $where["province"] = $User_province;
         }
 
-        if(!empty($project)){
-            $where['project'] = $project;
-        }
-
         if(!empty($keyword)){
             $where['project'] = $keyword;
+        }
+
+        if(!empty($project)){
+            //$where['project'] = array("like","%".$project."%");
+            $where = "locate(project,'".$project."') or project like '%".$project."%'";      //LOCATE(substr,str)返回字符串substr中第一次出现子字符串的位置 str。
         }
 
         $zylist = $xmobj->getResources($limit,$where);
@@ -78,6 +79,8 @@ class Ziyuan extends Common
 
         $page = $zylist->render();
         $view->assign('page', $page);
+
+        //dump(Db::name("resource")->getLastSql());
 
         return $view->fetch();
     }

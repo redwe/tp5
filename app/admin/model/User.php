@@ -42,6 +42,20 @@ class User extends Model
         return $delid;
     }
 
+    public function checkUser($where){
+        $join = [
+            ["shenfens f","u.fid=f.id"]
+        ];
+        $field = 'u.*,f.shenfen';
+        $lists = Db::name("users")
+                ->alias("u")
+                ->join($join)
+                ->field($field)
+                ->where($where)
+                ->find();
+        return $lists;
+    }
+
     public function getUserList($where,$limit){
         $join = [
             ["shengs s",'s.id=u.sid'],["fenbus b","b.id=u.bid"],["shenfens f","u.fid=f.id"],["gangweis g","g.id=u.gid"]

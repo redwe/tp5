@@ -78,11 +78,11 @@ class Saler extends Common
         $view->assign('province',$User_province);
 
         if(!empty($User_province)){
-            $where["province"] = $User_province;
+            $where["province"] = array("like","%".$User_province."%");
         }
 
         if(!empty($province)){
-            $where["province"] = $province;
+            $where["province"] = array("like","%".$User_province."%");
         }
 
         if(!empty($project)){

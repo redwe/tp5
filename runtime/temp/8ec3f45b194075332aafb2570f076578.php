@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\phpStudy\WWW\CRM\public/../app/admin\view\ziyuan\kecheng.html";i:1553152219;s:44:"D:\phpStudy\WWW\CRM\app\admin\view\nav3.html";i:1545450599;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -44,18 +45,44 @@
 </style>
 	<body>
 		<div class="selectionTop">
-             {include file="nav3" /}
+             <ul>
+    <?php if((\think\Request::instance()->param('nav3') == '0')): ?>
+    <li class="current">
+        <?php else: ?>
+    <li>
+        <?php endif; ?><a href="/admin/ziyuan/kecheng/nav3/0">课程</a> </li>
+    <?php if((\think\Request::instance()->param('nav3') == '1')): ?>
+    <li class="current">
+        <?php else: ?>
+    <li>
+        <?php endif; ?><a href="/admin/ziyuan/xueli/nav3/1">学历</a> </li>
+    <?php if((\think\Request::instance()->param('nav3') == '2')): ?>
+    <li class="current">
+        <?php else: ?>
+    <li>
+        <?php endif; ?><a href="/admin/ziyuan/zhengshu/nav3/2">证书</a></li>
+    <?php 
+    if($authorid=='3'){
+        if($hsz){
+             echo '<input type="button" class="Hsz" id="recycle" value="回收站">';
+        }
+        else
+        {
+            echo '<input type="button" class="Hsz" style="background-color: #1d2088; color: #ffffff;" id="recycle" value="回收站">';
+        }
+
+    }
+     ?>
+</ul>
 			</div>
         <form name="listform" method="post" action="/admin/ziyuan/kecheng/nav3/0">
 			<div class="selectionTop">
 				<ul class="project_ul">
-                    {volist name="xmlist" id="vo"}
-                    {if condition = "$project == $vo['project']"}
-                        <li class="current">{$vo.project}</li>
-                    {else /}
-                        <li>{$vo.project}</li>
-                    {/if}
-                    {/volist}
+                    <?php if(is_array($xmlist) || $xmlist instanceof \think\Collection || $xmlist instanceof \think\Paginator): $i = 0; $__LIST__ = $xmlist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($project == $vo['project']): ?>
+                        <li class="current"><?php echo $vo['project']; ?></li>
+                    <?php else: ?>
+                        <li><?php echo $vo['project']; ?></li>
+                    <?php endif; endforeach; endif; else: echo "" ;endif; ?>
                     <input class="hiDomain" name="project" id="project" type="hidden" value="">
 					<input type="button" class="Dr" value="导入">
 				</ul>
@@ -63,18 +90,18 @@
 			<div class="condition">
 				<div class="conditionSearch">
 					<input class="searchBtn" type="submit" value="搜索"/>
-					<input class="searchInput" name="keyword" type="text" value="{$keyword}" />
+					<input class="searchInput" name="keyword" type="text" value="<?php echo $keyword; ?>" />
 					<div class="Dels">
 						<span>操作：</span>
-                        {if condition = "$hsz==1"}
+                        <?php if($hsz==1): ?>
                             <input type="button" onclick="delAll(200,'/admin/ziyuan/delzy')" value="批量删除200条"/>
                             <input type="button" onclick="delAll(500,'/admin/ziyuan/delzy')" value="批量删除500条"/>
                             <input type="button" onclick="delAll(0,'/admin/ziyuan/delzy')" value="删除所勾选客户"/>
-                        {else /}
+                        <?php else: ?>
                             <input type="button" onclick="delAll(200,'/admin/ziyuan/del')" value="彻底删除200条"/>
                             <input type="button" onclick="delAll(500,'/admin/ziyuan/del')" value="彻底删除500条"/>
                             <input type="button" onclick="delAll(0,'/admin/ziyuan/del')" value="彻底删除勾选客户"/>
-                        {/if}
+                        <?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -92,29 +119,29 @@
 						<th>标签</th>
 						<th>操作</th>
                      </tr>
-                    {volist name="zylist" id="vo"}
+                    <?php if(is_array($zylist) || $zylist instanceof \think\Collection || $zylist instanceof \think\Paginator): $i = 0; $__LIST__ = $zylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                      <tr>
-						<td><input type="checkbox" name="delid" class="delid" value="{$vo.id}"/></td>
-						<td>{$vo.project}</td>
-						<td>{$vo.province}-{$vo.city}</td>
-						<td>{$vo.datetime}</td>
-						<td>{$vo.guest}</td>
-						<td>{$vo.intent}</td>
-						<td>{$vo.label}</td>
+						<td><input type="checkbox" name="delid" class="delid" value="<?php echo $vo['id']; ?>"/></td>
+						<td><?php echo $vo['project']; ?></td>
+						<td><?php echo $vo['province']; ?>-<?php echo $vo['city']; ?></td>
+						<td><?php echo $vo['datetime']; ?></td>
+						<td><?php echo $vo['guest']; ?></td>
+						<td><?php echo $vo['intent']; ?></td>
+						<td><?php echo $vo['label']; ?></td>
 						<td>
-                            {if condition="$vo['status']==1"}
-							    <a href="/admin/ziyuan/delzy/id/{$vo.id}" class="zyDel">删除</a>
-                            {else /}
-                                <a href="/admin/ziyuan/restore/id/{$vo.id}" class="zyDel">还原</a> /
-                                <a href="/admin/ziyuan/del/id/{$vo.id}" class="zyDel">彻底删除</a>
-                            {/if}
+                            <?php if($vo['status']==1): ?>
+							    <a href="/admin/ziyuan/delzy/id/<?php echo $vo['id']; ?>" class="zyDel">删除</a>
+                            <?php else: ?>
+                                <a href="/admin/ziyuan/restore/id/<?php echo $vo['id']; ?>" class="zyDel">还原</a> /
+                                <a href="/admin/ziyuan/del/id/<?php echo $vo['id']; ?>" class="zyDel">彻底删除</a>
+                            <?php endif; ?>
 						</td>
                      </tr>
-                    {/volist}
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                  </tbody>
            </table>
                 <input name="ids" id="ids" type="hidden" value="">
-                {$page}
+                <?php echo $page; ?>
             </form>
 		<div class="popUps">
 		<div class="mask"></div>

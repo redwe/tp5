@@ -1,10 +1,12 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\mykehu.html";i:1545732051;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\mykehu.html";i:1553310590;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>CRM主界面-销售员-我的客户</title>
+    <link rel="stylesheet" href="/static/css/common.css" />
     <link rel="stylesheet" href="/static/css/Seller.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css"/>
     <style type="text/css">
         table tr th:last-of-type{
             width: 500px;
@@ -56,6 +58,7 @@
 <table id="tb_3" cellspacing="0" cellpadding="2" width="100%" border="">
     <tbody>
     <tr align="center" bgcolor="#dcdcdc">
+        <th>ID</th>
         <th>项目</th>
         <th>对象</th>
         <th>时间</th>
@@ -63,8 +66,11 @@
         <th>业务员</th>
         <th>操作</th>
     </tr>
-    <?php if(is_array($zylist) || $zylist instanceof \think\Collection || $zylist instanceof \think\Paginator): $i = 0; $__LIST__ = $zylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+    <?php if(is_array($zylist) || $zylist instanceof \think\Collection || $zylist instanceof \think\Paginator): $i = 0; $__LIST__ = $zylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;
+            $labels = $vo['labels'];
+     ?>
     <tr>
+        <td><?php echo $vo['id']; ?></td>
         <td><?php echo $vo['project']; ?></td>
         <td><?php echo $vo['guest']; ?></td>
         <td><?php echo $vo['datetime']; ?></td>
@@ -76,12 +82,17 @@
             <span class=""><img class="approvalB" data-id="<?php echo $vo['id']; ?>" data-lv="<?php echo $vo['intent']; ?>" src="/static/images/ic_move.png" alt="操作" /></span>
             <span class=""><img class="approvalDel" data-id="<?php echo $vo['id']; ?>" src="/static/images/ic_delete.png" alt="删除" /></span>
             <a href="#"><span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span></a>
-            <span class=""><img onclick="setPopData('<?php echo $vo['guest']; ?>','<?php echo $vo['province']; ?>','<?php echo $vo['project']; ?>','<?php echo $vo['company']; ?>','<?php echo $vo['tel']; ?>','<?php echo $vo['id']; ?>')" class="approvalP" src="/static/images/ic_tiaodong.png" alt="对比" /></span>
+            <?php if($labels != NULL): ?>
+                <span class=""><img onclick="setPopData('<?php echo $vo['guest']; ?>','<?php echo $vo['province']; ?>','<?php echo $vo['project']; ?>','<?php echo $vo['company']; ?>','<?php echo $vo['tel']; ?>','<?php echo $vo['id']; ?>');" class="approvalP" src="/static/images/label.png" alt="已联系" /></span>
+            <?php else: ?>
+            <span class=""><img onclick="setPopData('<?php echo $vo['guest']; ?>','<?php echo $vo['province']; ?>','<?php echo $vo['project']; ?>','<?php echo $vo['company']; ?>','<?php echo $vo['tel']; ?>','<?php echo $vo['id']; ?>');" class="approvalP" src="/static/images/ic_tiaodong.png" alt="未联系" /></span>
+            <?php endif; ?>
         </td>
     </tr>
     <?php endforeach; endif; else: echo "" ;endif; ?>
     </tbody>
 </table>
+<?php echo $page; ?>
 <script>
     function call(number){
         if(number != '10086' && number !='10010'&& number !='0'){
@@ -228,7 +239,7 @@
                         <span class="ThjlName">工作地区：</span>
                         <div class="Bqlist">
                             <?php if(is_array($shenglist) || $shenglist instanceof \think\Collection || $shenglist instanceof \think\Paginator): $key = 0; $__LIST__ = $shenglist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($key % 2 );++$key;?>
-                            <div onclick="setlabels(this,'area')" class="gzdq"><?php echo $vo['sheng']; ?></div>
+                            <div onclick="setlabels(this,'area')" class="gzdq area"><?php echo $vo['sheng']; ?></div>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
                             <span class="gzdqAdd">+</span>
                         </div>
@@ -237,87 +248,87 @@
                     <div class="ThjlBqName">
                         <span class="ThjlName">需求人数：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'people')" class="gzdq">1人</div>
-                            <div onclick="setlabels(this,'people')" class="gzdq">2-5人</div>
-                            <div onclick="setlabels(this,'people')" class="gzdq">5-10人</div>
-                            <div onclick="setlabels(this,'people')" class="gzdq">10人以上</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq people">1人</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq people">2-5人</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq people">5-10人</div>
+                            <div onclick="setlabels(this,'people')" class="gzdq people">10人以上</div>
                         </div>
                         <input type="hidden" name="people" id="people" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">教育经历：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'edu')" class="gzdq">高中及以下</div>
-                            <div onclick="setlabels(this,'edu')" class="gzdq">中专</div>
-                            <div onclick="setlabels(this,'edu')" class="gzdq">大专</div>
-                            <div onclick="setlabels(this,'edu')" class="gzdq">本科</div>
-                            <div onclick="setlabels(this,'edu')" class="gzdq">研究生</div>
-                            <div onclick="setlabels(this,'edu')" class="gzdq">博士及以上</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq edu">高中及以下</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq edu">中专</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq edu">大专</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq edu">本科</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq edu">研究生</div>
+                            <div onclick="setlabels(this,'edu')" class="gzdq edu">博士及以上</div>
                         </div>
                         <input type="hidden" name="edu" id="edu" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">培训经历：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'train')" class="gzdq">有</div>
-                            <div onclick="setlabels(this,'train')" class="gzdq">无</div>
+                            <div onclick="setlabels(this,'train')" class="gzdq train">有</div>
+                            <div onclick="setlabels(this,'train')" class="gzdq train">无</div>
                         </div>
                         <input type="hidden" name="train" id="train" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">年龄层次：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'age')" class="gzdq">25岁以下</div>
-                            <div onclick="setlabels(this,'age')" class="gzdq">25-30岁</div>
-                            <div onclick="setlabels(this,'age')" class="gzdq">30-35岁</div>
-                            <div onclick="setlabels(this,'age')" class="gzdq">35-40岁</div>
-                            <div onclick="setlabels(this,'age')" class="gzdq">40岁以上</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq age">25岁以下</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq age">25-30岁</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq age">30-35岁</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq age">35-40岁</div>
+                            <div onclick="setlabels(this,'age')" class="gzdq age">40岁以上</div>
                         </div>
                         <input type="hidden" name="age" id="age" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">用户性别：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'sex')" class="gzdq">男</div>
-                            <div onclick="setlabels(this,'sex')" class="gzdq">女</div>
+                            <div onclick="setlabels(this,'sex')" class="gzdq sex">男</div>
+                            <div onclick="setlabels(this,'sex')" class="gzdq sex">女</div>
                         </div>
                         <input type="hidden" name="sex" id="sex" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">岗位层级：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'capa')" class="gzdq">高层</div>
-                            <div onclick="setlabels(this,'capa')" class="gzdq">中层</div>
-                            <div onclick="setlabels(this,'capa')" class="gzdq">企业主</div>
+                            <div onclick="setlabels(this,'capa')" class="gzdq capa">高层</div>
+                            <div onclick="setlabels(this,'capa')" class="gzdq capa">中层</div>
+                            <div onclick="setlabels(this,'capa')" class="gzdq capa">企业主</div>
                         </div>
                         <input type="hidden" name="capa" id="capa" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">项目需求：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'pros')" class="gzdq">一建</div>
-                            <div onclick="setlabels(this,'pros')" class="gzdq">二建</div>
-                            <div onclick="setlabels(this,'pros')" class="gzdq">消防</div>
-                            <div onclick="setlabels(this,'pros')" class="gzdq">公路水运</div>
-                            <div onclick="setlabels(this,'pros')" class="gzdq">湖南中共</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq pros">一建</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq pros">二建</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq pros">消防</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq pros">公路水运</div>
+                            <div onclick="setlabels(this,'pros')" class="gzdq pros">湖南中共</div>
                         </div>
                         <input type="hidden" name="pros" id="pros" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">意向度：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'will')" class="gzdq">A(要报班)</div>
-                            <div onclick="setlabels(this,'will')" class="gzdq">B(考虑中)</div>
-                            <div onclick="setlabels(this,'will')" class="gzdq">C(以后再说)</div>
+                            <div onclick="setlabels(this,'will')" class="gzdq will">A(要报班)</div>
+                            <div onclick="setlabels(this,'will')" class="gzdq will">B(考虑中)</div>
+                            <div onclick="setlabels(this,'will')" class="gzdq will">C(以后再说)</div>
                         </div>
                         <input type="hidden" name="will" id="will" value="">
                     </div>
                     <div class="ThjlBqName">
                         <span class="ThjlName">通话质量：</span>
                         <div class="Bqlist">
-                            <div onclick="setlabels(this,'call')" class="gzdq">通话良好</div>
-                            <div onclick="setlabels(this,'call')" class="gzdq">未接听</div>
-                            <div onclick="setlabels(this,'call')" class="gzdq">空号</div>
+                            <div onclick="setlabels(this,'call')" class="gzdq call">通话良好</div>
+                            <div onclick="setlabels(this,'call')" class="gzdq call">未接听</div>
+                            <div onclick="setlabels(this,'call')" class="gzdq call">空号</div>
                         </div>
                         <input type="hidden" name="call" id="call" value="">
                     </div>
@@ -597,6 +608,120 @@ function resetPop(){
     $('.ThjlBqName .Bqlist div').removeClass('current');
 }
 
+    function setPopstyle($list){
+        //console.log($list);
+        $(".area").each(function(){
+            var area = $(this).html();
+            for(var i in $list){
+                if(area == $list[i]){
+                    $(this).addClass('current');
+                    $("#area").val(area);
+                    break;
+                }
+            }
+        });
+        $(".people").each(function(){
+            var people = $(this).html();
+            for(var i in $list){
+                if(people == $list[i]){
+                    $(this).addClass('current');
+                    $("#people").val(people);
+                    break;
+                }
+            }
+        });
+        $(".edu").each(function(){
+            var edu = $(this).html();
+            for(var i in $list){
+                if(edu == $list[i]){
+                    $(this).addClass('current');
+                    $("#edu").val(edu);
+                    break;
+                }
+            }
+        });
+        $(".train").each(function(){
+            var train = $(this).html();
+            for(var i in $list){
+                if(train == $list[i]){
+                    $(this).addClass('current');
+                    $("#train").val(train);
+                    break;
+                }
+            }
+        });
+        $(".age").each(function(){
+            var age = $(this).html();
+            for(var i in $list){
+                if(age == $list[i]){
+                    $(this).addClass('current');
+                    $("#age").val(age);
+                    break;
+                }
+            }
+        });
+        $(".sex").each(function(){
+            var sex = $(this).html();
+            for(var i in $list){
+                if(sex == $list[i]){
+                    $(this).addClass('current');
+                    $("#sex").val(sex);
+                    break;
+                }
+            }
+        });
+        $(".capa").each(function(){
+            var capa = $(this).html();
+            for(var i in $list){
+                if(capa == $list[i]){
+                    $(this).addClass('current');
+                    $("#capa").val(capa);
+                    break;
+                }
+            }
+        });
+        $(".pros").each(function(){
+            var pros = $(this).html();
+            for(var i in $list){
+                if(pros == $list[i]){
+                    $(this).addClass('current');
+                    $("#pros").val(pros);
+                    break;
+                }
+            }
+        });
+        $(".will").each(function(){
+            var will = $(this).html();
+            for(var i in $list){
+                if(will == $list[i]){
+                    $(this).addClass('current');
+                    $("#will").val(will);
+                    break;
+                }
+            }
+        });
+        $(".call").each(function(){
+            var call = $(this).html();
+            for(var i in $list){
+                if(call == $list[i]){
+                    $(this).addClass('current');
+                    $("#call").val(call);
+                    break;
+                }
+            }
+        });
+        $(".marks").each(function(){
+            var marks = $(this).html();
+            for(var i in $list){
+                if(marks == $list[i]){
+                    $(this).addClass('current');
+                    $("#marks").val(marks);
+                    break;
+                }
+            }
+        });
+    }
+
 //获取选中的标签数据
 function getPopValue(){
     var area = $("#area").val();
@@ -624,15 +749,17 @@ function getPopValue(){
 }
 //提交保存标签数据
  function saveLabel(){
+
         var label_values = getPopValue();
+     console.log(label_values);
         var id = $("#user_id").val();
         var marks = $("#marks").val();
-         if(marks.length == 0 || marks == '请在此处输入内容'){
-             alert("请输入内容！");
-             return false;
-         }
-         else
-         {
+         //if(marks.length == 0 || marks == '请在此处输入内容'){
+             //alert("请输入内容！");
+             //return false;
+         //}
+         //else
+         //{
              $.ajax({
                  type: "GET",
                  url: "/user/saler/saveLabels",
@@ -646,36 +773,40 @@ function getPopValue(){
                      }
                      else
                      {
-
+                        alert("提交失败！");
                      }
                      alert(res.msg);
+                     getLabelist(id);
                  }
              });
-         }
+        // }
     }
 
 //点击下一个按钮，请求数据
  function clicknext(){
      //saveLabel();
      var nextid = $("#user_id").val();
-     $.ajax({
-         type: "POST",
-         url: "/user/saler/nextUser",
-         data: {id:nextid},
-         dataType: "text",
-         success: function(res){
-             var data =  JSON.parse(res);
-             //alert(data.id);
-             if(data.id){
-                 setPopData(data.guest,data.province,data.project,data.company,data.tel,data.id);
-                 resetPop();
+     if(nextid){
+         $.ajax({
+             type: "POST",
+             url: "/user/saler/nextUser",
+             data: {id:nextid},
+             dataType: "text",
+             success: function(res){
+                 var data =  JSON.parse(res);
+                 console.log(data);
+                 if(data){
+                     setPopData(data.guest,data.province,data.project,data.company,data.tel,data.id);
+                     resetPop();
+                     getLabelist(data.id);
+                 }
+                 else
+                 {
+                     alert("暂时无信息！");
+                 }
              }
-             else
-             {
-                 alert("暂时无信息！");
-             }
-         }
-     });
+         });
+     }
  }
 
 function setlabels(obj,label){
@@ -694,14 +825,24 @@ function getLabelist(rid){
             success: function(json){
                 //var res = JSON.parse(json);
                 var result = json.data;
+
+                var labellist = [];
+                var labels = JSON.parse(json.label);
+
+                for(k in labels){
+                    labellist.push(labels[k]);
+                }
+                $('.gzdq').each(function(){
+                    $(this).removeClass('current');
+                });
+                setPopstyle(labellist);
                 if(json.code){
                     var tempst = '';
                     for(var i=0;i<result.length;i++){
                         //var res = JSON.parse(result);
-                        console.log(result[i]);
                         tempst = tempst+"<li>"+result[i].datetime+"-"+result[i].uname+"："+result[i].marks+"</li>"
                     }
-                    $("#label_ul").html(tempst);
+                   $("#label_ul").html(tempst);
                 }
                 else
                 {

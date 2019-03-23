@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CRM主界面-管理员-资源管理</title>
+        <style>
+            .sheng_ul{ width: 50%; margin: auto; padding: 20px; list-style: none}
+            .sheng_ul li{ padding: 10px;}
+            .sheng_ul li input{ padding: 10px;}
+        </style>
+	</head>
+	<body>
+            <div style="text-align: center; padding-top: 20px;"><h1>批量修改省份</h1></div>
+            <form name="delform" method="post" action="/admin/ziyuan/editsheng">
+                <ul class="sheng_ul">
+                    <li>原省份名：<input type="text" size="56" name="oldsheng"> </li>
+                    <li>新省份名：<input type="text" size="56" name="newsheng"> </li>
+                    <li><input style="margin-left: 100px;" type="submit" value="提 交"> </li>
+                </ul>
+            </form>
+        <script src="/static/js/jquery-2.1.4.min.js"></script>
+
+	</body>
+</html>

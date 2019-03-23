@@ -30,6 +30,7 @@ class Users extends Common
         $view = new View();
 
         $where['u.status'] = 1;
+        $where['u.id'] = array("gt",3);
 
         $province = Request::instance()->post("province");
         $department = Request::instance()->post("department");
@@ -217,6 +218,11 @@ class Users extends Common
         $delsheng = Request::instance()->param("delsheng");
         $delfenbu = Request::instance()->param("delfenbu");
         $deluser = Request::instance()->param("deluser");
+
+        if($delid<3){
+            $this->error("超级管理员不能删除！");
+            exit();
+        }
 
         $param["uid"] = $delid;
         $data0["uid"] = $deluser;

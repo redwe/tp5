@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\phpStudy\WWW\CRM\public/../app/admin\view\ziyuan\kecheng.html";i:1553152219;s:44:"D:\phpStudy\WWW\CRM\app\admin\view\nav3.html";i:1545450599;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\phpStudy\WWW\CRM\public/../app/admin\view\ziyuan\kecheng.html";i:1553303173;s:44:"D:\phpStudy\WWW\CRM\app\admin\view\nav3.html";i:1553303297;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -61,6 +61,9 @@
         <?php else: ?>
     <li>
         <?php endif; ?><a href="/admin/ziyuan/zhengshu/nav3/2">证书</a></li>
+
+    <input type="button" onclick="location.href='/admin/ziyuan/repeat'" class="repeat" value="去重">
+    <input type="button" onclick="location.href='/admin/ziyuan/editsheng'" class="repeat" value="修改省份">
     <?php 
     if($authorid=='3'){
         if($hsz){
@@ -111,6 +114,7 @@
                     <tbody>
                     <tr>
 						<th><input id="all" type="checkbox" onclick="setCheckbox(this,'delid')" value="" /></th>
+                        <th>ID</th>
 						<th>项目</th>
 						<th>地区</th>
 						<th>时间</th>
@@ -121,7 +125,8 @@
                      </tr>
                     <?php if(is_array($zylist) || $zylist instanceof \think\Collection || $zylist instanceof \think\Paginator): $i = 0; $__LIST__ = $zylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                      <tr>
-						<td><input type="checkbox" name="delid" class="delid" value="<?php echo $vo['id']; ?>"/></td>
+						<td><input type="checkbox" name="delid" class="delid" value="<?php echo $vo['id']; ?>"/> </td>
+                        <td><?php echo $vo['id']; ?></td>
 						<td><?php echo $vo['project']; ?></td>
 						<td><?php echo $vo['province']; ?>-<?php echo $vo['city']; ?></td>
 						<td><?php echo $vo['datetime']; ?></td>

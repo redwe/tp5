@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\lingqu.html";i:1545473285;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\lingqu.html";i:1553244238;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -267,6 +267,7 @@
         $(this).click(function(){
             var temp = $(this).html();
             $("#province").val(temp);
+            lqform.submit();
         })
     });
 

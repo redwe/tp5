@@ -17,7 +17,7 @@ class Common extends Controller
     {
         $islogin = Session::has('uname');
         $isauthor = Session::has('authorid');
-         if(!$islogin || !$isauthor){
+         if(empty($islogin) || empty($isauthor)){
                //$this->error("请登录后访问！","/admin/login/index");
              header('Location: /admin/login/index');
          }

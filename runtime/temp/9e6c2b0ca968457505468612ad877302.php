@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:60:"D:\phpStudy\WWW\CRM\public/../app/admin\view\main\index.html";i:1545981536;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:60:"D:\phpStudy\WWW\CRM\public/../app/admin\view\main\index.html";i:1553305218;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -49,6 +49,7 @@
 					<span><?php echo $topusers['gangwei']; ?></span>
 				</div>
 				<div style="position: absolute; top:30px; right:30px;">
+                    <a class="top_a"  onclick="document.getElementById('rightmain').contentWindow.location.reload(true);" href="#"> [刷新当前页] </a>
 					<a target="rightmain" class="top_a" href="/admin/users/password">[修改密码]</a>
 					<a class="top_a" href="/admin/login/logout">[安全退出]</a>
 					<?php  if($authorid=='3'){  ?>

@@ -84,6 +84,7 @@
                     <tbody>
                     <tr>
 						<th><input id="all" type="checkbox" onclick="setCheckbox(this,'delid')" value="" /></th>
+                        <th>ID</th>
 						<th>项目</th>
 						<th>地区</th>
 						<th>时间</th>
@@ -94,7 +95,8 @@
                      </tr>
                     {volist name="zylist" id="vo"}
                      <tr>
-						<td><input type="checkbox" name="delid" class="delid" value="{$vo.id}"/></td>
+						<td><input type="checkbox" name="delid" class="delid" value="{$vo.id}"/> </td>
+                        <td>{$vo.id}</td>
 						<td>{$vo.project}</td>
 						<td>{$vo.province}-{$vo.city}</td>
 						<td>{$vo.datetime}</td>

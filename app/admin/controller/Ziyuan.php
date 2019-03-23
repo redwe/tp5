@@ -63,7 +63,8 @@ class Ziyuan extends Common
         }
 
         if(!empty($keyword)){
-            $where['project'] = $keyword;
+            //$where['project'] = $keyword;
+            $where = "locate(project,'".$keyword."') or project like '%".$keyword."%' or locate(province,'".$keyword."') or province like '%".$keyword."%' or locate(guest,'".$keyword."') or guest like '%".$keyword."%'";
         }
 
         if(!empty($project)){
@@ -289,6 +290,70 @@ class Ziyuan extends Common
 
         } else {
             $this->error($msg);
+        }
+
+    }
+
+    public function repeat(){
+        $view = new View();
+        $tellist = Db::name("resource")->query("SELECT id,project,province,guest,tel,count(*) as count FROM resource GROUP BY  tel HAVING count(*) > 1");
+        $view->assign('tellist', $tellist);
+        return $view->fetch();
+    }
+
+    public function editsheng(){
+        if($this->request->isPost()){
+            $oldsheng = $this->request->param("oldsheng");
+            $newsheng = $this->request->param("newsheng");
+            $res = Db::name("resource")->where(array("province"=>$oldsheng))->update(array("province"=>$newsheng));
+            if($res){
+                $this->success("成功修改了".$res."条记录");
+            }
+            else
+            {
+                $this->error("操作失败");
+            }
+
+        }
+        $view = new View();
+        return $view->fetch();
+    }
+
+    public function delrepeat(){
+        $tel = array();
+        $ids = array();
+        $res = 0;
+        $tellist = Db::name("resource")->query("SELECT b.tel FROM resource b GROUP BY  b.tel HAVING count(*) > 1");
+        foreach($tellist as $vo){
+            if(!empty($vo["tel"])){
+                array_push($tel,"'".$vo["tel"]."'");
+            }
+        }
+        $tels = implode(",",$tel);
+        //dump($tels);
+        $idlist = Db::name("resource")->query("SELECT min(id) as mid FROM resource GROUP BY tel HAVING count(*) > 1");
+        foreach($idlist as $vo2){
+            if(!empty($vo2["mid"])){
+                array_push($ids,$vo2["mid"]);
+            }
+        }
+        $idaarr = implode(",",$ids);
+        //dump($idaarr);
+        //exit();
+        if(!empty($tels) && !empty($idaarr)){
+            Db::name("resource")->where(array("tel"=>""))->delete();
+            $res = Db::name("resource")->query("DELETE FROM resource WHERE tel IN (".$tels.") AND id NOT IN (".$idaarr.")");
+            if(!empty($res)){
+                $this->success("成功删除".$res."条数据");
+            }
+            else
+            {
+                $this->error("操作成功！");
+            }
+        }
+        else
+        {
+            $this->error("没有查到需要删除的信息！");
         }
 
     }

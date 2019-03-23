@@ -24,12 +24,20 @@ class Saler extends Common
 
     public function lingqu()
     {
+        $view = new View();
         $menu = Request::instance()->get("menu");
         $nav3 = Request::instance()->get("nav3");
         $project = Request::instance()->post("project");
         $keyword = Request::instance()->post("keyword");
 
-        $province = Request::instance()->post("province");
+        $province = Session::get("province");
+        $province0 = Request::instance()->post("province");
+
+        if(empty($province0)){
+            $province0 = $province;
+        }
+        $view->assign('province',$province0);
+
         $xueli = Request::instance()->post("xueli");
         $zhengshu = Request::instance()->post("zhengshu");
 
@@ -48,7 +56,6 @@ class Saler extends Common
         $startTime = $startY.'-'.$startM.'-'.$startD;
         $endTime = $endY.'-'.$endM.'-'.$endD;
 
-        $view = new View();
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
 
@@ -74,17 +81,6 @@ class Saler extends Common
         $where['status'] = 1;
         $where['uid'] = 0;
 
-        $User_province = Session::get("province");
-        $view->assign('province',$User_province);
-
-        if(!empty($User_province)){
-            $where["province"] = array("like","%".$User_province."%");
-        }
-
-        if(!empty($province)){
-            $where["province"] = array("like","%".$User_province."%");
-        }
-
         if(!empty($project)){
             $where['project'] = $project;
         }
@@ -103,6 +99,11 @@ class Saler extends Common
 
         if(!empty($intent)){
             $where['intent'] = $intent;
+        }
+
+        if(!empty($province)){
+            $where["province"] = array("like","%".$province."%");
+            //$where = "(locate(province,'".$province."') or province like '%".$province."%') and uid=0 and status=1";
         }
 
         if($startTime!=$endTime){
@@ -180,17 +181,22 @@ class Saler extends Common
         $shengfen = $shengobj->getShengfen2("shengs","sheng");
         $view->assign('shenglist',$shengfen);
 
-        $limit = 10;
-        $where['uid'] = $uid;
-        $where['status'] = 1;
-        $zylist = $xmobj->getResources($limit,$where);
+        $limit = 15;
+        $where['r.uid'] = $uid;
+        $where['r.status'] = 1;
+        $join = [
+          ["labels l","l.rid=r.id","left"]
+        ];
+        $field = "r.*,l.labels";
+        $zylist = Db::name("resource")->alias("r")->where($where)->join($join)->field($field)->order("l.labels asc")->paginate($limit);
+        //$zylist = $xmobj->getResources($limit,$where);
         $view->assign('zylist',$zylist);
+        $view->assign('page',$zylist->render());
 
         $saler = Session::get('saler');
         $view->assign('saler',$saler);
 
-        //dump($saler);
-
+        //dump($zylist);
         return $view->fetch();
         //return view('index');
     }
@@ -200,10 +206,19 @@ class Saler extends Common
         $rid = Request::instance()->param("rid");
         $where['a.rid'] = $rid;
         //$where['a.uid'] = $uid;
+
+        $label = Db::name("labels")->where(array("rid"=>$rid))->find();
+        if(!empty($label)){
+            $res["label"] = $label['labels'];
+        }
+        else
+        {
+            $res["label"] = '';
+        }
         $join = [
             ["users u","u.id=a.uid"]
         ];
-        $result = Db::name("labels")
+        $result = Db::name("marks")
             ->alias("a")
             ->join($join)
             ->field("a.uid,a.marks,a.datetime,u.uname")
@@ -213,7 +228,11 @@ class Saler extends Common
         if($result){
             $data = [];
             foreach($result as $vo){
-                $data[] = ["uname"=>$vo["uname"],"marks"=>$vo["marks"],"datetime"=>date("Y/m/d",strtotime($vo["datetime"]))];
+                $data[] = [
+                    "uname"=>$vo["uname"],
+                    "marks"=>$vo["marks"],
+                    "datetime"=>date("Y/m/d",strtotime($vo["datetime"]))
+                ];
             }
 
             $res["code"] = 1;
@@ -297,15 +316,17 @@ class Saler extends Common
         }
     }
 
+
     public function del_guest(){
         $delid = Request::instance()->post("delid");
         $uid = Request::instance()->post("uid");
         $where["id"] = $delid;
         $where["uid"] = $uid;
-        $data["status"] = 0;
+        $data["uid"] = 0;
         $result = Db::name("resource")->where($where)->update($data);
         if($result){
-            $this->success("删除成功!");
+            Db::name("labels")->where(array("rid"=>$delid,"uid"=>$uid))->delete();
+            $this->success("操作成功!");
         }
         else
         {
@@ -616,11 +637,8 @@ class Saler extends Common
 
         $where["rid"] = $rid;
         $where["uid"] = $uid;
-        $where["marks"] = $marks;
-        $where["labels"] = $labels;
 
         $data["labels"] = $labels;
-        $data["marks"] = $marks;
         $data["rid"] = $rid;
         $data["uid"] = $uid;
         $data["status"] = 1;
@@ -628,11 +646,17 @@ class Saler extends Common
 
         $result = Db::name("labels")->where($where)->find();
         if($result['id']){
-            $result = Db::name("labels")->update($data);
+            $result = Db::name("labels")->where($where)->update($data);
         }
         else
         {
             $result = Db::name("labels")->insert($data);
+        }
+
+        if(!empty($marks)){
+            $data["marks"] = $marks;
+            unset($data["labels"]);
+            $result = Db::name("marks")->insert($data);
         }
 
         if($result){

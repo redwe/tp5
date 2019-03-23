@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:50:"D:\phpStudy\WWW\CRM\thinkphp\tpl\dispatch_jump.tpl";i:1544067497;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:50:"D:\phpStudy\WWW\CRM\thinkphp\tpl\dispatch_jump.tpl";i:1553311403;}*/ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -25,7 +25,7 @@
             <?php break;} ?>
         <p class="detail"></p>
         <p class="jump">
-            页面自动 <a id="href" href="<?php echo($url);?>">跳转</a> 等待时间： <b id="wait"><?php echo($wait);?></b>
+            页面自动 <a id="href" href="<?php echo($url);?>">跳转</a> 等待时间： <b id="wait">1</b>
         </p>
     </div>
     <script type="text/javascript">

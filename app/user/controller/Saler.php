@@ -5,6 +5,7 @@ use think\Controller;
 use app\admin\model\User;
 use think\View;
 use think\Session;
+use think\Cookie;
 use think\Db;
 use think\Request;
 use app\admin\model\XmModel;
@@ -25,33 +26,48 @@ class Saler extends Common
     public function lingqu()
     {
         $view = new View();
-        $menu = Request::instance()->get("menu");
-        $nav3 = Request::instance()->get("nav3");
-        $project = Request::instance()->post("project");
-        $keyword = Request::instance()->post("keyword");
+
+        if(!empty($_POST)){
+            $params = $_POST;
+        }
+        else
+        {
+            $params = $_GET;
+        }
+        $menu = $this->request->param("menu");
+        $nav3 = $this->request->param("nav3");
+        $project = $this->request->param("project");
+        $pagenum = $this->request->param("pagenum");
+        $pagecurr = $this->request->param("page");
+        $view->assign("pagecurr",$pagecurr);
+
+        $limit = $this->setCookies($pagenum);
+        $view->assign('limit',$limit);
+
+        $keyword = $this->request->param("keyword");
 
         $province = Session::get("province");
-        $province0 = Request::instance()->post("province");
+        $province0 = $this->request->param("province");
 
         if(empty($province0)){
             $province0 = $province;
         }
         $view->assign('province',$province0);
 
-        $xueli = Request::instance()->post("xueli");
-        $zhengshu = Request::instance()->post("zhengshu");
+        $xueli = $this->request->param("xueli");
+        $zhengshu = $this->request->param("zhengshu");
 
-        $day_num = Request::instance()->post("day_num");
+        $day_num = $this->request->param("day_num");
 
-        $startY = Request::instance()->post("startY");
-        $startM = Request::instance()->post("startM");
-        $startD = Request::instance()->post("startD");
+        $startY = $this->request->param("startY");
+        $startM = $this->request->param("startM");
+        $startD = $this->request->param("startD");
 
-        $endY = Request::instance()->post("endY");
-        $endM = Request::instance()->post("endM");
-        $endD = Request::instance()->post("endD");
+        $endY = $this->request->param("endY");
+        $endM = $this->request->param("endM");
+        $endD = $this->request->param("endD");
 
-        $intent = Request::instance()->post("intent");
+        $intent = $this->request->param("intent");
 
         $startTime = $startY.'-'.$startM.'-'.$startD;
         $endTime = $endY.'-'.$endM.'-'.$endD;
@@ -76,8 +92,6 @@ class Saler extends Common
         $shengfen = $shengobj->getShengfen2("shengs","sheng");
         $view->assign('shenglist',$shengfen);
 
-        $limit = 10;
-
         $where['status'] = 1;
         $where['uid'] = 0;
 
@@ -94,7 +108,7 @@ class Saler extends Common
         }
 
         if(!empty($keyword)){
-            $where['project'] = $keyword;
+            $where['project|province|guest|tel|company'] = array("like","%".$keyword."%");
         }
 
         if(!empty($intent)){
@@ -106,23 +120,26 @@ class Saler extends Common
             //$where = "(locate(province,'".$province."') or province like '%".$province."%') and uid=0 and status=1";
         }
 
+        $order = "label asc";
         if($startTime!=$endTime){
             $startTime = $startTime.' 00:00:00';
             $endTime = $endTime.' 23:59:59';
             $zylist = Db::name("resource")
                 ->where($where)
+                ->order($order)
                 ->whereTime('datetime', 'between', [$startTime, $endTime])
-                ->paginate($limit);
+                ->paginate($limit,false,["query"=>$params]);
         }
         else if(!empty($day_num)){
             $zylist = Db::name("resource")
                 ->where($where)
+                ->order($order)
                 ->whereTime('datetime','>','-'.$day_num.' days')
-                ->paginate($limit);
+                ->paginate($limit,false,["query"=>$params]);
         }
         else
         {
-            $zylist = $xmobj->getResources($limit,$where);
+            $zylist = Db::name("resource")->where($where)->order($order)->paginate($limit,false,["query"=>$params]);
         }
         $uid = Session::get("uid");
         $view->assign('uid',$uid);
@@ -138,6 +155,32 @@ class Saler extends Common
         $view->assign('page', $page);
 
         return $view->fetch();
+    }
+
+    public function setCookies($pagenum){
+        if(!empty($pagenum)){
+            Cookie::set('pagenum',$pagenum,360000);
+            $limit = $pagenum;
+        }
+        else
+        {
+            $limit = 20;
+        }
+        if(Cookie::has('pagenum')){
+            $limit = Cookie::get('pagenum');
+        }
+        return $limit;
+    }
+
+    public function setlabel(){
+        $rids = array();
+        $label = Db::name("labels")->select();
+        foreach($label as $vo){
+            array_push($rids,$vo["rid"]);
+        }
+        $where["id"] = array("in",implode(",",$rids));
+        $result = Db::name("resource")->where($where)->update(array("label"=>1));
+        dump("ok".$result);
     }
 
     public function dolingqu(){
@@ -181,14 +224,27 @@ class Saler extends Common
         $shengfen = $shengobj->getShengfen2("shengs","sheng");
         $view->assign('shenglist',$shengfen);
 
-        $limit = 15;
-        $where['r.uid'] = $uid;
-        $where['r.status'] = 1;
+        $keyword = $this->request->param("keyword");
+        $pagenum = $this->request->param("pagenum");
+        $limit = $this->setCookies($pagenum);
+        $view->assign('limit',$limit);
+        $view->assign('keyword',$keyword);
+
+        $pagecurr = $this->request->param("page");
+        $view->assign("pagecurr",$pagecurr);
+
+        $where['uid'] = $uid;
+        $where['status'] = 1;
+        if(!empty($keyword)){
+            $where['project|province|guest|tel|company'] = array("like","%".$keyword."%");
+        }
+        /*
         $join = [
           ["labels l","l.rid=r.id","left"]
         ];
         $field = "r.*,l.labels";
-        $zylist = Db::name("resource")->alias("r")->where($where)->join($join)->field($field)->order("l.labels asc")->paginate($limit);
+        */
+        $zylist = Db::name("resource")->where($where)->order("label asc,id desc")->paginate($limit);
         //$zylist = $xmobj->getResources($limit,$where);
         $view->assign('zylist',$zylist);
         $view->assign('page',$zylist->render());
@@ -325,7 +381,27 @@ class Saler extends Common
         $data["uid"] = 0;
         $result = Db::name("resource")->where($where)->update($data);
         if($result){
-            Db::name("labels")->where(array("rid"=>$delid,"uid"=>$uid))->delete();
+            //Db::name("labels")->where(array("rid"=>$delid,"uid"=>$uid))->delete();
+            //$this->success("操作成功!");
+            return jsonOut(1,"操作成功!");
+        }
+        else
+        {
+            //$this->error("操作失败!");
+            return jsonOut(0,"操作失败!");
+        }
+    }
+
+
+    public function delete(){
+        $delid = Request::instance()->post("delid");
+        $uid = Request::instance()->post("uid");
+        $where["id"] = $delid;
+        $where["uid"] = $uid;
+        $data["status"] = 0;
+        $result = Db::name("resource")->where($where)->update($data);
+        if($result){
+            //Db::name("labels")->where(array("rid"=>$delid,"uid"=>$uid))->delete();
             $this->success("操作成功!");
         }
         else
@@ -333,6 +409,37 @@ class Saler extends Common
             $this->error("操作失败!");
         }
     }
+
+
+    public function del_guests(){
+        $ids = Request::instance()->post("ids");
+        $uid = Session::get("uid");
+        $province = Session::get("province");
+
+        if(empty($province)){
+            $this->error("请先登录再领取！");
+        }
+
+        $where["uid"] = $uid;
+
+        if(!empty($ids)){
+            $where["id"] = ["in",$ids];
+            //$where2["pid"] = ["in",$ids];
+        }
+
+        $data["uid"] = 0;
+
+        $result = Db::name("resource")->where($where)->update($data);
+        if($result){
+            //Db::name("labels")->where(array("rid"=>array("in",$ids),"uid"=>$uid))->delete();
+            $this->success("操作成功!");
+        }
+        else
+        {
+            $this->error("操作失败!");
+        }
+    }
+
 
     public function sendmsg(){
         $message = Request::instance()->post("message");
@@ -451,6 +558,7 @@ class Saler extends Common
     }
 
     public function delzy(){
+
         $id = Request::instance()->param("id");
         $limit = Request::instance()->param("limit");
         $ids = Request::instance()->param("ids/s");
@@ -460,6 +568,12 @@ class Saler extends Common
         $result = 0;
         //dump($ids);
         $where["status"] = 1;
+
+        $province = Session::get("province");
+
+        if(!empty($province)){
+            $where["province"] = array("like","%".$province."%");
+        }
 
         if(!empty($ids)){
             $where["id"] = ["in",$ids];
@@ -507,18 +621,35 @@ class Saler extends Common
         $result = 0;
         //dump($ids);
         $where["uid"] = 0;
+        $where["status"] = 1;
+
+        $province = Session::get("province");
+
+        if(!empty($province)){
+            $where["province"] = array("like","%".$province."%");
+        }
+        else
+        {
+            $this->error("请先登录再领取！");
+        }
 
         if(!empty($ids)){
             $where["id"] = ["in",$ids];
-            $where2["pid"] = ["in",$ids];
         }
 
+        $project = $this->request->param("project");
+
+        if(!empty($project)){
+            $where['project'] = $project;
+        }
+
+          $order = "label asc";
             if(empty($limit)) {
-                $result = Db::name("resource")->where($where)->update($data);
+                $result = Db::name("resource")->where($where)->order($order)->update($data);
             }
             else
             {
-                $result = Db::name("resource")->where($where)->limit($limit)->order('id asc')->update($data);
+                $result = Db::name("resource")->where($where)->limit($limit)->order($order)->update($data);
             }
             if($result){
                 $this->success("领取成功!");
@@ -527,8 +658,8 @@ class Saler extends Common
             {
                 $this->error("领取失败!");
             }
-    }
 
+    }
 
     public function importExcel(){
 
@@ -619,6 +750,7 @@ class Saler extends Common
         if(!empty($id)){
             $where["id"] = ['lt',$id];
             $where["uid"] = $uid;
+            $where["status"] = 1;
             $result = Db::name("resource")->where($where)->order('id desc')->find();
         }
         else
@@ -634,6 +766,7 @@ class Saler extends Common
         $rid = Request::instance()->param("id");
         $labels = Request::instance()->param("labels");
         $marks = Request::instance()->param("marks");
+        $will = Request::instance()->param("will");
 
         $where["rid"] = $rid;
         $where["uid"] = $uid;
@@ -651,6 +784,10 @@ class Saler extends Common
         else
         {
             $result = Db::name("labels")->insert($data);
+        }
+
+        if($result){
+            $result = Db::name("resource")->where(array("id"=>$rid))->update(array("label"=>1,"intent"=>$will));
         }
 
         if(!empty($marks)){

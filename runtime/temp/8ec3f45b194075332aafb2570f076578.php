@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\phpStudy\WWW\CRM\public/../app/admin\view\ziyuan\kecheng.html";i:1553303173;s:44:"D:\phpStudy\WWW\CRM\app\admin\view\nav3.html";i:1553303297;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\phpStudy\WWW\CRM\public/../app/admin\view\ziyuan\kecheng.html";i:1554708416;s:44:"D:\phpStudy\WWW\CRM\app\admin\view\nav3.html";i:1554275119;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -42,6 +42,29 @@
 	.proposal p{
 		font-size: 20px;
 	}
+    .pagination li.active span{
+        color: #fff;
+        margin-right: 0!important;
+    }
+    .tz{
+        font-size: 20px;
+    }
+    .go{
+        font-size: 20px;
+    }
+    .tip{
+        width: 80px;
+        font-size: 20px;
+        color: #333;
+    }
+    .lqf{
+        display: inline-block;
+    }
+    .lqfF{
+        display: inline-block;
+        float: left;
+        margin-top: 5px;
+    }
 </style>
 	<body>
 		<div class="selectionTop">
@@ -64,6 +87,7 @@
 
     <input type="button" onclick="location.href='/admin/ziyuan/repeat'" class="repeat" value="去重">
     <input type="button" onclick="location.href='/admin/ziyuan/editsheng'" class="repeat" value="修改省份">
+    <input type="button" onclick="location.href='/admin/ziyuan/emptynum'" class="repeat" value="清除空号">
     <?php 
     if($authorid=='3'){
         if($hsz){
@@ -94,6 +118,7 @@
 				<div class="conditionSearch">
 					<input class="searchBtn" type="submit" value="搜索"/>
 					<input class="searchInput" name="keyword" type="text" value="<?php echo $keyword; ?>" />
+                    <label class="mySpan">每页显示：</label><input name="pagenum" class="mexs" value="<?php echo $limit; ?>">
 					<div class="Dels">
 						<span>操作：</span>
                         <?php if($hsz==1): ?>
@@ -132,7 +157,9 @@
 						<td><?php echo $vo['datetime']; ?></td>
 						<td><?php echo $vo['guest']; ?></td>
 						<td><?php echo $vo['intent']; ?></td>
-						<td><?php echo $vo['label']; ?></td>
+						<td>
+                            <?php echo $vo['labels']; ?>
+                        </td>
 						<td>
                             <?php if($vo['status']==1): ?>
 							    <a href="/admin/ziyuan/delzy/id/<?php echo $vo['id']; ?>" class="zyDel">删除</a>
@@ -146,8 +173,15 @@
                  </tbody>
            </table>
                 <input name="ids" id="ids" type="hidden" value="">
-                <?php echo $page; ?>
             </form>
+        <?php echo $page; if(!(empty($page) || (($page instanceof \think\Collection || $page instanceof \think\Paginator ) && $page->isEmpty()))): ?>
+        <div class="lqfF">
+            <form name="pageform" action="ziyuan/kecheng" method="get" class="lqf">
+                <label class="tz">跳转到第</label> <input class="tip" name="page" value="<?php echo $pagecurr; ?>"> <label class="tz">页</label>
+                <input class="go" name="p1" type="submit" value="GO">
+            </form>
+        </div>
+        <?php endif; ?>
 		<div class="popUps">
 		<div class="mask"></div>
 		<div class="popUpsCont">

@@ -21,7 +21,19 @@ class XmModel extends Model
     }
 
     public function getResources($limit,$where,$order='id desc'){
-        $lists = Db::name("resource")->where($where)->order($order)->paginate($limit);
+        $lists = Db::name("resource")->where($where)->order($order)->paginate($limit)->each(function($v,$k){
+            $rid = $v['id'];
+            $label = Db::name("labels")->field("labels")->where(array("rid"=>$rid))->find();
+            if(!empty($label)){
+                $label = json_decode($label['labels'],true);
+                $v['labels'] = $label['call'];
+            }
+            else
+            {
+                $v['labels'] = '';
+            }
+            return $v;
+        });
         return $lists;
     }
 

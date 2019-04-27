@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>CRM主界面-用户管理-用户列表</title>
 	</head>
+    <link rel="stylesheet" href="/static/css/common.css" />
 	<link rel="stylesheet" href="/static/css/index.css" />
 	<style>
 		.approvalTop ul li{
@@ -66,7 +67,9 @@
             </tr>
               {volist name="lists" id="vo"}
                         <tr>
-						<td class="YHBli">{$vo.uname}</td>
+						<td class="YHBli">
+                            <input type="text" name="uname" value="{$vo.uname}" disabled="disabled"/>
+                        </td>
                         <td>
                         <input disabled="disabled" type="hidden" name="mid" value="{$vo.id}">
                         <select disabled="disabled" name="shengfen">
@@ -171,6 +174,7 @@
     $('.condtionArea span').click(function(){
         $(this).addClass('current').siblings().removeClass('current');
         $(this).parent().siblings('input').val($(this).html());
+        listform.submit();
     });
     //	删除
     $('.Move').click(function(){

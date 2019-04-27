@@ -8,6 +8,7 @@
 namespace app\admin\controller;
 use app\admin\controller\Common;
 use think\Session;
+use think\Cookie;
 use think\View;
 use think\Request;
 use think\Db;
@@ -24,14 +25,37 @@ class Ziyuan extends Common
         return $view->fetch();
         //return view('index');
     }
+
+    public function setCookies($pagenum){
+        if(!empty($pagenum)){
+            Cookie::set('pagenum',$pagenum,360000);
+            $limit = $pagenum;
+        }
+        else
+        {
+            $limit = 20;
+        }
+        if(Cookie::has('pagenum')){
+            $limit = Cookie::get('pagenum');
+        }
+        return $limit;
+    }
+
     public function kecheng()
     {
+        $view = new View();
         $menu = Request::instance()->get("menu");
         $nav3 = Request::instance()->get("nav3");
         $project = Request::instance()->post("project");
         $keyword = Request::instance()->post("keyword");
 
-        $view = new View();
+        $pagenum = $this->request->param("pagenum");
+        $pagecurr = $this->request->param("page");
+        $view->assign("pagecurr",$pagecurr);
+
+        $limit = $this->setCookies($pagenum);
+        $view->assign('limit',$limit);
+
         $view->assign('nav3',$nav3);
         $view->assign('menu',$menu);
 
@@ -41,8 +65,6 @@ class Ziyuan extends Common
         $xmobj = new XmModel();
         $xmlist = $xmobj->getXmList("kecheng","project",1);
         $view->assign('xmlist',$xmlist);
-
-        $limit = 12;
 
         $status = Request::instance()->param("hsz");
         if(!empty($status)){
@@ -73,6 +95,7 @@ class Ziyuan extends Common
         }
 
         $zylist = $xmobj->getResources($limit,$where);
+        //dump($zylist);
         $view->assign('zylist',$zylist);
         $view->assign('hsz',$status);
         $view->assign('project',$project);
@@ -294,6 +317,75 @@ class Ziyuan extends Common
 
     }
 
+    public function emptynum(){
+        $view = new View();
+        $ids0 = array();
+        $where["r.status"] = 1;
+        $where["l.labels"] = array("like","%空号%");
+
+        $join = [
+          ["resource r","l.rid=r.id"]
+        ];
+        $filed = "r.*,l.labels";
+        $list = Db::name("labels")->alias("l")->join($join)->where($where)->field($filed)->select();
+        $count = count($list);
+        $view->assign('count', $count);
+        $view->assign('lists', $list);
+        return $view->fetch();
+    }
+/*
+    public function emptynum(){
+        $view = new View();
+        $ids0 = array();
+        $where["status"] = 1;
+        $where["labels"] = array("like","%空号%");
+        $list = Db::name("labels")->where($where)->field("rid")->select();
+        foreach($list as $vo){
+            array_push($ids0,$vo["rid"]);
+        }
+        $res = '';
+        $count = 0;
+        if(!empty($ids0)){
+            $ids = implode(",",$ids0);
+            $where2["id"] = array("in",$ids);
+            $where2["status"] = 1;
+            $count = Db::name("resource")->where($where2)->count();
+            $res = Db::name("resource")->where($where2)->select();
+        }
+        $view->assign('count', $count);
+        $view->assign('lists', $res);
+        return $view->fetch();
+    }
+*/
+    public function delempty(){
+        $ids0 = array();
+        $where["status"] = 1;
+        $where["labels"] = array("like","%空号%");
+        $list = Db::name("labels")->where($where)->field("rid")->select();
+        foreach($list as $vo){
+            array_push($ids0,$vo["rid"]);
+        }
+        $res = '';
+        if(!empty($ids0)){
+            $ids = implode(",",$ids0);
+            $data["status"] = 0;
+            $where2["id"] = array("in",$ids);
+            $where2["status"] = 1;
+            $res = Db::name("resource")->where($where2)->update($data);
+            if($res){
+                $this->success("成功删除了".$res."条记录");
+            }
+            else
+            {
+                $this->error("操作失败");
+            }
+        }
+        else
+        {
+            $this->error("没查到相关数据");
+        }
+    }
+
     public function repeat(){
         $view = new View();
         $tellist = Db::name("resource")->query("SELECT id,project,province,guest,tel,count(*) as count FROM resource GROUP BY  tel HAVING count(*) > 1");
@@ -420,7 +512,6 @@ class Ziyuan extends Common
         //dump($ids);
         $result = 0;
         $where["status"] = 0;
-        $where['exam'] = 0;
         if(!empty($ids)){
             $where["id"] = ["in",$ids];
         }

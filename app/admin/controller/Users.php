@@ -32,9 +32,9 @@ class Users extends Common
         $where['u.status'] = 1;
         $where['u.id'] = array("gt",3);
 
-        $province = Request::instance()->post("province");
-        $department = Request::instance()->post("department");
-        $keyword = Request::instance()->post("keyword");
+        $province = Request::instance()->param("province");
+        $department = Request::instance()->param("department");
+        $keyword = Request::instance()->param("keyword");
         $view->assign('province',$province);
         $view->assign('department',$department);
 
@@ -66,7 +66,13 @@ class Users extends Common
         $authorid = $this->getAuthor();
         $view->assign('authorid',$authorid);
 
-        $lists = $shengobj->getUserList($where,10);
+        $param = array(
+            "province"=>$province,
+            "department"=>$department,
+            "keyword"=>$keyword
+        );
+
+        $lists = $shengobj->getUserList($where,10,$param);
 
         $view->assign('lists',$lists);
         $view->assign('nav',$nav);
@@ -81,6 +87,7 @@ class Users extends Common
 
         //dump($_POST);
         $mid = Request::instance()->post("mid");
+        $uname = Request::instance()->post("uname");
         $uid = Request::instance()->post("uid");
         $pwd = Request::instance()->post("pwd");
         $sid = Request::instance()->post("shengfen");
@@ -89,7 +96,7 @@ class Users extends Common
         $gid = Request::instance()->post("gangwei");
 
         $where["id"]=$mid;
-
+        $data["uname"] = $uname;
         $data["uid"] = $uid;
         $data["pwd"] = $pwd;
         $data["sid"] = $sid;
@@ -155,7 +162,7 @@ class Users extends Common
         }
         else
         {
-            $userinfo = Db::name("users")->where(["uname"=>$uname])->find();
+            $userinfo = Db::name("users")->where(["uname"=>$uname,"status"=>1])->find();
             if(empty($userinfo["id"])){
 
                 $shengobj = new User();
@@ -193,9 +200,9 @@ class Users extends Common
                     $gid = $shengobj->getInsertid("gangweis","gangwei",$gangwei);
                 }
 
-                $date["uname"] = $uname;
+                $date["uname"] = trim($uname);
                 $date["uid"] = $uid;
-                $date["pwd"] = $pwd;        //md5($pwd);
+                $date["pwd"] = trim($pwd);        //md5($pwd);
                 $date["sid"] = $sid;
                 $date["bid"] = $bid;
                 $date["fid"] = $fid;

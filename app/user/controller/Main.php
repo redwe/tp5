@@ -18,6 +18,10 @@ class Main extends Common
 
         $shengobj = new User();
         $admin = Session::get('saler');
+        $province = Session::get('province');
+        if(empty($admin) || empty($province)){
+            $this->error("请登录后访问！","/user/login/index");
+        }
 
         $where["u.uname"] = $admin;
         $topusers = $shengobj->getUserList($where,1);

@@ -108,7 +108,7 @@ class Upload extends Model
         for ($j = 2; $j <= $highestRow; $j++) {
             $importRows++;
 
-            $datas['guest'] = (string)$objPHPExcel->getActiveSheet()->getCell("A$j")->getValue();   //需要导入的客户名称
+            $datas['guest'] = trim((string)$objPHPExcel->getActiveSheet()->getCell("A$j")->getValue());   //需要导入的客户名称
             $datas['tel'] = (string)$objPHPExcel->getActiveSheet()->getCell("B$j")->getValue();   //需要导入的客户手机
             $datas['company'] = (string)$objPHPExcel->getActiveSheet()->getCell("C$j")->getValue();   //需要导入的客户单位
             $datas['project'] = (string)$objPHPExcel->getActiveSheet()->getCell("D$j")->getValue();//需要导入的项目名

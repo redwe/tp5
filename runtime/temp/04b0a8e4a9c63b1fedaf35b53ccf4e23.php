@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\lingqu.html";i:1553244238;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\lingqu.html";i:1553937286;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -7,6 +7,45 @@
     <link rel="stylesheet" href="/static/css/common.css" />
     <link rel="stylesheet" href="/static/css/Seller.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/home.css"/>
+    <style>
+        .pag{
+            margin: -38px 0 24px;
+        }
+        .mySpan{
+            font-size: 20px;
+            margin-left: 20px;
+        }
+        .mexs {
+            border: 1px solid #1d2088;
+            border-radius: 4px;
+            width: 60px;
+            padding-left: 10px;
+        }
+        .pagination li.active span{
+            color: #fff;
+            margin-right: 0!important;
+        }
+        .tz{
+            font-size: 20px;
+        }
+        .go{
+            font-size: 20px;
+        }
+        .tip{
+            width: 80px;
+            font-size: 20px;
+            color: #333;
+        }
+        .lqf{
+            display: inline-block;
+        }
+        .lqfF{
+            display: inline-block;
+            float: left;
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+    </style>
 <body>
 <div class="condition">
     <form name="lqform" method="post" action="/user/saler/lingqu">
@@ -94,12 +133,22 @@
     </div>
     <div class="conditionSearch">
         <input class="searchBtn" type="submit" value="搜索"/>
-        <input class="searchInput" type="text" name="keyword" />
+        <input class="searchInput" type="text" placeholder="姓名/电话/省份/项目名" name="keyword"  value="<?php echo $keyword; ?>"  />
+        <label class="mySpan">每页显示：</label><input name="pagenum" class="mexs" value="<?php echo $limit; ?>">
         <div class="Dels">
             <span>操作：</span>
-            <input type="button" onclick="delAll(200,'/user/saler/lingzy')" value="批量领取200条"/>
-            <input type="button" onclick="delAll(500,'/user/saler/lingzy')" value="批量领取500条"/>
-            <input type="button" onclick="delAll(0,'/user/saler/lingzy')"  value="领取所勾选客户"/>
+            <?php 
+            if(empty($project)){
+                $project1 = "0";
+            }
+            else
+            {
+                $project1 = $project;
+            }
+             ?>
+            <input type="button" onclick="delAll(200,'/user/saler/lingzy/project/<?php echo $project1; ?>')" value="批量领取200条"/>
+            <input type="button" onclick="delAll(500,'/user/saler/lingzy/project/<?php echo $project1; ?>')" value="批量领取500条"/>
+            <input type="button" onclick="delAll(0,'/user/saler/lingzy/project/<?php echo $project1; ?>')"  value="领取所勾选客户"/>
         </div>
     </div>
     </form>
@@ -120,23 +169,29 @@
     </tr>
     <?php if(is_array($zylist) || $zylist instanceof \think\Collection || $zylist instanceof \think\Paginator): $i = 0; $__LIST__ = $zylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
     <tr>
-        <td><input type="checkbox" name="delid" class="delid" value="<?php echo $vo['id']; ?>" /></td>
+        <td><input type="checkbox" name="delid" class="delid" value="<?php echo $vo['id']; ?>" /><?php echo $vo['id']; ?></td>
         <td><?php echo $vo['project']; ?></td>
         <td><?php echo $vo['province']; ?>-<?php echo $vo['city']; ?></td>
         <td><?php echo $vo['datetime']; ?></td>
         <td><?php echo $vo['guest']; ?></td>
         <td><?php echo $vo['intent']; ?></td>
         <td><?php echo $vo['label']; ?></td>
-        <td>
-            <span class="span"><a href="/user/saler/dolingqu/id/<?php echo $vo['id']; ?>">领取</a></span>
-        </td>
+        <td><span class="span"><a <?php if($vo['label']==1){echo 'style="color:#ff0000"';} ?>  href="/user/saler/dolingqu/id/<?php echo $vo['id']; ?>">领取</a></span></td>
     </tr>
     <?php endforeach; endif; else: echo "" ;endif; ?>
     </tbody>
 </table>
-<?php echo $page; ?>
 <input name="ids" id="ids" type="hidden" value="">
 </form>
+    <div class="pag"><?php echo $page; ?></div>
+   <?php if(!(empty($page) || (($page instanceof \think\Collection || $page instanceof \think\Paginator ) && $page->isEmpty()))): ?>
+    <div class="lqfF">
+        <form name="pageform" action="saler/lingqu" method="get" class="lqf">
+            <label class="tz">跳转到第</label> <input class="tip" name="page" value="<?php echo $pagecurr; ?>"> <label class="tz">页</label>
+            <input class="go" name="p1" type="submit" value="GO">
+        </form>
+    </div>
+   <?php endif; ?>
 </div>
 <div class="popUps">
     <div class="mask"></div>

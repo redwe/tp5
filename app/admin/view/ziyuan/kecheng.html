@@ -41,6 +41,29 @@
 	.proposal p{
 		font-size: 20px;
 	}
+    .pagination li.active span{
+        color: #fff;
+        margin-right: 0!important;
+    }
+    .tz{
+        font-size: 20px;
+    }
+    .go{
+        font-size: 20px;
+    }
+    .tip{
+        width: 80px;
+        font-size: 20px;
+        color: #333;
+    }
+    .lqf{
+        display: inline-block;
+    }
+    .lqfF{
+        display: inline-block;
+        float: left;
+        margin-top: 5px;
+    }
 </style>
 	<body>
 		<div class="selectionTop">
@@ -64,6 +87,7 @@
 				<div class="conditionSearch">
 					<input class="searchBtn" type="submit" value="搜索"/>
 					<input class="searchInput" name="keyword" type="text" value="{$keyword}" />
+                    <label class="mySpan">每页显示：</label><input name="pagenum" class="mexs" value="{$limit}">
 					<div class="Dels">
 						<span>操作：</span>
                         {if condition = "$hsz==1"}
@@ -102,7 +126,9 @@
 						<td>{$vo.datetime}</td>
 						<td>{$vo.guest}</td>
 						<td>{$vo.intent}</td>
-						<td>{$vo.label}</td>
+						<td>
+                            {$vo.labels}
+                        </td>
 						<td>
                             {if condition="$vo['status']==1"}
 							    <a href="/admin/ziyuan/delzy/id/{$vo.id}" class="zyDel">删除</a>
@@ -116,8 +142,16 @@
                  </tbody>
            </table>
                 <input name="ids" id="ids" type="hidden" value="">
-                {$page}
             </form>
+        {$page}
+        {notempty name="$page"}
+        <div class="lqfF">
+            <form name="pageform" action="ziyuan/kecheng" method="get" class="lqf">
+                <label class="tz">跳转到第</label> <input class="tip" name="page" value="{$pagecurr}"> <label class="tz">页</label>
+                <input class="go" name="p1" type="submit" value="GO">
+            </form>
+        </div>
+        {/notempty}
 		<div class="popUps">
 		<div class="mask"></div>
 		<div class="popUpsCont">

@@ -73,7 +73,11 @@
                 }
                 if($userModel->checkAuthor($authorid,"/admin/users/jilu")){
                 {/php}
-                <li><a target="rightmain" href="/admin/users/jilu/menu/2/nav/2">用户管理</a> </li>
+                {if $authorid == '3'}
+                    <li><a target="rightmain" href="/admin/users/lists/menu/2/nav/1">用户管理</a> </li>
+                {else}
+                    <li><a target="rightmain" href="/admin/users/jilu/menu/2/nav/2">用户管理</a> </li>
+                {/if}
                 {php}
                 }
                 {/php}

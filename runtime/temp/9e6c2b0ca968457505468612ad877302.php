@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:60:"D:\phpStudy\WWW\CRM\public/../app/admin\view\main\index.html";i:1553305218;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:60:"D:\phpStudy\WWW\CRM\public/../app/admin\view\main\index.html";i:1555490916;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -73,9 +73,11 @@
                 <?php 
                 }
                 if($userModel->checkAuthor($authorid,"/admin/users/jilu")){
-                 ?>
-                <li><a target="rightmain" href="/admin/users/jilu/menu/2/nav/2">用户管理</a> </li>
-                <?php 
+                 if($authorid == '3'): ?>
+                    <li><a target="rightmain" href="/admin/users/lists/menu/2/nav/1">用户管理</a> </li>
+                <?php else: ?>
+                    <li><a target="rightmain" href="/admin/users/jilu/menu/2/nav/2">用户管理</a> </li>
+                <?php endif; 
                 }
                  ?>
 			</ul>

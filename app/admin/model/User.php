@@ -56,7 +56,7 @@ class User extends Model
         return $lists;
     }
 
-    public function getUserList($where,$limit){
+    public function getUserList($where,$limit,$param=[]){
         $join = [
             ["shengs s",'s.id=u.sid'],["fenbus b","b.id=u.bid"],["shenfens f","u.fid=f.id"],["gangweis g","g.id=u.gid"]
         ];
@@ -66,8 +66,9 @@ class User extends Model
                 ->alias("u")
                 ->join($join)
                 ->field($field)
+                ->group("u.bid,u.id,u.sid")
                 ->where($where)
-                ->paginate($limit);
+                ->paginate($limit,false,["query"=>$param]);
         }
         else
         {
@@ -75,6 +76,7 @@ class User extends Model
                 ->alias("u")
                 ->join($join)
                 ->field($field)
+                ->group("u.bid,u.id,u.sid")
                 ->where($where)
                 ->find();
         }

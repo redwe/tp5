@@ -64,7 +64,7 @@ class Login extends Controller
                 }
                 else
                 {
-                    //$this->error('登录名或密码错误！');
+                    $this->error('登录名或密码错误！');
                 }
             }
             else
@@ -81,7 +81,8 @@ class Login extends Controller
     }
 
     public function logout(){
-        Session::delete('uname');
+        Session::delete('saler');
+        Session::delete('province');
         $this->success('您已经成功退出！','/admin');
     }
 }

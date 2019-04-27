@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\mykehu.html";i:1553310590;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\phpStudy\WWW\CRM\public/../app/user\view\saler\mykehu.html";i:1555725384;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -15,10 +15,99 @@
             padding: 0 13px;
         }
         .ThilInput ul li{ font-size: 14px;}
+        .conditionSearch .searchInput{
+            height: 28px!important;
+            border-radius: 4px;
+            width: 280px!important;
+
+        }
+        .conditionSearch .searchBtn{
+            height: 30px;
+            border-radius: 4px;
+        }
+        .conditionSearch{
+            display: inline-block;
+            border-radius: 4px;
+            width: 50%;
+        }
+        .conditionSearch form{
+            display: inline-block;
+        }
+        .conditionSearch{
+            margin-top:0!important;
+        }
+        .mySpan{
+            font-size: 20px;
+        }
+        .mexs{
+            border: 1px solid #1d2088;
+            border-radius: 4px;
+            width: 60px;
+            padding-left: 10px;
+        }
+        .pagination li.active span{
+            color: #fff;
+            margin-right: 0!important;
+        }
+        .tz{
+            font-size: 20px;
+        }
+        .go{
+            font-size: 20px;
+        }
+        .tip{
+            width: 80px;
+            font-size: 20px;
+            color: #333;
+        }
+        .lqf{
+            display: inline-block;
+        }
+        .lqfF{
+            display: inline-block;
+            float: left;
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        .pag{
+            margin: -38px 0 24px;
+        }
     </style>
 </head>
 <body>
 <div class="LQ-huishouz">
+    <div class="condition">
+        <div class="condtionCont1">
+            <form name="myform" method="post" action="/user/saler/mykehu">
+                <div class="condtionArea">
+                    <?php if(''==$intent): ?>
+                    <span data-id="" class="getspanv3 current">所有客户</span>
+                    <?php else: ?>
+                <span data-id="" class="getspanv3">所有客户
+
+                </span>
+                    <?php endif; if(is_array($levels) || $levels instanceof \think\Collection || $levels instanceof \think\Paginator): $i = 0; $__LIST__ = $levels;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($vo['level']==$intent): ?>
+                <span data-id="<?php echo $vo['level']; ?>" class="getspanv3 current"><?php echo $vo['level']; ?>
+                    <div data-id="<?php echo $vo['id']; ?>" class="optionDel">-</div>
+                </span>
+                    <?php else: ?>
+                <span data-id="<?php echo $vo['level']; ?>" class="getspanv3"><?php echo $vo['level']; ?>
+                    <div data-id="<?php echo $vo['id']; ?>" class="optionDel">-</div>
+                </span>
+                    <?php endif; endforeach; endif; else: echo "" ;endif; ?>
+                </div>
+                <div class="optionAdd">+</div>
+                <input name="intent" type="hidden" id="intent" value="">
+            </form>
+        </div>
+    </div>
+    <div class="conditionSearch">
+        <form name="seache" method="post" action="#">
+            <input class="searchBtn" type="submit" value="搜索"/>
+            <input class="searchInput" type="text" placeholder="姓名/电话/省份/项目名" name="keyword" value="<?php echo $keyword; ?>" />
+            <label class="mySpan">每页显示：</label><input name="pagenum" class="mexs" value="<?php echo $limit; ?>">
+        </form>
+    </div>
     <div class="reg_testdate" name="reg_testdate">
         <select>
             <option value="">导入</option>
@@ -28,36 +117,15 @@
     <div class="divHSZ">
         <span class="">通话记录</span>
         <a href="/user/saler/recycle/menu/1"><span>回收站</span></a>
+        <a onclick="setAll(0,'/user/saler/del_guests')" href="javascript:;"><span>批量放弃</span></a>
     </div>
-    <div class="condition">
-        <div class="condtionCont1">
-            <form name="myform" method="post" action="/user/saler/mykehu">
-            <div class="condtionArea">
-                <?php if(''==$intent): ?>
-                <span data-id="" class="getspanv3 current">所有客户</span>
-                <?php else: ?>
-                <span data-id="" class="getspanv3">所有客户
 
-                </span>
-                <?php endif; if(is_array($levels) || $levels instanceof \think\Collection || $levels instanceof \think\Paginator): $i = 0; $__LIST__ = $levels;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($vo['level']==$intent): ?>
-                <span data-id="<?php echo $vo['level']; ?>" class="getspanv3 current"><?php echo $vo['level']; ?>
-                    <div data-id="<?php echo $vo['id']; ?>" class="optionDel">-</div>
-                </span>
-                <?php else: ?>
-                <span data-id="<?php echo $vo['level']; ?>" class="getspanv3"><?php echo $vo['level']; ?>
-                    <div data-id="<?php echo $vo['id']; ?>" class="optionDel">-</div>
-                </span>
-                <?php endif; endforeach; endif; else: echo "" ;endif; ?>
-            </div>
-            <div class="optionAdd">+</div>
-                <input name="intent" type="hidden" id="intent" value="">
-            </form>
-        </div>
-    </div>
+
 </div>
 <table id="tb_3" cellspacing="0" cellpadding="2" width="100%" border="">
     <tbody>
     <tr align="center" bgcolor="#dcdcdc">
+        <th><input id="all" type="checkbox" onclick="setCheckbox(this,'delid')" value="" /></th>
         <th>ID</th>
         <th>项目</th>
         <th>对象</th>
@@ -66,10 +134,9 @@
         <th>业务员</th>
         <th>操作</th>
     </tr>
-    <?php if(is_array($zylist) || $zylist instanceof \think\Collection || $zylist instanceof \think\Paginator): $i = 0; $__LIST__ = $zylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;
-            $labels = $vo['labels'];
-     ?>
+    <?php if(is_array($zylist) || $zylist instanceof \think\Collection || $zylist instanceof \think\Paginator): $i = 0; $__LIST__ = $zylist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
     <tr>
+        <td><input type="checkbox" name="delid" class="delid" value="<?php echo $vo['id']; ?>" /></td>
         <td><?php echo $vo['id']; ?></td>
         <td><?php echo $vo['project']; ?></td>
         <td><?php echo $vo['guest']; ?></td>
@@ -82,18 +149,39 @@
             <span class=""><img class="approvalB" data-id="<?php echo $vo['id']; ?>" data-lv="<?php echo $vo['intent']; ?>" src="/static/images/ic_move.png" alt="操作" /></span>
             <span class=""><img class="approvalDel" data-id="<?php echo $vo['id']; ?>" src="/static/images/ic_delete.png" alt="删除" /></span>
             <a href="#"><span class=""><img class="approvalShopping" src="/static/images/ic_card.png" alt="购物车" /></span></a>
-            <?php if($labels != NULL): ?>
-                <span class=""><img onclick="setPopData('<?php echo $vo['guest']; ?>','<?php echo $vo['province']; ?>','<?php echo $vo['project']; ?>','<?php echo $vo['company']; ?>','<?php echo $vo['tel']; ?>','<?php echo $vo['id']; ?>');" class="approvalP" src="/static/images/label.png" alt="已联系" /></span>
-            <?php else: ?>
+            <?php if($vo['label'] == 0): ?>
             <span class=""><img onclick="setPopData('<?php echo $vo['guest']; ?>','<?php echo $vo['province']; ?>','<?php echo $vo['project']; ?>','<?php echo $vo['company']; ?>','<?php echo $vo['tel']; ?>','<?php echo $vo['id']; ?>');" class="approvalP" src="/static/images/ic_tiaodong.png" alt="未联系" /></span>
+            <?php else: ?>
+            <span class=""><img onclick="setPopData('<?php echo $vo['guest']; ?>','<?php echo $vo['province']; ?>','<?php echo $vo['project']; ?>','<?php echo $vo['company']; ?>','<?php echo $vo['tel']; ?>','<?php echo $vo['id']; ?>');" class="approvalP" src="/static/images/label.png" alt="已联系" /></span>
             <?php endif; ?>
         </td>
     </tr>
     <?php endforeach; endif; else: echo "" ;endif; ?>
     </tbody>
 </table>
-<?php echo $page; ?>
+<div class="pag"><?php echo $page; ?></div>
+<?php if(!(empty($page) || (($page instanceof \think\Collection || $page instanceof \think\Paginator ) && $page->isEmpty()))): ?>
+<div class="lqfF">
+    <form name="pageform" action="saler/mykehu" method="get" class="lqf">
+        <label class="tz">跳转到第</label> <input class="tip" name="page" value="<?php echo $pagecurr; ?>"> <label class="tz">页</label>
+        <input class="go" name="p1" type="submit" value="GO">
+    </form>
+</div>
+<?php endif; ?>
+<form name="delform" method="post">
+<input name="ids" id="ids" type="hidden" value="">
+</form>
 <script>
+    function setAll(m,url){
+           var ids = getChecks("delid");
+                if(ids && confirm("确认要批量操作勾选的信息吗？")) {
+                   $("#ids").val(ids);
+                   // alert(ids);
+                   delform.action = url;
+                   delform.submit();
+                }
+    }
+
     function call(number){
         if(number != '10086' && number !='10010'&& number !='0'){
             var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
@@ -169,7 +257,7 @@
         </div>
     </div>
 </div>
-<!--删除客户-->
+<!--放弃客户-->
 <div class="popUps2">
     <div class="mask2"></div>
     <div class="popUpsCont2">
@@ -180,13 +268,15 @@
             <div class="proposalBtn2">
                 <input name="delid" id="delid" type="hidden" value="">
                 <input name="uid" id="uid" type="hidden" value="<?php echo $uid; ?>">
-                <input class="certainBtn2" type="button" value="确定">
+                <input class="certainBtn2" type="button" value="放弃">
+                <input class="certainBtn33" type="button" value="删除">
                 <input class="cancelBtn2" type="button" value="取消">
             </div>
             </form>
         </div>
     </div>
 </div>
+
 <!--正在编辑分组-->
 <div class="popUps3">
     <div class="mask3"></div>
@@ -334,7 +424,7 @@
                     </div>
                     <div class="ThilInput">
                     	<ul id="label_ul">
-                            <li>2018/10/03-何雪：客户意向度较低；</li>
+                            <li>暂时无信息！</li>
                         </ul>
                         <textarea class="input" name="marks" placeholder="请在此处输入内容" id="marks"></textarea>
                         <div class="ThilBtn">
@@ -343,7 +433,7 @@
                         </div>
                     </div>
                     <div class="Luyin">
-                        <input type="button"  value="何雪20181003录音"/>
+                        <input type="button"  value="播放录音"/>
                     </div>
                 </div>
                 <div class="ThjlR">
@@ -420,6 +510,7 @@
         </div>
 
 <script src="/static/js/jquery-2.1.4.min.js"></script>
+<script src="/static/js/checkbox.js"></script>
 <script src="/static/js/table.js"></script>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/addInput.js"></script>
@@ -496,15 +587,35 @@
     });
     $('.thDel').click(function(){
         $('.popUps2').css('display','block');   	
-    })
+    });
     $('.mask2').click(function(){
     	$('.popUps2').css('display','none');
-    })
+    });
 
+    $(".certainBtn33").click(function(){
+        //if(confirm("确定要放弃客户吗？")){
+        delguest.action="saler/delete";
+        delguest.submit();
+        //}
+    });
 
     $(".certainBtn2").click(function(){
         //if(confirm("确定要放弃客户吗？")){
-            delguest.submit();
+        var delid = $("#delid").val();
+        var uid = $("#uid").val();
+        $.ajax({
+            type: "POST",
+            url: "/user/saler/del_guest",
+            //contentType: "application/json; charset=utf-8",
+            data: {delid:delid,uid:uid},
+            dataType: "json",
+            success: function(res){
+               //alert("操作成功！");
+                $('.popUps2').css('display','none');
+                clicknext();
+            }
+        });
+       // delguest.submit();
         //}
     });
 
@@ -751,7 +862,8 @@ function getPopValue(){
  function saveLabel(){
 
         var label_values = getPopValue();
-     console.log(label_values);
+        var will = $("#will").val();
+        //console.log(label_values);
         var id = $("#user_id").val();
         var marks = $("#marks").val();
          //if(marks.length == 0 || marks == '请在此处输入内容'){
@@ -764,7 +876,7 @@ function getPopValue(){
                  type: "GET",
                  url: "/user/saler/saveLabels",
                  //contentType: "application/json; charset=utf-8",
-                 data: {id:id,labels:JSON.stringify(label_values),marks:marks},
+                 data: {id:id,labels:JSON.stringify(label_values),marks:marks,will:will},
                  dataType: "json",
                  success: function(res){
                      //console.log(res);
@@ -773,9 +885,9 @@ function getPopValue(){
                      }
                      else
                      {
-                        alert("提交失败！");
+                        //alert("提交失败！");
                      }
-                     alert(res.msg);
+                     //alert(res.msg);
                      getLabelist(id);
                  }
              });
@@ -784,6 +896,7 @@ function getPopValue(){
 
 //点击下一个按钮，请求数据
  function clicknext(){
+     saveLabel();
      //saveLabel();
      var nextid = $("#user_id").val();
      if(nextid){
@@ -855,6 +968,7 @@ function getLabelist(rid){
 //通话记录弹出框
  $('.maskClose4').click(function(){
         $('.popUps4').css('display','none');
+        location.reload(true);
     });
  $('.approvalP').click(function(){
         $('.popUps4').css('display','block');

@@ -1,10 +1,11 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:61:"D:\phpStudy\WWW\CRM\public/../app/admin\view\users\lists.html";i:1544582264;s:43:"D:\phpStudy\WWW\CRM\app\admin\view\nav.html";i:1544520164;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:61:"D:\phpStudy\WWW\CRM\public/../app/admin\view\users\lists.html";i:1555659760;s:43:"D:\phpStudy\WWW\CRM\app\admin\view\nav.html";i:1544520164;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>CRM主界面-用户管理-用户列表</title>
 	</head>
+    <link rel="stylesheet" href="/static/css/common.css" />
 	<link rel="stylesheet" href="/static/css/index.css" />
 	<style>
 		.approvalTop ul li{
@@ -104,7 +105,9 @@
             </tr>
               <?php if(is_array($lists) || $lists instanceof \think\Collection || $lists instanceof \think\Paginator): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                         <tr>
-						<td class="YHBli"><?php echo $vo['uname']; ?></td>
+						<td class="YHBli">
+                            <input type="text" name="uname" value="<?php echo $vo['uname']; ?>" disabled="disabled"/>
+                        </td>
                         <td>
                         <input disabled="disabled" type="hidden" name="mid" value="<?php echo $vo['id']; ?>">
                         <select disabled="disabled" name="shengfen">
@@ -201,6 +204,7 @@
     $('.condtionArea span').click(function(){
         $(this).addClass('current').siblings().removeClass('current');
         $(this).parent().siblings('input').val($(this).html());
+        listform.submit();
     });
     //	删除
     $('.Move').click(function(){

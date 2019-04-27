@@ -6,6 +6,45 @@
     <link rel="stylesheet" href="/static/css/common.css" />
     <link rel="stylesheet" href="/static/css/Seller.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/home.css"/>
+    <style>
+        .pag{
+            margin: -38px 0 24px;
+        }
+        .mySpan{
+            font-size: 20px;
+            margin-left: 20px;
+        }
+        .mexs {
+            border: 1px solid #1d2088;
+            border-radius: 4px;
+            width: 60px;
+            padding-left: 10px;
+        }
+        .pagination li.active span{
+            color: #fff;
+            margin-right: 0!important;
+        }
+        .tz{
+            font-size: 20px;
+        }
+        .go{
+            font-size: 20px;
+        }
+        .tip{
+            width: 80px;
+            font-size: 20px;
+            color: #333;
+        }
+        .lqf{
+            display: inline-block;
+        }
+        .lqfF{
+            display: inline-block;
+            float: left;
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+    </style>
 <body>
 <div class="condition">
     <form name="lqform" method="post" action="/user/saler/lingqu">
@@ -97,12 +136,22 @@
     </div>
     <div class="conditionSearch">
         <input class="searchBtn" type="submit" value="搜索"/>
-        <input class="searchInput" type="text" name="keyword" />
+        <input class="searchInput" type="text" placeholder="姓名/电话/省份/项目名" name="keyword"  value="{$keyword}"  />
+        <label class="mySpan">每页显示：</label><input name="pagenum" class="mexs" value="{$limit}">
         <div class="Dels">
             <span>操作：</span>
-            <input type="button" onclick="delAll(200,'/user/saler/lingzy')" value="批量领取200条"/>
-            <input type="button" onclick="delAll(500,'/user/saler/lingzy')" value="批量领取500条"/>
-            <input type="button" onclick="delAll(0,'/user/saler/lingzy')"  value="领取所勾选客户"/>
+            {php}
+            if(empty($project)){
+                $project1 = "0";
+            }
+            else
+            {
+                $project1 = $project;
+            }
+            {/php}
+            <input type="button" onclick="delAll(200,'/user/saler/lingzy/project/{$project1}')" value="批量领取200条"/>
+            <input type="button" onclick="delAll(500,'/user/saler/lingzy/project/{$project1}')" value="批量领取500条"/>
+            <input type="button" onclick="delAll(0,'/user/saler/lingzy/project/{$project1}')"  value="领取所勾选客户"/>
         </div>
     </div>
     </form>
@@ -123,23 +172,29 @@
     </tr>
     {volist name="zylist" id="vo"}
     <tr>
-        <td><input type="checkbox" name="delid" class="delid" value="{$vo.id}" /></td>
+        <td><input type="checkbox" name="delid" class="delid" value="{$vo.id}" />{$vo.id}</td>
         <td>{$vo.project}</td>
         <td>{$vo.province}-{$vo.city}</td>
         <td>{$vo.datetime}</td>
         <td>{$vo.guest}</td>
         <td>{$vo.intent}</td>
         <td>{$vo.label}</td>
-        <td>
-            <span class="span"><a href="/user/saler/dolingqu/id/{$vo.id}">领取</a></span>
-        </td>
+        <td><span class="span"><a {php}if($vo['label']==1){echo 'style="color:#ff0000"';}{/php}  href="/user/saler/dolingqu/id/{$vo.id}">领取</a></span></td>
     </tr>
     {/volist}
     </tbody>
 </table>
-{$page}
 <input name="ids" id="ids" type="hidden" value="">
 </form>
+    <div class="pag">{$page}</div>
+   {notempty name="$page"}
+    <div class="lqfF">
+        <form name="pageform" action="saler/lingqu" method="get" class="lqf">
+            <label class="tz">跳转到第</label> <input class="tip" name="page" value="{$pagecurr}"> <label class="tz">页</label>
+            <input class="go" name="p1" type="submit" value="GO">
+        </form>
+    </div>
+   {/notempty}
 </div>
 <div class="popUps">
     <div class="mask"></div>

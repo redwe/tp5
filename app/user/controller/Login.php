@@ -24,8 +24,8 @@ class Login extends Controller
 
             if(!empty($uid) && !empty($password)){
 
-                $where['u.uid'] = $uid;
-                $where['u.pwd'] = $password;
+                $where['u.uid'] = trim($uid);
+                $where['u.pwd'] = trim($password);
                 //$where['u.status'] = 1;
 
                 $userObj = new User();
